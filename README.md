@@ -14,7 +14,7 @@ python appeal_tool.py --pin 03-00-000-000-0001 --fixture-dir tests/fixtures/case
 
 ## What It Does Not Do
 
-- It is not legal advice.
+- It is NOT LEGAL ADVICE.
 - It does not file an appeal for you.
 - It does not represent LLCs, corporations, condo associations, or other entities. Those filers generally need an attorney.
 - It does not guess missing deadlines or facts. PTAB deadlines require a user-supplied BOR decision date.

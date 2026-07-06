@@ -36,3 +36,10 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - Added `DataErrorKind` classification for Socrata/network failures.
 - Added tests for transient retry, pagination, cache reuse, invalid JSON/cache, and unknown dataset handling.
 - Full verifier passes via `python scripts/verify.py` with 59 tests.
+
+### Iteration 4
+
+- Added hygiene tests that enforce zero Colab artifacts in Python files.
+- Added `.gitignore` generated-artifact checks.
+- Added README assertions for venue ladder, Socrata token documentation, and exact `NOT LEGAL ADVICE` wording.
+- Full verifier passes via `python scripts/verify.py` with 62 tests.
