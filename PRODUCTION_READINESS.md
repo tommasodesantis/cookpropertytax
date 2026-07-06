@@ -9,7 +9,7 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - [x] No unhandled tracebacks reachable via CLI inputs (fuzz the CLI with garbage to confirm).
 - [ ] All network I/O has timeouts, retries with backoff, pagination, caching, and classified errors.
 - [x] Comparable-selection and all financial math covered by known-answer tests; >=85% line coverage on core analysis modules.
-- [ ] Condos, missing-data parcels, closed-deadline townships, and unknown townships produce correct, honest, non-crashing output at every venue (each has a test).
+- [x] Condos, missing-data parcels, closed-deadline townships, and unknown townships produce correct, honest, non-crashing output at every venue (each has a test).
 - [x] Time-sensitive constants centralized in config with staleness warnings that actually fire.
 - [x] `ruff`, `mypy`, `pytest`, and the E2E smoke suite all pass via one `verify` command.
 - [ ] README + disclaimers complete; `PRODUCTION_READINESS.md` fully checked; `.gitignore` prevents artifact commits.
@@ -23,3 +23,10 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - CCAO official calendar refresh is blocked by CloudFront 403; see `BLOCKERS.md`.
 - BOR fixture smoke path is included in the automated CLI/PDF tests.
 - Full verifier passes via `python scripts/verify.py` with 95% measured coverage on core analysis modules.
+
+### Iteration 2
+
+- Added a closed-session packet adapter so closed/no-action routing does not show BOR rules.
+- Expanded CLI smoke tests to run single-family, condo, missing-characteristics, and unknown-township fixtures through venue paths.
+- Expanded PDF content tests across Assessor, BOR, PTAB, and closed-window packets.
+- Full verifier passes via `python scripts/verify.py` with 55 tests.

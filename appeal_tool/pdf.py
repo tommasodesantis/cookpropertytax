@@ -18,6 +18,7 @@ from appeal_tool.models import CaseFile, EvidenceSummary, RouteResult
 from appeal_tool.venues.assessor import AssessorAdapter
 from appeal_tool.venues.base import VenueAdapter
 from appeal_tool.venues.bor import BoardOfReviewAdapter
+from appeal_tool.venues.closed import ClosedSessionAdapter
 from appeal_tool.venues.ptab import PtabAdapter
 
 
@@ -83,6 +84,8 @@ def adapter_for(route: RouteResult) -> VenueAdapter:
         return AssessorAdapter()
     if route.venue == "ptab":
         return PtabAdapter()
+    if route.venue == "closed":
+        return ClosedSessionAdapter()
     return BoardOfReviewAdapter()
 
 

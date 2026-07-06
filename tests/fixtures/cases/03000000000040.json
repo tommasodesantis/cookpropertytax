@@ -1,0 +1,32 @@
+{
+  "parcel": {
+    "pin": "03000000000040",
+    "property_class": "203",
+    "township_name": "Not A Township",
+    "township_code": "99",
+    "neighborhood": "9901",
+    "address": "4000 W UNKNOWN PL",
+    "city": "CHICAGO",
+    "zip_code": "60600",
+    "building_sqft": 1500,
+    "land_sqft": 3000,
+    "year_built": 1950,
+    "beds": 3,
+    "full_baths": 1,
+    "lat": null,
+    "lon": null,
+    "current_av": 42000,
+    "prior_final_av": 42000
+  },
+  "assessment_history": [
+    {
+      "year": 2025,
+      "mailed_av": 42000,
+      "certified_av": null,
+      "board_av": null,
+      "final_av": 42000
+    }
+  ],
+  "subject_sales": [],
+  "comparables": []
+}
