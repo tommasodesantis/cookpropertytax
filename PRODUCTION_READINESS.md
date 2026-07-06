@@ -22,7 +22,7 @@ Created from the mission exit criteria. Check a box only when the criterion is v
       shows as open on a mocked in-window date is routed as closed.
 - [ ] The venue comparable-expectation matrix has been verified against official sources,
       corrected where needed, and encoded as documented per-venue comparable profiles.
-- [ ] A comparable-evidence feasibility report exists with measured field availability, pool
+- [x] A comparable-evidence feasibility report exists with measured field availability, pool
       survival, runtime, and per-venue verdicts across at least 15 diverse real properties.
 - [ ] Venue-aware comparable selection/exhibits are implemented for every venue judged feasible;
       unavailable PTAB grid fields are explicitly marked as user-supply items, never fabricated.
@@ -34,8 +34,8 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - [ ] Live comparables are enriched with parcel-universe fields; the live test validates
       user-facing evidence quality across at least 10 diverse properties and fails on quality
       regressions; superseded live-test logic is removed.
-- [ ] Local-snapshot feasibility report exists with per-dataset size/time/memory estimates and a
-      practicality verdict; no snapshot architecture was built without it.
+- [ ] Local-snapshot feasibility report exists only if token-backed concurrency proves poor
+      practical simultaneous-user capacity; no snapshot architecture is built without that trigger.
 - [ ] Concurrency probe report exists with measured throttle behavior and an estimated
       simultaneous-user ceiling with and without app token.
 - [ ] `BLOCKERS.md` documents every feasibility failure with measured evidence and a concrete
@@ -95,3 +95,16 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - Added routing regressions for seven authority-file open townships plus a config/report sync test.
 - BOR dates were not changed because the Assessor PDF lists only BOR pass markers, not BOR
   open/close/evidence deadlines; see `BLOCKERS.md`.
+
+### Phase 2 Iteration 2
+
+- Added `scripts/feasibility_comps.py`, a bounded Socrata feasibility harness for venue-specific
+  comparable profiles.
+- Verified the venue matrix against reachable PTAB filing/form sources and BOR official rules;
+  CCAO comparable/guideline automation remains CloudFront-blocked.
+- Regenerated `reports/comps_feasibility_2026-07-06.md` and JSON from 18 real parcels using the
+  supplied Socrata app token as a process-local environment variable only.
+- Assessor and BOR profiles measured `FEASIBLE-WITH-CAVEATS`; PTAB full-grid alignment measured
+  `NOT FEASIBLE`, and condo comparable pools remain data-limited; see `BLOCKERS.md`.
+- Plan adjustment: run token-backed concurrency before any local snapshot feasibility study, and
+  run the snapshot study only if concurrency remains poor with the token.

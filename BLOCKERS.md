@@ -28,3 +28,40 @@
 - Fallback strategy: retain `BOR_GROUPS` and `BOR_CALENDAR` from the official BOR PDF source,
   keep BOR staleness warnings active after the configured 2025-26 session end, and update BOR
   constants only from an official BOR source that lists actual township date ranges.
+
+## 2026-07-06 - Full PTAB comparable grid not feasible from public data alone
+
+- Attempted source/venue: `scripts/feasibility_comps.py` measured PTAB-style comparable filters
+  against Cook County Socrata `parcel_universe`, `res_characteristics`, and `assessed_values`
+  using 18 real parcels across suburban/city, single-family/condo/multi-family segments.
+- Official guidance checked: PTAB filing/get-started pages and residential form/help PDF; BOR
+  official rules page; CCAO comparable/guideline automation remains CloudFront-blocked.
+- Measured evidence: `reports/comps_feasibility_2026-07-06.md` reports PTAB as `NOT FEASIBLE`.
+  Only 8 of 18 sampled properties met the 3-comparable floor after PTAB-style location, sqft,
+  age, land, style, and amenity filters; median final survivors were 2.0, with a 0.0 minimum and
+  73.0 maximum.
+- Data caveat: configured-year 2026 assessed-value rows were present but often lacked AV fields,
+  so metric feasibility used the latest value-bearing rows, usually 2025, with warnings recorded
+  in the report.
+- Why this blocks fuller PTAB alignment: PTAB expects a complete Section V grid and supporting
+  property record-card/listing material. Public Socrata data can populate many columns, but it
+  cannot consistently produce at least three strict PTAB-style comparables across the measured
+  sample and does not provide the user's documentary support.
+- Fallback strategy: implement PTAB exhibits only with available public fields plus explicit
+  `Not available from public data - supply from your property record card` placeholders for
+  missing grid/document fields. Do not present a generated PTAB grid as complete unless the
+  runtime pool meets the measured minimum.
+
+## 2026-07-06 - Condo comparable pools remain data-limited
+
+- Attempted source/venue: the comparable feasibility harness included four condominium samples
+  from Niles, Cicero, Rogers Park, and South Chicago.
+- Measured evidence: each condo sample produced only the subject row in the bounded same
+  township/class candidate pool, and building/unit sqft availability was 0.0% for those condo
+  contexts. Assessor, BOR, and PTAB final survivor counts were all 0 for all four condo samples.
+- Why this blocks blanket condo comparable generation: same-class condo public-data pools did not
+  provide enough unit-sqft candidates to calculate reliable AV-per-sqft comparable evidence in
+  this measured run.
+- Fallback strategy: remove the blanket `is_condo` skip only after adding the Workstream 3
+  runtime missing-data gate. Condo comparable analysis should run when the measured active-profile
+  missing-data rate is below 30%, warn at 30-50%, and skip with a measured-rate note above 50%.

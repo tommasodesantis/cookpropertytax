@@ -1,0 +1,1658 @@
+{
+  "run_date": "2026-07-06",
+  "assessment_year": 2026,
+  "socrata_domain": "https://datacatalog.cookcountyil.gov/resource",
+  "datasets": {
+    "parcel_universe": "nj4t-kc8j",
+    "assessed_values": "uzyt-m557",
+    "res_characteristics": "x54s-btds",
+    "parcel_sales": "wvhk-k5uv"
+  },
+  "selection_errors": [
+    "Used the pinned real-property sample set selected during the first live feasibility run; current candidate pools were still loaded from Socrata."
+  ],
+  "profiles": [
+    {
+      "key": "assessor",
+      "label": "Cook County Assessor",
+      "assessment_metric": "total_av_per_sqft",
+      "minimum_comparables": 3,
+      "sqft_tolerance": 0.4,
+      "year_tolerance": 25,
+      "land_tolerance": null,
+      "max_distance_km": null,
+      "prefer_same_neighborhood": true,
+      "require_year": false,
+      "require_land": false,
+      "require_style": false,
+      "require_amenity": false
+    },
+    {
+      "key": "bor",
+      "label": "Cook County Board of Review",
+      "assessment_metric": "improvement_av_per_sqft",
+      "minimum_comparables": 3,
+      "sqft_tolerance": 0.35,
+      "year_tolerance": 20,
+      "land_tolerance": null,
+      "max_distance_km": null,
+      "prefer_same_neighborhood": true,
+      "require_year": false,
+      "require_land": false,
+      "require_style": false,
+      "require_amenity": false
+    },
+    {
+      "key": "ptab",
+      "label": "Illinois PTAB",
+      "assessment_metric": "improvement_av_per_sqft",
+      "minimum_comparables": 3,
+      "sqft_tolerance": 0.25,
+      "year_tolerance": 15,
+      "land_tolerance": 0.5,
+      "max_distance_km": 2.0,
+      "prefer_same_neighborhood": true,
+      "require_year": true,
+      "require_land": true,
+      "require_style": true,
+      "require_amenity": true
+    }
+  ],
+  "results": [
+    {
+      "subject": {
+        "spec": {
+          "label": "north suburban single-family",
+          "township": "Barrington",
+          "property_class": "203"
+        },
+        "pin": "01011000250000",
+        "township_code": "10",
+        "township_name": "Barrington",
+        "property_class": "203",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "10:203",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 11.397232599993004,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='10' AND class='203' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 1,028 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,102 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 502 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.053800002206116915,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 94,
+            "year_built": 41,
+            "land_sqft": 41,
+            "style": 41,
+            "amenities": 41
+          },
+          "final_survivors": 41,
+          "below_minimum": false,
+          "selection_ms": 0.09730001329444349,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 88,
+            "year_built": 30,
+            "land_sqft": 30,
+            "style": 30,
+            "amenities": 30
+          },
+          "final_survivors": 30,
+          "below_minimum": false,
+          "selection_ms": 0.06820002454333007,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 72,
+            "year_built": 20,
+            "land_sqft": 14,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.07149999146349728,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "north suburban condo",
+          "township": "Niles",
+          "property_class": "299"
+        },
+        "pin": "10073010061001",
+        "township_code": "24",
+        "township_name": "Niles",
+        "property_class": "299",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "24:299",
+      "candidate_count": 1,
+      "field_availability": {
+        "building_sqft": 0.0,
+        "land_sqft": 0.0,
+        "year_built": 0.0,
+        "construction_style": 0.0,
+        "amenities": 0.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 1.314783300011186,
+      "warnings": [
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.0044000043999403715,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.015199999324977398,
+          "metric_ready_pct": 0.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.006299989763647318,
+          "metric_ready_pct": 0.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.011800002539530396,
+          "metric_ready_pct": 0.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "northwest suburban single-family",
+          "township": "Wheeling",
+          "property_class": "203"
+        },
+        "pin": "03012040020000",
+        "township_code": "38",
+        "township_name": "Wheeling",
+        "property_class": "203",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "38:203",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 8.51841260000947,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='38' AND class='203' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 1,097 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,075 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 520 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.06029999349266291,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 84,
+            "building_sqft": 66,
+            "year_built": 62,
+            "land_sqft": 62,
+            "style": 62,
+            "amenities": 62
+          },
+          "final_survivors": 62,
+          "below_minimum": false,
+          "selection_ms": 0.10510001447983086,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 84,
+            "building_sqft": 64,
+            "year_built": 50,
+            "land_sqft": 50,
+            "style": 50,
+            "amenities": 50
+          },
+          "final_survivors": 50,
+          "below_minimum": false,
+          "selection_ms": 0.08019999950192869,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 84,
+            "building_sqft": 59,
+            "year_built": 38,
+            "land_sqft": 3,
+            "style": 1,
+            "amenities": 1
+          },
+          "final_survivors": 1,
+          "below_minimum": true,
+          "selection_ms": 0.08430000161752105,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "north suburban multi-family",
+          "township": "Evanston",
+          "property_class": "211"
+        },
+        "pin": "05333120030000",
+        "township_code": "17",
+        "township_name": "Evanston",
+        "property_class": "211",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "17:211",
+      "candidate_count": 97,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 8.071757600002456,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='17' AND class='211' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 999 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,054 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 423 rows for assessed_values; all available pages were requested."
+      ],
+      "baseline_ms": 0.062400009483098984,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 96,
+            "metric_ready": 96,
+            "location": 70,
+            "building_sqft": 65,
+            "year_built": 17,
+            "land_sqft": 17,
+            "style": 17,
+            "amenities": 17
+          },
+          "final_survivors": 17,
+          "below_minimum": false,
+          "selection_ms": 0.09849999332800508,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 96,
+            "metric_ready": 96,
+            "location": 70,
+            "building_sqft": 61,
+            "year_built": 13,
+            "land_sqft": 13,
+            "style": 13,
+            "amenities": 13
+          },
+          "final_survivors": 13,
+          "below_minimum": false,
+          "selection_ms": 0.07170002209022641,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 96,
+            "metric_ready": 96,
+            "location": 70,
+            "building_sqft": 47,
+            "year_built": 8,
+            "land_sqft": 8,
+            "style": 2,
+            "amenities": 2
+          },
+          "final_survivors": 2,
+          "below_minimum": true,
+          "selection_ms": 0.07670000195503235,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "west suburban condo",
+          "township": "Cicero",
+          "property_class": "299"
+        },
+        "pin": "16201300421001",
+        "township_code": "15",
+        "township_name": "Cicero",
+        "property_class": "299",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "15:299",
+      "candidate_count": 1,
+      "field_availability": {
+        "building_sqft": 0.0,
+        "land_sqft": 0.0,
+        "year_built": 0.0,
+        "construction_style": 0.0,
+        "amenities": 0.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 1.3249618000118062,
+      "warnings": [],
+      "baseline_ms": 0.0039000005926936865,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.00999998883344233,
+          "metric_ready_pct": 0.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.0039000005926936865,
+          "metric_ready_pct": 0.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.010200019460171461,
+          "metric_ready_pct": 0.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "west suburban multi-family",
+          "township": "Proviso",
+          "property_class": "211"
+        },
+        "pin": "15021110860000",
+        "township_code": "31",
+        "township_name": "Proviso",
+        "property_class": "211",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "31:211",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 17.63592030000291,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='31' AND class='211' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 1,007 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 855 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 428 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.044899992644786835,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 18,
+            "building_sqft": 18,
+            "year_built": 18,
+            "land_sqft": 18,
+            "style": 18,
+            "amenities": 18
+          },
+          "final_survivors": 18,
+          "below_minimum": false,
+          "selection_ms": 0.06500000017695129,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 18,
+            "building_sqft": 18,
+            "year_built": 18,
+            "land_sqft": 18,
+            "style": 18,
+            "amenities": 18
+          },
+          "final_survivors": 18,
+          "below_minimum": false,
+          "selection_ms": 0.046999979531392455,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 18,
+            "building_sqft": 18,
+            "year_built": 18,
+            "land_sqft": 18,
+            "style": 2,
+            "amenities": 2
+          },
+          "final_survivors": 2,
+          "below_minimum": true,
+          "selection_ms": 0.053099996875971556,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "west suburban single-family",
+          "township": "Berwyn",
+          "property_class": "203"
+        },
+        "pin": "16191010090000",
+        "township_code": "11",
+        "township_name": "Berwyn",
+        "property_class": "203",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "11:203",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 7.839139100018656,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='11' AND class='203' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 928 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 891 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 498 rows for assessed_values; all available pages were requested."
+      ],
+      "baseline_ms": 0.061799975810572505,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 99,
+            "year_built": 77,
+            "land_sqft": 77,
+            "style": 77,
+            "amenities": 77
+          },
+          "final_survivors": 77,
+          "below_minimum": false,
+          "selection_ms": 0.10560001828707755,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 86,
+            "year_built": 68,
+            "land_sqft": 68,
+            "style": 68,
+            "amenities": 68
+          },
+          "final_survivors": 68,
+          "below_minimum": false,
+          "selection_ms": 0.07730000652372837,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 65,
+            "year_built": 46,
+            "land_sqft": 45,
+            "style": 22,
+            "amenities": 22
+          },
+          "final_survivors": 22,
+          "below_minimum": false,
+          "selection_ms": 0.08410000009462237,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "city north condo",
+          "township": "Rogers Park",
+          "property_class": "299"
+        },
+        "pin": "10253030521001",
+        "township_code": "75",
+        "township_name": "Rogers Park",
+        "property_class": "299",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "75:299",
+      "candidate_count": 1,
+      "field_availability": {
+        "building_sqft": 0.0,
+        "land_sqft": 0.0,
+        "year_built": 0.0,
+        "construction_style": 0.0,
+        "amenities": 0.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 1.4345718000258785,
+      "warnings": [],
+      "baseline_ms": 0.0041000021155923605,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.009600014891475439,
+          "metric_ready_pct": 0.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.0037999998312443495,
+          "metric_ready_pct": 0.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.008100003469735384,
+          "metric_ready_pct": 0.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "city north multi-family",
+          "township": "Lake View",
+          "property_class": "211"
+        },
+        "pin": "14051000240000",
+        "township_code": "73",
+        "township_name": "Lake View",
+        "property_class": "211",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "73:211",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 8.204407000011997,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='73' AND class='211' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 1,082 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,120 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 557 rows for assessed_values; all available pages were requested."
+      ],
+      "baseline_ms": 0.0371999922208488,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 61,
+            "year_built": 61,
+            "land_sqft": 61,
+            "style": 61,
+            "amenities": 61
+          },
+          "final_survivors": 61,
+          "below_minimum": false,
+          "selection_ms": 0.06970000686123967,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 46,
+            "year_built": 45,
+            "land_sqft": 45,
+            "style": 45,
+            "amenities": 45
+          },
+          "final_survivors": 45,
+          "below_minimum": false,
+          "selection_ms": 0.05050000618211925,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 25,
+            "year_built": 23,
+            "land_sqft": 21,
+            "style": 13,
+            "amenities": 13
+          },
+          "final_survivors": 13,
+          "below_minimum": false,
+          "selection_ms": 0.05229999078437686,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "city south single-family",
+          "township": "Hyde Park",
+          "property_class": "203"
+        },
+        "pin": "20021020050000",
+        "township_code": "70",
+        "township_name": "Hyde Park",
+        "property_class": "203",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "70:203",
+      "candidate_count": 99,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 92.9,
+        "total_av": 92.9,
+        "neighborhood": 91.9,
+        "coordinates": 91.9
+      },
+      "load_seconds": 9.905824499990558,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='70' AND class='203' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 839 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 828 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 390 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.034500000765547156,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 98,
+            "metric_ready": 91,
+            "location": 25,
+            "building_sqft": 23,
+            "year_built": 19,
+            "land_sqft": 19,
+            "style": 19,
+            "amenities": 19
+          },
+          "final_survivors": 19,
+          "below_minimum": false,
+          "selection_ms": 0.05520001286640763,
+          "metric_ready_pct": 92.9
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 98,
+            "metric_ready": 91,
+            "location": 25,
+            "building_sqft": 15,
+            "year_built": 11,
+            "land_sqft": 11,
+            "style": 11,
+            "amenities": 11
+          },
+          "final_survivors": 11,
+          "below_minimum": false,
+          "selection_ms": 0.03609998384490609,
+          "metric_ready_pct": 92.9
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 98,
+            "metric_ready": 91,
+            "location": 25,
+            "building_sqft": 14,
+            "year_built": 10,
+            "land_sqft": 8,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.03660001675598323,
+          "metric_ready_pct": 92.9
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "city south condo",
+          "township": "South Chicago",
+          "property_class": "299"
+        },
+        "pin": "17094240091001",
+        "township_code": "76",
+        "township_name": "South Chicago",
+        "property_class": "299",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "76:299",
+      "candidate_count": 1,
+      "field_availability": {
+        "building_sqft": 0.0,
+        "land_sqft": 0.0,
+        "year_built": 0.0,
+        "construction_style": 0.0,
+        "amenities": 0.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 1.2633196999959182,
+      "warnings": [
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.0032999960239976645,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.008899980457499623,
+          "metric_ready_pct": 0.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.0040000013541430235,
+          "metric_ready_pct": 0.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 0,
+            "metric_ready": 0,
+            "location": 0,
+            "building_sqft": 0,
+            "year_built": 0,
+            "land_sqft": 0,
+            "style": 0,
+            "amenities": 0
+          },
+          "final_survivors": 0,
+          "below_minimum": true,
+          "selection_ms": 0.008300004992634058,
+          "metric_ready_pct": 0.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "city northwest single-family",
+          "township": "Jefferson",
+          "property_class": "203"
+        },
+        "pin": "09253030250000",
+        "township_code": "71",
+        "township_name": "Jefferson",
+        "property_class": "203",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "71:203",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 7.926526100025512,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='71' AND class='203' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 1,120 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,120 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 549 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.09879999561235309,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 94,
+            "year_built": 93,
+            "land_sqft": 93,
+            "style": 93,
+            "amenities": 93
+          },
+          "final_survivors": 93,
+          "below_minimum": false,
+          "selection_ms": 0.13970001600682735,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 91,
+            "year_built": 90,
+            "land_sqft": 90,
+            "style": 90,
+            "amenities": 90
+          },
+          "final_survivors": 90,
+          "below_minimum": false,
+          "selection_ms": 0.11470000026747584,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 84,
+            "year_built": 83,
+            "land_sqft": 83,
+            "style": 73,
+            "amenities": 73
+          },
+          "final_survivors": 73,
+          "below_minimum": false,
+          "selection_ms": 0.14380001812241971,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "city southwest multi-family",
+          "township": "Lake",
+          "property_class": "211"
+        },
+        "pin": "19011000040000",
+        "township_code": "72",
+        "township_name": "Lake",
+        "property_class": "211",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "72:211",
+      "candidate_count": 98,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 99.0,
+        "total_av": 99.0,
+        "neighborhood": 99.0,
+        "coordinates": 99.0
+      },
+      "load_seconds": 9.802269700012403,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='72' AND class='211' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 1,120 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,088 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 476 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.09449999197386205,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 97,
+            "metric_ready": 96,
+            "location": 96,
+            "building_sqft": 57,
+            "year_built": 57,
+            "land_sqft": 57,
+            "style": 57,
+            "amenities": 57
+          },
+          "final_survivors": 57,
+          "below_minimum": false,
+          "selection_ms": 0.18179998733103275,
+          "metric_ready_pct": 99.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 97,
+            "metric_ready": 96,
+            "location": 96,
+            "building_sqft": 54,
+            "year_built": 33,
+            "land_sqft": 33,
+            "style": 33,
+            "amenities": 33
+          },
+          "final_survivors": 33,
+          "below_minimum": false,
+          "selection_ms": 0.18790000467561185,
+          "metric_ready_pct": 99.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 97,
+            "metric_ready": 96,
+            "location": 96,
+            "building_sqft": 47,
+            "year_built": 22,
+            "land_sqft": 20,
+            "style": 12,
+            "amenities": 12
+          },
+          "final_survivors": 12,
+          "below_minimum": false,
+          "selection_ms": 0.15999999595806003,
+          "metric_ready_pct": 99.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "south suburban multi-family",
+          "township": "Calumet",
+          "property_class": "211"
+        },
+        "pin": "25293010440000",
+        "township_code": "14",
+        "township_name": "Calumet",
+        "property_class": "211",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "14:211",
+      "candidate_count": 99,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 8.187938399991253,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='14' AND class='211' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 826 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 956 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 444 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.06329998723231256,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 98,
+            "metric_ready": 98,
+            "location": 36,
+            "building_sqft": 15,
+            "year_built": 13,
+            "land_sqft": 13,
+            "style": 13,
+            "amenities": 13
+          },
+          "final_survivors": 13,
+          "below_minimum": false,
+          "selection_ms": 0.0914999982342124,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 98,
+            "metric_ready": 98,
+            "location": 36,
+            "building_sqft": 13,
+            "year_built": 11,
+            "land_sqft": 11,
+            "style": 11,
+            "amenities": 11
+          },
+          "final_survivors": 11,
+          "below_minimum": false,
+          "selection_ms": 0.09050001972354949,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 98,
+            "metric_ready": 98,
+            "location": 36,
+            "building_sqft": 10,
+            "year_built": 10,
+            "land_sqft": 8,
+            "style": 8,
+            "amenities": 8
+          },
+          "final_survivors": 8,
+          "below_minimum": false,
+          "selection_ms": 0.07340000593103468,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "southwest suburban single-family",
+          "township": "Orland",
+          "property_class": "203"
+        },
+        "pin": "27011020040000",
+        "township_code": "28",
+        "township_name": "Orland",
+        "property_class": "203",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "28:203",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 11.26892110001063,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='28' AND class='203' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 1,113 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,120 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 560 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.06930000381544232,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 18,
+            "building_sqft": 18,
+            "year_built": 17,
+            "land_sqft": 17,
+            "style": 17,
+            "amenities": 17
+          },
+          "final_survivors": 17,
+          "below_minimum": false,
+          "selection_ms": 0.08120000711642206,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 18,
+            "building_sqft": 18,
+            "year_built": 17,
+            "land_sqft": 17,
+            "style": 17,
+            "amenities": 17
+          },
+          "final_survivors": 17,
+          "below_minimum": false,
+          "selection_ms": 0.06489999941550195,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 18,
+            "building_sqft": 14,
+            "year_built": 13,
+            "land_sqft": 13,
+            "style": 5,
+            "amenities": 5
+          },
+          "final_survivors": 5,
+          "below_minimum": false,
+          "selection_ms": 0.06880000000819564,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "southwest suburban multi-family",
+          "township": "Worth",
+          "property_class": "211"
+        },
+        "pin": "24011000070000",
+        "township_code": "39",
+        "township_name": "Worth",
+        "property_class": "211",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "39:211",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 11.96865369999432,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='39' AND class='211' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 907 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 908 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 500 rows for assessed_values; all available pages were requested.",
+        "Assessed-values rows for the configured year were present but did not expose AV fields; metric feasibility used latest value-bearing rows from 2025."
+      ],
+      "baseline_ms": 0.09499999578110874,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 10,
+            "building_sqft": 8,
+            "year_built": 7,
+            "land_sqft": 7,
+            "style": 7,
+            "amenities": 7
+          },
+          "final_survivors": 7,
+          "below_minimum": false,
+          "selection_ms": 0.11289998656138778,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 10,
+            "building_sqft": 7,
+            "year_built": 7,
+            "land_sqft": 7,
+            "style": 7,
+            "amenities": 7
+          },
+          "final_survivors": 7,
+          "below_minimum": false,
+          "selection_ms": 0.09109999518841505,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 10,
+            "building_sqft": 7,
+            "year_built": 7,
+            "land_sqft": 7,
+            "style": 7,
+            "amenities": 7
+          },
+          "final_survivors": 7,
+          "below_minimum": false,
+          "selection_ms": 0.09600000339560211,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "southwest suburban single-family",
+          "township": "Palos",
+          "property_class": "203"
+        },
+        "pin": "23011010080000",
+        "township_code": "30",
+        "township_name": "Palos",
+        "property_class": "203",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "30:203",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 9.604842600005213,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='30' AND class='203' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 1,091 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,071 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 560 rows for assessed_values; all available pages were requested."
+      ],
+      "baseline_ms": 0.14899999951012433,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 97,
+            "building_sqft": 97,
+            "year_built": 12,
+            "land_sqft": 12,
+            "style": 12,
+            "amenities": 12
+          },
+          "final_survivors": 12,
+          "below_minimum": false,
+          "selection_ms": 0.1846000086516142,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 97,
+            "building_sqft": 95,
+            "year_built": 7,
+            "land_sqft": 7,
+            "style": 7,
+            "amenities": 7
+          },
+          "final_survivors": 7,
+          "below_minimum": false,
+          "selection_ms": 0.14570000348612666,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 97,
+            "building_sqft": 89,
+            "year_built": 3,
+            "land_sqft": 2,
+            "style": 2,
+            "amenities": 2
+          },
+          "final_survivors": 2,
+          "below_minimum": true,
+          "selection_ms": 0.14669998199678957,
+          "metric_ready_pct": 100.0
+        }
+      }
+    },
+    {
+      "subject": {
+        "spec": {
+          "label": "southwest suburban single-family",
+          "township": "Stickney",
+          "property_class": "203"
+        },
+        "pin": "19061010050000",
+        "township_code": "36",
+        "township_name": "Stickney",
+        "property_class": "203",
+        "source_year": 2026,
+        "used_year_fallback": false
+      },
+      "context_key": "36:203",
+      "candidate_count": 100,
+      "field_availability": {
+        "building_sqft": 100.0,
+        "land_sqft": 100.0,
+        "year_built": 100.0,
+        "construction_style": 100.0,
+        "amenities": 100.0,
+        "improvement_av": 100.0,
+        "total_av": 100.0,
+        "neighborhood": 100.0,
+        "coordinates": 100.0
+      },
+      "load_seconds": 12.572343499981798,
+      "warnings": [
+        "res_characteristics pool was capped at 100 rows for township_code='36' AND class='203' AND year='2026'; full-pool download was not attempted in this feasibility run.",
+        "Socrata pagination fetched 997 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 1,071 rows for assessed_values; all available pages were requested.",
+        "Socrata pagination fetched 553 rows for assessed_values; all available pages were requested."
+      ],
+      "baseline_ms": 0.08639998850412667,
+      "profiles": {
+        "assessor": {
+          "profile": "assessor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 82,
+            "year_built": 27,
+            "land_sqft": 27,
+            "style": 27,
+            "amenities": 27
+          },
+          "final_survivors": 27,
+          "below_minimum": false,
+          "selection_ms": 0.13669999316334724,
+          "metric_ready_pct": 100.0
+        },
+        "bor": {
+          "profile": "bor",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 78,
+            "year_built": 24,
+            "land_sqft": 24,
+            "style": 24,
+            "amenities": 24
+          },
+          "final_survivors": 24,
+          "below_minimum": false,
+          "selection_ms": 0.11079999967478216,
+          "metric_ready_pct": 100.0
+        },
+        "ptab": {
+          "profile": "ptab",
+          "counts": {
+            "candidate_pool": 99,
+            "metric_ready": 99,
+            "location": 99,
+            "building_sqft": 70,
+            "year_built": 17,
+            "land_sqft": 17,
+            "style": 3,
+            "amenities": 3
+          },
+          "final_survivors": 3,
+          "below_minimum": false,
+          "selection_ms": 0.11409999569877982,
+          "metric_ready_pct": 100.0
+        }
+      }
+    }
+  ]
+}
