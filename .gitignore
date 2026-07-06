@@ -1,0 +1,12 @@
+.cache/
+.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+packet_*.pdf
+map_exhibit.png
+htmlcov/
+test-output/
+tmp/
