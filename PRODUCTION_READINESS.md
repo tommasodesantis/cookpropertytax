@@ -34,9 +34,9 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - [ ] Live comparables are enriched with parcel-universe fields; the live test validates
       user-facing evidence quality across at least 10 diverse properties and fails on quality
       regressions; superseded live-test logic is removed.
-- [ ] Local-snapshot feasibility report exists only if token-backed concurrency proves poor
+- [x] Local-snapshot feasibility report exists only if token-backed concurrency proves poor
       practical simultaneous-user capacity; no snapshot architecture is built without that trigger.
-- [ ] Concurrency probe report exists with measured throttle behavior and an estimated
+- [x] Concurrency probe report exists with measured throttle behavior and an estimated
       simultaneous-user ceiling with and without app token.
 - [ ] `BLOCKERS.md` documents every feasibility failure with measured evidence and a concrete
       fallback strategy.
@@ -108,3 +108,14 @@ Created from the mission exit criteria. Check a box only when the criterion is v
   `NOT FEASIBLE`, and condo comparable pools remain data-limited; see `BLOCKERS.md`.
 - Plan adjustment: run token-backed concurrency before any local snapshot feasibility study, and
   run the snapshot study only if concurrency remains poor with the token.
+
+### Phase 2 Iteration 3
+
+- Added `scripts/concurrency_probe.py`, a polite bounded Socrata concurrency harness that uses
+  `SocrataClient` with no cache, timeouts, retries, backoff, and per-user sessions.
+- Ran no-token and app-token probes at 1, 2, 4, and 8 simulated users; see
+  `reports/concurrency_2026-07-06.md` and JSON.
+- Measured practical ceiling: 2 users without token and 4 users with token, with zero HTTP 429s
+  observed in both modes.
+- Under the revised plan, local snapshot feasibility is not triggered because token-backed
+  concurrency did not show poor capacity at the 4-user practical ceiling.

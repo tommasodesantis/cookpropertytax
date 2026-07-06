@@ -1,0 +1,2872 @@
+{
+  "run_date": "2026-07-06",
+  "assessment_year": 2026,
+  "socrata_domain": "https://datacatalog.cookcountyil.gov/resource",
+  "datasets": {
+    "parcel_universe": "nj4t-kc8j",
+    "assessed_values": "uzyt-m557",
+    "res_characteristics": "x54s-btds",
+    "parcel_sales": "wvhk-k5uv"
+  },
+  "app_token_available": true,
+  "token_value_recorded": false,
+  "levels": [
+    {
+      "mode": "no_token",
+      "concurrency": 1,
+      "users": [
+        {
+          "mode": "no_token",
+          "concurrency": 1,
+          "user_index": 1,
+          "pin": "01011000250000",
+          "ok": true,
+          "duration_ms": 4515.5308000103105,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 634.5909000083338,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 201.94959998480044,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 204.88260002457537,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 191.00459999754094,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1398.3624999818858,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1679.9821000022348,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 204.50329998857342,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        }
+      ],
+      "elapsed_seconds": 4.52888910000911,
+      "stop_reason": null
+    },
+    {
+      "mode": "no_token",
+      "concurrency": 2,
+      "users": [
+        {
+          "mode": "no_token",
+          "concurrency": 2,
+          "user_index": 1,
+          "pin": "01011000250000",
+          "ok": true,
+          "duration_ms": 4549.224099988351,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 767.2132000152487,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 204.05950001440942,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 214.01629998581484,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 181.25249998411164,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1216.7620999971405,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1781.310599995777,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 184.39420001232065,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 2,
+          "user_index": 2,
+          "pin": "03012040020000",
+          "ok": true,
+          "duration_ms": 3262.216700008139,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 759.0583999990486,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 201.32230001036078,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 211.09700002125464,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 216.30739999818616,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 578.5973000165541,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 407.7147000061814,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 887.8847000014503,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        }
+      ],
+      "elapsed_seconds": 4.551129200001014,
+      "stop_reason": null
+    },
+    {
+      "mode": "no_token",
+      "concurrency": 4,
+      "users": [
+        {
+          "mode": "no_token",
+          "concurrency": 4,
+          "user_index": 1,
+          "pin": "01011000250000",
+          "ok": true,
+          "duration_ms": 2123.336999997264,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 665.4465000028722,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 228.36629999801517,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 227.48680002405308,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 214.8178000061307,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 252.15630000457168,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 334.70439998200163,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 200.10819999151863,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 4,
+          "user_index": 2,
+          "pin": "03012040020000",
+          "ok": true,
+          "duration_ms": 3052.99919997924,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 656.3155000039842,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 214.40279998932965,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 221.82850001263432,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 200.1639999798499,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 265.4185999999754,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 546.2005999870598,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 948.4406000119634,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 4,
+          "user_index": 3,
+          "pin": "05333120030000",
+          "ok": true,
+          "duration_ms": 4649.652899999637,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 666.0456999961752,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 211.29119998659007,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 302.33969999244437,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 217.58590001263656,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 356.20209999615327,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 470.714199997019,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 2425.2534999977797,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 4,
+          "user_index": 4,
+          "pin": "16191010090000",
+          "ok": false,
+          "duration_ms": 62523.411100002704,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 679.4768999970984,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 200.09980001486838,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 262.32559999334626,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 3,
+              "duration_ms": 199.7945999901276,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 19555.2818000142,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 542.8980000142474,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": false,
+              "row_count": 0,
+              "duration_ms": 41083.30300002126,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "error:ReadTimeout"
+              ],
+              "error": "network: Socrata request failed for assessed_values: HTTPSConnectionPool(host='datacatalog.cookcountyil.gov', port=443): Read timed out. (read timeout=20)"
+            }
+          ]
+        }
+      ],
+      "elapsed_seconds": 62.530231399985496,
+      "stop_reason": null
+    },
+    {
+      "mode": "no_token",
+      "concurrency": 8,
+      "users": [
+        {
+          "mode": "no_token",
+          "concurrency": 8,
+          "user_index": 1,
+          "pin": "01011000250000",
+          "ok": true,
+          "duration_ms": 2136.6071999946143,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 712.8546999883838,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 201.27939997473732,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 203.86090001557022,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 218.17959999316372,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 268.1209000002127,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 330.32530001946725,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 201.7379000026267,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 8,
+          "user_index": 2,
+          "pin": "03012040020000",
+          "ok": true,
+          "duration_ms": 3279.976699996041,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 680.8837999997195,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 196.07219999306835,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 214.5660999813117,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 222.58880001027137,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 266.92150000599213,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 804.8760999809019,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 893.8341999892145,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 8,
+          "user_index": 3,
+          "pin": "05333120030000",
+          "ok": true,
+          "duration_ms": 4527.384900022298,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 722.6844000106212,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 200.92239999212325,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 193.74729998526163,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 215.28539998689666,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 325.42979999561794,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 498.1260999920778,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 2370.986800000537,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 8,
+          "user_index": 4,
+          "pin": "16191010090000",
+          "ok": true,
+          "duration_ms": 14644.927000015741,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 705.5470999912359,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 221.55049999128096,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 194.71189999603666,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 3,
+              "duration_ms": 212.9856999963522,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 869.9293000099715,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 353.83740000543185,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 12086.091000004672,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 8,
+          "user_index": 5,
+          "pin": "14051000240000",
+          "ok": false,
+          "duration_ms": 60707.78299999074,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 702.5606999814045,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 218.47180000622757,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 211.4916999998968,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 568.0506000062451,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 8484.340800001519,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": false,
+              "row_count": 0,
+              "duration_ms": 41016.419999999925,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "error:ReadTimeout"
+              ],
+              "error": "network: Socrata request failed for parcel_universe: HTTPSConnectionPool(host='datacatalog.cookcountyil.gov', port=443): Read timed out. (read timeout=20)"
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 9506.322800007183,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 8,
+          "user_index": 6,
+          "pin": "20021020050000",
+          "ok": false,
+          "duration_ms": 95796.86370000127,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 688.7349000026006,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 240.32260000240058,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 207.46830001007766,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 209.321500005899,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 11575.401599984616,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": false,
+              "row_count": 0,
+              "duration_ms": 41201.98869999149,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "error:ReadTimeout"
+              ],
+              "error": "network: Socrata request failed for parcel_universe: HTTPSConnectionPool(host='datacatalog.cookcountyil.gov', port=443): Read timed out. (read timeout=20)"
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": false,
+              "row_count": 0,
+              "duration_ms": 41673.452699993504,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "error:ReadTimeout"
+              ],
+              "error": "network: Socrata request failed for assessed_values: HTTPSConnectionPool(host='datacatalog.cookcountyil.gov', port=443): Read timed out. (read timeout=20)"
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 8,
+          "user_index": 7,
+          "pin": "09253030250000",
+          "ok": false,
+          "duration_ms": 49262.68039998831,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 695.4540000006091,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 223.91130001051351,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 190.97359999432229,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 245.58539999998175,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1620.2764000045136,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": false,
+              "row_count": 0,
+              "duration_ms": 41154.527899983805,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "error:ReadTimeout"
+              ],
+              "error": "network: Socrata request failed for parcel_universe: HTTPSConnectionPool(host='datacatalog.cookcountyil.gov', port=443): Read timed out. (read timeout=20)"
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 5131.813999993028,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "no_token",
+          "concurrency": 8,
+          "user_index": 8,
+          "pin": "19061010050000",
+          "ok": false,
+          "duration_ms": 54117.53749998752,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 689.8023000103422,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 214.11359999910928,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 203.8509999983944,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 2,
+              "duration_ms": 215.08690001792274,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 11179.621499992209,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 407.7017000236083,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": false,
+              "row_count": 0,
+              "duration_ms": 41207.0684999926,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "error:ReadTimeout"
+              ],
+              "error": "network: Socrata request failed for assessed_values: HTTPSConnectionPool(host='datacatalog.cookcountyil.gov', port=443): Read timed out. (read timeout=20)"
+            }
+          ]
+        }
+      ],
+      "elapsed_seconds": 95.80982039999799,
+      "stop_reason": "stopped after 4/8 simulated users failed"
+    },
+    {
+      "mode": "app_token",
+      "concurrency": 1,
+      "users": [
+        {
+          "mode": "app_token",
+          "concurrency": 1,
+          "user_index": 1,
+          "pin": "01011000250000",
+          "ok": true,
+          "duration_ms": 5108.179199974984,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 660.5295999906957,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 198.29649999155663,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 223.20809998200275,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 223.69099999195896,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 2051.7360999947414,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1558.2742000115104,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 192.1837999834679,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        }
+      ],
+      "elapsed_seconds": 5.109424099995522,
+      "stop_reason": null
+    },
+    {
+      "mode": "app_token",
+      "concurrency": 2,
+      "users": [
+        {
+          "mode": "app_token",
+          "concurrency": 2,
+          "user_index": 1,
+          "pin": "01011000250000",
+          "ok": true,
+          "duration_ms": 3151.884099992458,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 846.7781000072137,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 218.75110000837594,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 389.8494000022765,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 416.53820002102293,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 746.4486999961082,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 328.6225999763701,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 204.57709999755025,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 2,
+          "user_index": 2,
+          "pin": "03012040020000",
+          "ok": true,
+          "duration_ms": 8430.626999994274,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 851.8597999936901,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 198.05199999245815,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 209.03159998124465,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 599.6518000029027,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 278.36899997782893,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 5459.847999998601,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 833.5812999866903,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        }
+      ],
+      "elapsed_seconds": 8.432636099983938,
+      "stop_reason": null
+    },
+    {
+      "mode": "app_token",
+      "concurrency": 4,
+      "users": [
+        {
+          "mode": "app_token",
+          "concurrency": 4,
+          "user_index": 1,
+          "pin": "01011000250000",
+          "ok": true,
+          "duration_ms": 2086.329600017052,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 702.2925000055693,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 208.1878000171855,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 204.77029998437501,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 189.39330001012422,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 242.75480001233518,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 324.9360000190791,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 213.77609999035485,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 4,
+          "user_index": 2,
+          "pin": "03012040020000",
+          "ok": true,
+          "duration_ms": 2808.6247999744955,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 680.0029999867547,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 191.92120002117008,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 206.5225999976974,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 204.0446000173688,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 249.59960000705905,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 454.23370000207797,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 822.08390001324,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 4,
+          "user_index": 3,
+          "pin": "05333120030000",
+          "ok": true,
+          "duration_ms": 6406.802299985429,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 657.7034999791067,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 229.11410001688637,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 200.96230000490323,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 197.4952000018675,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 359.57590001635253,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 2319.0465999941807,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 2442.657200008398,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 4,
+          "user_index": 4,
+          "pin": "16191010090000",
+          "ok": true,
+          "duration_ms": 15927.48070001835,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 654.5946999976877,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 218.0262999900151,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 214.25160000217147,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 3,
+              "duration_ms": 216.69929998461157,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1487.6534000213724,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 406.1912999895867,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 12729.760999995051,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        }
+      ],
+      "elapsed_seconds": 15.936222099990118,
+      "stop_reason": null
+    },
+    {
+      "mode": "app_token",
+      "concurrency": 8,
+      "users": [
+        {
+          "mode": "app_token",
+          "concurrency": 8,
+          "user_index": 1,
+          "pin": "01011000250000",
+          "ok": true,
+          "duration_ms": 2161.5353999950457,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 657.7044999867212,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 229.7686999954749,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 223.87640000670217,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 230.18099999171682,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 262.3825000191573,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 346.00719998707063,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 211.4315000071656,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 8,
+          "user_index": 2,
+          "pin": "03012040020000",
+          "ok": true,
+          "duration_ms": 2841.2162000022363,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 670.923599973321,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 214.72150000045076,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 201.55319999321364,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 212.8237999859266,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 248.61959999543615,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 417.64580001472495,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 874.7441000014078,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 8,
+          "user_index": 3,
+          "pin": "05333120030000",
+          "ok": true,
+          "duration_ms": 4515.409900021041,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 676.2229999876581,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 222.63169998768717,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 226.4627999975346,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 203.62610000302084,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 287.0563000033144,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 394.84670001547784,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 2504.317099985201,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 8,
+          "user_index": 4,
+          "pin": "16191010090000",
+          "ok": true,
+          "duration_ms": 36562.50319999526,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 696.274199988693,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 210.39480000035837,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 188.24029999086633,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 3,
+              "duration_ms": 221.33989998837933,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 22036.156799993478,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1101.0632999823429,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 12108.800099988002,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 8,
+          "user_index": 5,
+          "pin": "14051000240000",
+          "ok": false,
+          "duration_ms": 53936.27160001779,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 660.6190000020433,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 221.86479999800213,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 213.4031000023242,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 207.20859998255037,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": false,
+              "row_count": 0,
+              "duration_ms": 40975.109399994835,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "error:ReadTimeout"
+              ],
+              "error": "network: Socrata request failed for res_characteristics: HTTPSConnectionPool(host='datacatalog.cookcountyil.gov', port=443): Read timed out. (read timeout=20)"
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 3195.2091999992263,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 8462.679699994624,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 8,
+          "user_index": 6,
+          "pin": "20021020050000",
+          "ok": false,
+          "duration_ms": 82317.67290001153,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 671.5726000256836,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 215.0707999826409,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 240.0204000005033,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 193.5640999872703,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1614.5150999946054,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": false,
+              "row_count": 0,
+              "duration_ms": 41239.38320000889,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "error:ReadTimeout"
+              ],
+              "error": "network: Socrata request failed for parcel_universe: HTTPSConnectionPool(host='datacatalog.cookcountyil.gov', port=443): Read timed out. (read timeout=20)"
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 38143.36709998315,
+              "attempts": 2,
+              "statuses": [
+                "error:ReadTimeout",
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 8,
+          "user_index": 7,
+          "pin": "09253030250000",
+          "ok": true,
+          "duration_ms": 14743.627999996534,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 659.3518999870867,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 205.34489999408834,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 212.92330001597293,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 0,
+              "duration_ms": 204.79440002236515,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1543.4812000021338,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 7560.753600002499,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 4356.769699981669,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "mode": "app_token",
+          "concurrency": 8,
+          "user_index": 8,
+          "pin": "19061010050000",
+          "ok": true,
+          "duration_ms": 19446.781999984523,
+          "operations": [
+            {
+              "label": "subject_parcel",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 655.7271000056062,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_characteristics",
+              "ok": true,
+              "row_count": 1,
+              "duration_ms": 224.75900000426918,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_assessed_values",
+              "ok": true,
+              "row_count": 28,
+              "duration_ms": 216.70770001946948,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "subject_sales",
+              "ok": true,
+              "row_count": 2,
+              "duration_ms": 210.54200001526624,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_characteristics_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 1055.285999987973,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_universe_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 395.3486999962479,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            },
+            {
+              "label": "comparable_assessed_values_page",
+              "ok": true,
+              "row_count": 50,
+              "duration_ms": 16688.180700002704,
+              "attempts": 1,
+              "statuses": [
+                "200"
+              ],
+              "error": null
+            }
+          ]
+        }
+      ],
+      "elapsed_seconds": 82.33195250001154,
+      "stop_reason": null
+    }
+  ],
+  "summaries": [
+    {
+      "mode": "no_token",
+      "concurrency": 1,
+      "elapsed_seconds": 4.53,
+      "users_ok": 1,
+      "users_total": 1,
+      "operations_ok": 7,
+      "operations_total": 7,
+      "operation_success_pct": 100.0,
+      "http_requests": 7,
+      "status_counts": {
+        "200": 7
+      },
+      "http_429": 0,
+      "retry_successes": 0,
+      "median_user_ms": 4515.5,
+      "p95_user_ms": 4515.5,
+      "median_operation_ms": 204.9,
+      "p95_operation_ms": 1680.0,
+      "stop_reason": null
+    },
+    {
+      "mode": "no_token",
+      "concurrency": 2,
+      "elapsed_seconds": 4.55,
+      "users_ok": 2,
+      "users_total": 2,
+      "operations_ok": 14,
+      "operations_total": 14,
+      "operation_success_pct": 100.0,
+      "http_requests": 14,
+      "status_counts": {
+        "200": 14
+      },
+      "http_429": 0,
+      "retry_successes": 0,
+      "median_user_ms": 3905.7,
+      "p95_user_ms": 4549.2,
+      "median_operation_ms": 312.0,
+      "p95_operation_ms": 1781.3,
+      "stop_reason": null
+    },
+    {
+      "mode": "no_token",
+      "concurrency": 4,
+      "elapsed_seconds": 62.53,
+      "users_ok": 3,
+      "users_total": 4,
+      "operations_ok": 27,
+      "operations_total": 28,
+      "operation_success_pct": 96.4,
+      "http_requests": 29,
+      "status_counts": {
+        "200": 27,
+        "error:ReadTimeout": 2
+      },
+      "http_429": 0,
+      "retry_successes": 0,
+      "median_user_ms": 3851.3,
+      "p95_user_ms": 62523.4,
+      "median_operation_ms": 283.9,
+      "p95_operation_ms": 19555.3,
+      "stop_reason": null
+    },
+    {
+      "mode": "no_token",
+      "concurrency": 8,
+      "elapsed_seconds": 95.81,
+      "users_ok": 4,
+      "users_total": 8,
+      "operations_ok": 51,
+      "operations_total": 56,
+      "operation_success_pct": 91.1,
+      "http_requests": 61,
+      "status_counts": {
+        "200": 51,
+        "error:ReadTimeout": 10
+      },
+      "http_429": 0,
+      "retry_successes": 0,
+      "median_user_ms": 31953.8,
+      "p95_user_ms": 95796.9,
+      "median_operation_ms": 342.1,
+      "p95_operation_ms": 41202.0,
+      "stop_reason": "stopped after 4/8 simulated users failed"
+    },
+    {
+      "mode": "app_token",
+      "concurrency": 1,
+      "elapsed_seconds": 5.11,
+      "users_ok": 1,
+      "users_total": 1,
+      "operations_ok": 7,
+      "operations_total": 7,
+      "operation_success_pct": 100.0,
+      "http_requests": 7,
+      "status_counts": {
+        "200": 7
+      },
+      "http_429": 0,
+      "retry_successes": 0,
+      "median_user_ms": 5108.2,
+      "p95_user_ms": 5108.2,
+      "median_operation_ms": 223.7,
+      "p95_operation_ms": 2051.7,
+      "stop_reason": null
+    },
+    {
+      "mode": "app_token",
+      "concurrency": 2,
+      "elapsed_seconds": 8.43,
+      "users_ok": 2,
+      "users_total": 2,
+      "operations_ok": 14,
+      "operations_total": 14,
+      "operation_success_pct": 100.0,
+      "http_requests": 14,
+      "status_counts": {
+        "200": 14
+      },
+      "http_429": 0,
+      "retry_successes": 0,
+      "median_user_ms": 5791.3,
+      "p95_user_ms": 8430.6,
+      "median_operation_ms": 403.2,
+      "p95_operation_ms": 5459.8,
+      "stop_reason": null
+    },
+    {
+      "mode": "app_token",
+      "concurrency": 4,
+      "elapsed_seconds": 15.94,
+      "users_ok": 4,
+      "users_total": 4,
+      "operations_ok": 28,
+      "operations_total": 28,
+      "operation_success_pct": 100.0,
+      "http_requests": 28,
+      "status_counts": {
+        "200": 28
+      },
+      "http_429": 0,
+      "retry_successes": 0,
+      "median_user_ms": 4607.7,
+      "p95_user_ms": 15927.5,
+      "median_operation_ms": 246.2,
+      "p95_operation_ms": 2442.7,
+      "stop_reason": null
+    },
+    {
+      "mode": "app_token",
+      "concurrency": 8,
+      "elapsed_seconds": 82.33,
+      "users_ok": 6,
+      "users_total": 8,
+      "operations_ok": 54,
+      "operations_total": 56,
+      "operation_success_pct": 96.4,
+      "http_requests": 60,
+      "status_counts": {
+        "200": 54,
+        "error:ReadTimeout": 6
+      },
+      "http_429": 0,
+      "retry_successes": 0,
+      "median_user_ms": 17095.2,
+      "p95_user_ms": 82317.7,
+      "median_operation_ms": 316.5,
+      "p95_operation_ms": 38143.4,
+      "stop_reason": null
+    }
+  ]
+}
