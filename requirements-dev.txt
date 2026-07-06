@@ -1,5 +1,7 @@
 -r requirements.txt
 mypy==1.11.2
+Pillow==12.2.0
+PyMuPDF==1.26.3
 pytest==8.3.5
 pytest-cov==7.0.0
 ruff==0.8.6

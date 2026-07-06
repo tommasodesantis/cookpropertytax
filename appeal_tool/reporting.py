@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from appeal_tool.formatting import parcel_address
 from appeal_tool.models import CaseFile, EvidenceSummary, RouteResult
 
 
@@ -27,6 +28,8 @@ def console_report(
         lines.append(f"Days remaining: {route.days_remaining}")
     for warning in route.warnings:
         lines.append(f"WARNING: {warning}")
+    for warning in case.data_warnings:
+        lines.append(f"DATA WARNING: {warning}")
 
     parcel = case.parcel
     lines.extend(
@@ -34,7 +37,7 @@ def console_report(
             "",
             "SUBJECT",
             f"PIN: {parcel.pin_formatted}",
-            f"Address: {parcel.address}, {parcel.city} {parcel.zip_code}".strip(),
+            f"Address: {parcel_address(parcel)}",
             f"Class / township: {parcel.property_class} / {parcel.township_name}",
             f"Building sqft: {parcel.building_sqft:,.0f}"
             if parcel.building_sqft

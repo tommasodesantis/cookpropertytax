@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from appeal_tool.errors import DataAccessError, DataErrorKind
-from appeal_tool.repository import SocrataClient
+from appeal_tool.repository import SocrataClient, SocrataRepository, SocrataResponse
 
 
 class FakeResponse:
@@ -73,6 +73,10 @@ def test_socrata_client_paginates_and_caches(tmp_path: Path) -> None:
     client.session = fake  # type: ignore[assignment]
     first = client.fetch_all("parcel_universe", {"$where": "pin='x'"})
     assert [row["row"] for row in first.rows] == [1, 2, 3]
+    assert first.warnings == (
+        "Socrata pagination fetched 3 rows for parcel_universe; "
+        "all available pages were requested.",
+    )
     assert len(fake.calls) == 2
 
     second = client.fetch_all("parcel_universe", {"$where": "pin='x'"})
@@ -118,3 +122,35 @@ def test_socrata_client_classifies_invalid_cache(tmp_path: Path) -> None:
     with pytest.raises(DataAccessError) as excinfo:
         client.fetch_all("parcel_universe", {})
     assert excinfo.value.kind == DataErrorKind.INVALID_CACHE
+
+
+class MissingAddressClient:
+    def fetch_all(self, dataset_key: str, params: dict[str, str]) -> SocrataResponse:
+        where = params.get("$where", "")
+        if dataset_key == "parcel_universe":
+            return SocrataResponse(
+                rows=[
+                    {
+                        "pin": "03000000000001",
+                        "class": "203",
+                        "township_name": "Barrington",
+                        "township_code": "10",
+                    }
+                ],
+                warnings=("parcel pagination warning",),
+            )
+        if dataset_key == "res_characteristics" and where == "pin='03000000000001'":
+            return SocrataResponse(rows=[], warnings=())
+        if dataset_key in {"res_characteristics", "assessed_values", "parcel_sales"}:
+            return SocrataResponse(rows=[], warnings=())
+        raise AssertionError(f"Unexpected dataset {dataset_key}")
+
+
+def test_socrata_repository_surfaces_missing_live_fields() -> None:
+    repo = SocrataRepository(client=MissingAddressClient())  # type: ignore[arg-type]
+    case = repo.load_case_by_pin("03-00-000-000-0001")
+    warnings = "\n".join(case.data_warnings)
+    assert "parcel pagination warning" in warnings
+    assert "did not include a property address" in warnings
+    assert "Residential characteristics were unavailable" in warnings
+    assert "Current assessed value was unavailable" in warnings

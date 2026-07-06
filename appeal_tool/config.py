@@ -9,7 +9,7 @@ STATE_EQUALIZER = 3.0163
 DEFAULT_TAX_RATE = 0.10
 ASSESSMENT_LEVEL = 0.10
 
-CCAO_OFFICIAL_URL = "https://www.cookcountyassessor.com/"
+CCAO_OFFICIAL_URL = "https://www.cookcountyassessoril.gov/assessment-calendar-and-deadlines"
 BOR_OFFICIAL_URL = "https://www.cookcountyboardofreview.com/"
 BOR_PORTAL_URL = "https://appeals.cookcountyboardofreview.com/"
 BOR_DATES_PDF_URL = (
@@ -72,8 +72,9 @@ CCAO_CALENDAR = CalendarConfig(
     session_end=d("12/31/2025"),
     source_url=CCAO_OFFICIAL_URL,
     source_note=(
-        "Assessor page was inaccessible from this environment on 2026-07-06. "
-        "Verify township windows at the official source before filing."
+        "Official Assessor calendar page loaded through browser access on 2026-07-06, "
+        "but direct shell automation still returned CloudFront 403. Verify township windows "
+        "at the official source before filing."
     ),
 )
 

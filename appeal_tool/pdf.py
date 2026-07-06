@@ -14,6 +14,7 @@ warnings.filterwarnings(
 from fpdf import FPDF
 
 from appeal_tool.config import ASSESSMENT_LEVEL, NOT_LEGAL_ADVICE
+from appeal_tool.formatting import parcel_address
 from appeal_tool.models import CaseFile, EvidenceSummary, RouteResult
 from appeal_tool.venues.assessor import AssessorAdapter
 from appeal_tool.venues.base import VenueAdapter
@@ -108,12 +109,14 @@ def write_packet(
         pdf.kv("Days remaining", route.days_remaining)
     for warning in route.warnings:
         pdf.para(f"Warning: {warning}", size=9, style="B")
+    for warning in case.data_warnings:
+        pdf.para(f"Data warning: {warning}", size=9, style="B")
     pdf.para(NOT_LEGAL_ADVICE, size=9, style="B")
 
     pdf.h1("Subject Property")
     parcel = case.parcel
     pdf.kv("PIN", parcel.pin_formatted)
-    pdf.kv("Address", f"{parcel.address}, {parcel.city} {parcel.zip_code}".strip())
+    pdf.kv("Address", parcel_address(parcel))
     pdf.kv("Class / Township", f"{parcel.property_class} / {parcel.township_name}")
     pdf.kv("Building sqft", f"{parcel.building_sqft:,.0f}" if parcel.building_sqft else "Missing")
     pdf.kv("Current assessed value", money(parcel.current_av))

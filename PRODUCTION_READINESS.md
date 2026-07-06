@@ -50,3 +50,10 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - Verified fixture-backed CLI/PDF generation from the clean venv.
 - Verified live no-fixture Socrata CLI and default PDF generation for PIN `03-27-402-011-0000` with network access.
 - Added local venv ignore patterns and completed the two-run stability gate.
+
+### Iteration 6
+
+- Retested the CCAO calendar blocker after VPN activation: browser access can load the official redirected calendar page, but direct local `curl.exe` automation still receives CloudFront 403.
+- Added live-source hardening for configured assessment-year selection, missing address/schema warnings, and de-duplicated pagination warnings.
+- Added `scripts/live_smoke.py` for a reproducible 10-property live CLI/PDF smoke run across suburban/city, single-family/condo/multi-family samples.
+- Verified all 10 live properties completed with user-facing output and PDFs that opened, extracted, rendered, and showed no automated or manual first-page layout failures.

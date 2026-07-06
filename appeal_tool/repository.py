@@ -11,6 +11,7 @@ from typing import Protocol, cast
 
 import requests
 
+from appeal_tool.config import ASSESSMENT_YEAR
 from appeal_tool.errors import DataAccessError, DataErrorKind, NotFoundError
 from appeal_tool.models import (
     AddressCandidate,
@@ -69,6 +70,18 @@ def _pick(row: JsonDict, *names: str) -> object:
         if row.get(name) not in (None, ""):
             return row[name]
     return None
+
+
+def _row_year(row: JsonDict) -> int | None:
+    return _int(row.get("year") or row.get("tax_year"))
+
+
+def _latest_row(rows: list[JsonDict]) -> JsonDict:
+    return sorted(rows, key=lambda row: _row_year(row) or 0)[-1]
+
+
+def _unique(items: list[str]) -> tuple[str, ...]:
+    return tuple(dict.fromkeys(items))
 
 
 def _parcel_from_json(raw: JsonDict) -> Parcel:
@@ -207,6 +220,7 @@ class SocrataClient:
         rows: list[JsonDict] = []
         warnings: list[str] = []
         offset = 0
+        paginated = False
         while True:
             page_params = dict(params)
             page_params["$limit"] = str(self.page_size)
@@ -216,8 +230,10 @@ class SocrataClient:
             if len(page) < self.page_size:
                 break
             offset += self.page_size
+            paginated = True
+        if paginated:
             warnings.append(
-                f"Socrata pagination continued past {offset} rows for {dataset_key}; "
+                f"Socrata pagination fetched {len(rows):,} rows for {dataset_key}; "
                 "all available pages were requested."
             )
         return SocrataResponse(rows=rows, warnings=tuple(warnings))
@@ -291,19 +307,69 @@ class SocrataRepository:
 
     def load_case_by_pin(self, pin: str) -> CaseFile:
         normalized = normalize_pin(pin)
-        parcel_rows = self.client.fetch_all(
-            "parcel_universe", {"$where": f"pin='{normalized}'"}
-        ).rows
+        warnings: list[str] = []
+        parcel_response = self.client.fetch_all(
+            "parcel_universe", {"$where": f"pin='{normalized}' AND year='{ASSESSMENT_YEAR}'"}
+        )
+        warnings.extend(parcel_response.warnings)
+        parcel_rows = parcel_response.rows
+        if not parcel_rows:
+            fallback_response = self.client.fetch_all(
+                "parcel_universe", {"$where": f"pin='{normalized}'"}
+            )
+            warnings.extend(fallback_response.warnings)
+            parcel_rows = fallback_response.rows
+            if parcel_rows:
+                fallback_year = _row_year(_latest_row(parcel_rows))
+                warnings.append(
+                    f"Parcel universe had no {ASSESSMENT_YEAR} row; using latest available "
+                    f"year {fallback_year or 'unknown'}."
+                )
         if not parcel_rows:
             raise NotFoundError(
                 f"PIN {format_pin(normalized)} was not found in the parcel universe."
             )
-        universe = parcel_rows[-1]
-        char_rows = self.client.fetch_all(
-            "res_characteristics", {"$where": f"pin='{normalized}'"}
-        ).rows
-        char = char_rows[-1] if char_rows else {}
-        av_rows = self.client.fetch_all("assessed_values", {"$where": f"pin='{normalized}'"}).rows
+        universe = _latest_row(parcel_rows)
+        char_response = self.client.fetch_all(
+            "res_characteristics", {"$where": f"pin='{normalized}' AND year='{ASSESSMENT_YEAR}'"}
+        )
+        warnings.extend(char_response.warnings)
+        char_rows = char_response.rows
+        if not char_rows:
+            fallback_response = self.client.fetch_all(
+                "res_characteristics", {"$where": f"pin='{normalized}'"}
+            )
+            warnings.extend(fallback_response.warnings)
+            char_rows = fallback_response.rows
+            if char_rows:
+                fallback_year = _row_year(_latest_row(char_rows))
+                warnings.append(
+                    f"Residential characteristics had no {ASSESSMENT_YEAR} row; using latest "
+                    f"available year {fallback_year or 'unknown'}."
+                )
+        char = _latest_row(char_rows) if char_rows else {}
+        if not char_rows:
+            warnings.append(
+                "Residential characteristics were unavailable; square-foot and comparable "
+                "analysis may be limited."
+            )
+        av_response = self.client.fetch_all(
+            "assessed_values", {"$where": f"pin='{normalized}' AND year='{ASSESSMENT_YEAR}'"}
+        )
+        warnings.extend(av_response.warnings)
+        av_rows = av_response.rows
+        if not av_rows:
+            fallback_response = self.client.fetch_all(
+                "assessed_values", {"$where": f"pin='{normalized}'"}
+            )
+            warnings.extend(fallback_response.warnings)
+            av_rows = fallback_response.rows
+            if av_rows:
+                fallback_year = _row_year(_latest_row(av_rows))
+                warnings.append(
+                    f"Assessed values had no {ASSESSMENT_YEAR} row; using latest available "
+                    f"year {fallback_year or 'unknown'}."
+                )
         current = _latest_av(av_rows)
         parcel = Parcel(
             pin=normalized,
@@ -325,9 +391,26 @@ class SocrataRepository:
             current_av=current,
             prior_final_av=None,
         )
-        comps = self._load_comparables(parcel)
-        sales = self._load_sales(normalized)
-        return CaseFile(parcel=parcel, comparables=tuple(comps), subject_sales=tuple(sales))
+        if not parcel.address:
+            warnings.append(
+                "The live parcel universe response did not include a property address; "
+                "the packet identifies the subject by PIN, township, and class."
+            )
+        if current is None:
+            warnings.append(
+                "Current assessed value was unavailable; savings and market-value estimates "
+                "are limited."
+            )
+        comps, comparable_warnings = self._load_comparables(parcel)
+        warnings.extend(comparable_warnings)
+        sales, sales_warnings = self._load_sales(normalized)
+        warnings.extend(sales_warnings)
+        return CaseFile(
+            parcel=parcel,
+            comparables=tuple(comps),
+            subject_sales=tuple(sales),
+            data_warnings=_unique(warnings),
+        )
 
     def lookup_address(self, query: str) -> list[AddressCandidate]:
         escaped = " ".join(query.upper().split()).replace("'", "''")
@@ -355,30 +438,61 @@ class SocrataRepository:
             )
         return candidates
 
-    def _load_sales(self, pin: str) -> list[Sale]:
-        rows = self.client.fetch_all("parcel_sales", {"$where": f"pin='{pin}'"}).rows
+    def _load_sales(self, pin: str) -> tuple[list[Sale], tuple[str, ...]]:
+        response = self.client.fetch_all("parcel_sales", {"$where": f"pin='{pin}'"})
+        rows = response.rows
         sales = []
         for row in rows:
             sale_date = _parse_date(_pick(row, "sale_date"))
             price = _float(_pick(row, "sale_price"))
             if sale_date and price and price > 1000:
                 sales.append(Sale(sale_date=sale_date, sale_price=price))
-        return sorted(sales, key=lambda item: item.sale_date, reverse=True)
+        return sorted(sales, key=lambda item: item.sale_date, reverse=True), response.warnings
 
-    def _load_comparables(self, parcel: Parcel) -> list[Comparable]:
+    def _load_comparables(self, parcel: Parcel) -> tuple[list[Comparable], tuple[str, ...]]:
+        warnings: list[str] = []
         if not parcel.township_code or not parcel.property_class:
-            return []
+            return [], (
+                "Comparable search was skipped because township code or property class was "
+                "unavailable.",
+            )
         where = f"township_code='{parcel.township_code}' AND class='{parcel.property_class}'"
-        chars = self.client.fetch_all("res_characteristics", {"$where": where}).rows
-        avs = self.client.fetch_all("assessed_values", {"$where": where}).rows
-        av_by_pin: dict[str, float] = {}
+        year_where = f"{where} AND year='{ASSESSMENT_YEAR}'"
+        char_response = self.client.fetch_all("res_characteristics", {"$where": year_where})
+        warnings.extend(char_response.warnings)
+        chars = char_response.rows
+        if not chars:
+            fallback_response = self.client.fetch_all("res_characteristics", {"$where": where})
+            warnings.extend(fallback_response.warnings)
+            chars = fallback_response.rows
+            if chars:
+                warnings.append(
+                    "Comparable characteristics had no configured-year rows; using latest "
+                    "available rows from the source."
+                )
+        av_response = self.client.fetch_all("assessed_values", {"$where": year_where})
+        warnings.extend(av_response.warnings)
+        avs = av_response.rows
+        if not avs:
+            fallback_response = self.client.fetch_all("assessed_values", {"$where": where})
+            warnings.extend(fallback_response.warnings)
+            avs = fallback_response.rows
+            if avs:
+                warnings.append(
+                    "Comparable assessed values had no configured-year rows; using latest "
+                    "available rows from the source."
+                )
+        av_rows_by_pin: dict[str, list[JsonDict]] = {}
         for row in avs:
             raw_pin = row.get("pin")
             if not raw_pin:
                 continue
-            value = _latest_av([row])
+            av_rows_by_pin.setdefault(normalize_pin(str(raw_pin)), []).append(row)
+        av_by_pin: dict[str, float] = {}
+        for comp_pin, rows in av_rows_by_pin.items():
+            value = _latest_av(rows)
             if value:
-                av_by_pin[normalize_pin(str(raw_pin))] = value
+                av_by_pin[comp_pin] = value
         comps = []
         for row in chars:
             raw_pin = row.get("pin")
@@ -396,12 +510,16 @@ class SocrataRepository:
                     neighborhood=None,
                 )
             )
-        return comps
+        if not comps:
+            warnings.append(
+                "No comparable characteristic rows were returned for the subject township/class."
+            )
+        return comps, tuple(warnings)
 
 
 def _latest_av(rows: list[JsonDict]) -> float | None:
     if not rows:
         return None
-    sorted_rows = sorted(rows, key=lambda row: str(row.get("year") or row.get("tax_year") or ""))
+    sorted_rows = sorted(rows, key=lambda row: _row_year(row) or 0)
     row = sorted_rows[-1]
     return _float(_pick(row, "mailed_tot", "certified_tot", "board_tot"))
