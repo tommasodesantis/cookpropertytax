@@ -5,6 +5,7 @@ import { CloudflareCacheStore, sharedMemoryCache } from "./cache";
 import { buildCasePayload } from "./casePayload";
 import { FixtureRepository } from "./fixtureRepository";
 import { ConcurrencyLimiter, QueueTimeoutError } from "./limiter";
+import { QUEUED_MESSAGE } from "./messages";
 import { buildPrintReport } from "./printReport";
 import { type CaseRepository, SocrataRepository } from "./repository";
 import { SocrataClient, friendlyDataError } from "./socrataClient";
@@ -21,8 +22,6 @@ const ASSESSMENT_QUEUE_TIMEOUT_MS = 60_000;
 const REPORT_PAYLOAD_LIMIT = 10_000;
 const REPORT_RATE_LIMIT = 5;
 const REPORT_RATE_WINDOW_MS = 60 * 60 * 1000;
-export const QUEUED_MESSAGE =
-  "Appeal Compass is busy helping other homeowners right now. You're in line — keep this page open and your assessment will start automatically.";
 const QUEUE_TIMEOUT_MESSAGE =
   "Appeal Compass is busy helping other homeowners right now. Your assessment did not start within a minute. Please try again in a moment.";
 const sharedAssessmentLimiter = new ConcurrencyLimiter(ASSESSMENT_CONCURRENCY);

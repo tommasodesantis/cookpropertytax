@@ -17,7 +17,6 @@ interface QueueStatus {
 
 interface CasePayload {
   ok: true;
-  demo: boolean;
   generatedAt: string;
   today: string;
   case: {
@@ -680,9 +679,6 @@ function renderResults(payload: CasePayload, query: URLSearchParams): void {
   ].filter(Boolean);
   const printQuery = new URLSearchParams(query);
   printQuery.set("pin", subject.pin);
-  if (payload.demo) {
-    printQuery.set("demo", "1");
-  }
 
   const results = document.querySelector<HTMLElement>("#results");
   if (!results) {

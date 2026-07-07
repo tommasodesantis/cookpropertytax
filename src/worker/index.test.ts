@@ -1,6 +1,7 @@
 import worker from "./index";
-import { QUEUED_MESSAGE, createWorker } from "./index";
+import { createWorker } from "./index";
 import { ConcurrencyLimiter } from "./limiter";
+import { QUEUED_MESSAGE } from "./messages";
 
 const REQUIRED_STEP_ONE = "ownershipType=individual&assessorAppealFiled=no&borAppealFiled=no";
 

@@ -47,7 +47,12 @@ const checks = [
   {
     label: "print ptab",
     path: `/print?demo=1&pin=03-00-000-000-0001&venue=ptab&today=2026-06-01&${ptabStepOne}&borDecisionDate=2026-05-20`,
-    expect: ["PTAB Comparable Grid Public-Data Limits", "Print / Save as PDF", "Built Year", "Assessment Year"],
+    expect: ["PTAB Comparable Grid Public-Data Limits", "Print / Save as PDF"],
+  },
+  {
+    label: "print assessor comps",
+    path: `/print?demo=1&pin=03-00-000-000-0001&venue=assessor&today=2026-05-01&${requiredStepOne}`,
+    expect: ["Built Year", "Assessment Year", "Back to Appeal Compass"],
   },
 ];
 

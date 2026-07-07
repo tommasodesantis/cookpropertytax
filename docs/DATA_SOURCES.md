@@ -1,7 +1,6 @@
 # Data Sources
 
-All live county data is fetched server-side by the Cloudflare Worker. The browser never receives the
-Socrata app token.
+All live county data is fetched server-side. The browser never receives the Socrata app token.
 
 | Source | Dataset ID | Fields used |
 | --- | --- | --- |
@@ -27,12 +26,14 @@ Socrata app token.
 ## Operational Guardrails
 
 - Cache TTL: 12 hours.
-- Identical in-flight Socrata requests are coalesced within the Worker instance.
+- Identical in-flight Socrata requests are coalesced within the server instance.
 - Per-case outbound Socrata fetch concurrency is capped at 2.
-- Case and print builds are capped at 4 concurrent assessments per Worker instance. Extra requests
+- Case and print builds are capped at 4 concurrent assessments per server instance. Extra requests
   wait in FIFO order instead of increasing Socrata pressure.
 - Queued assessments wait up to 60 seconds. If a request cannot start in that window, the API
   returns a friendly 503 with retry guidance.
 - `/api/queue` exposes active/queued counts so the browser can show a plain-language busy message
   while the user waits.
 - The Socrata app token is read from `SOCRATA_APP_TOKEN` and never committed.
+- Problem reports require `TURNSTILE_SECRET_KEY` and `GITHUB_ISSUES_TOKEN`; those secrets are never
+  sent to the browser.

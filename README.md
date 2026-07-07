@@ -18,6 +18,8 @@ the browser.
 - Shows deadlines, days remaining, official-source links, warning messages, comparable evidence,
   estimated savings assumptions, and a venue-specific checklist.
 - Produces a printable evidence packet at `/print`.
+- Downloads the comparable exhibit and savings assumptions as a `.xlsx` workbook.
+- Provides a Turnstile-protected problem-reporting form when deployment secrets are configured.
 
 ## What It Does Not Do
 
@@ -83,6 +85,9 @@ Useful endpoints:
 - `GET /api/case?pin=03-00-000-000-0001&ownershipType=individual&assessorAppealFiled=no&borAppealFiled=no`
 - `POST /api/report`
 - `GET /print?pin=03-00-000-000-0001&ownershipType=individual&assessorAppealFiled=no&borAppealFiled=no`
+
+Street-address lookup and example-property browsing are not public features. Users should recover
+their PIN from the Cook County Property Tax Portal and enter it directly.
 
 ## Testing
 

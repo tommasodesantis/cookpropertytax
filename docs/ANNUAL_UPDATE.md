@@ -11,6 +11,8 @@ Refresh these constants before each assessment session and before presenting the
 - Open the Cook County Board of Review site and the official township dates PDF:
   `https://www.cookcountyboardofreview.com/`.
 - Verify PTAB filing guidance at `https://ptab.illinois.gov/`.
+- Reconfirm sale-evidence guidance for the three-year pre-lien-date rule in
+  `docs/LEARNINGS.md`.
 
 ## 2. Update Calendar Constants
 
@@ -37,19 +39,33 @@ Refresh these constants before each assessment session and before presenting the
 - Confirm the field mappings for PIN, class, township, township code, neighborhood, coordinates,
   building square footage, land square footage, year built, style inputs, amenities, assessed-value
   columns, and sale fields.
-- Re-run tests for configured-year fallback, latest value-bearing AV fallback, missing address
-  labels, and missing subject-data guidance.
+- Re-run tests for configured-year fallback, latest value-bearing AV fallback, removed address
+  search, PIN-only comparable labels, and missing subject-data guidance.
+- Do not restore address search unless the current public parcel-universe dataset exposes reliable
+  address fields and live LIKE queries are verified.
 
 ## 5. Recheck Feasibility And Concurrency
 
 - Re-run a bounded comparable-feasibility sample before changing comparable profiles.
 - Preserve the PTAB public-data-limits language unless public data can actually satisfy the full
   PTAB grid and documentation requirements.
-- Re-run the polite concurrency probe if the Socrata token policy, dataset behavior, or Worker
+- Re-run the polite concurrency probe if the Socrata token policy, dataset behavior, or server
   request strategy changes.
 - Keep per-case outbound Socrata concurrency at 2 unless a new measured ceiling supports a change.
+- Keep the assessment-level build limiter at 4 concurrent case/print builds unless a new measured
+  token-backed ceiling supports a change.
+- Confirm `/api/queue` and the queue-timeout 503 path still pass tests.
 
-## 6. Verify User-Facing Honesty
+## 6. Verify Reporting, Analytics, And Exports
+
+- Confirm `TURNSTILE_SITE_KEY` and `CLOUDFLARE_WEB_ANALYTICS_TOKEN` remain empty in the public repo
+  unless intentionally enabling those features for deployment.
+- Confirm `TURNSTILE_SECRET_KEY` and `GITHUB_ISSUES_TOKEN` are configured only as secrets.
+- Re-run report endpoint tests for Turnstile pass/fail and GitHub success/failure.
+- Open the generated `.xlsx` comparable export in Excel or LibreOffice after workbook schema
+  changes.
+
+## 7. Verify User-Facing Honesty
 
 - Confirm calendar staleness warnings fire after the configured session end.
 - Confirm PTAB still refuses to compute a deadline without a user-entered BOR decision date.
@@ -57,7 +73,7 @@ Refresh these constants before each assessment session and before presenting the
 - Confirm every user-supplied value is labeled as user-supplied with documentation required.
 - Confirm estimated savings show the equalizer and tax-rate assumptions.
 
-## 7. Final Checks
+## 8. Final Checks
 
 - Run the full verification command twice with no intervening changes.
 - Update `docs/LEARNINGS.md` if the source access, public-data feasibility, concurrency ceiling, or

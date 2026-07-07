@@ -1,8 +1,8 @@
 # Appeal Compass Development Learnings
 
 This document preserves the durable findings from the Python CLI development cycle before the
-repository was refactored into a Cloudflare Worker webapp. The webapp keeps these constraints in
-code, tests, and user-facing copy.
+repository was refactored into a server-rendered webapp. The webapp keeps these constraints in code,
+tests, and user-facing copy.
 
 ## Source Access And Calendar Authority
 
@@ -77,7 +77,7 @@ code, tests, and user-facing copy.
   limit per-case outbound Socrata fetch concurrency to at most 2, keep comparable pool queries
   bounded, and honor `Retry-After` for 429 responses.
 - The Socrata app token must remain server-side only. It belongs in `.dev.vars` for local
-  Wrangler development and in a production Worker secret, never in committed files, browser code,
+  Wrangler development and in a production server secret, never in committed files, browser code,
   logs, or reports.
 
 ## Datasets And Fields
@@ -142,9 +142,20 @@ code, tests, and user-facing copy.
 - Per-case outbound Socrata fetch concurrency stays capped at 2; this remains the measured safe
   ceiling for a single case build.
 - Case and print builds now share an assessment-level limiter capped at 4 concurrent builds per
-  Worker instance. This matches the measured token-backed Socrata ceiling while allowing several
+  server instance. This matches the measured token-backed Socrata ceiling while allowing several
   homeowners to proceed at once.
 - Requests above that limit wait in FIFO order. They time out after 60 seconds with friendly retry
   guidance instead of failing immediately or increasing upstream pressure.
 - `/api/queue` reports active and queued counts so the browser can tell a user when Appeal Compass
   is busy and the assessment is in line.
+
+## Reporting And Analytics
+
+- Problem reporting is wired but disabled until deployment secrets and public keys are configured.
+  Server-side secrets are `TURNSTILE_SECRET_KEY` and `GITHUB_ISSUES_TOKEN`; public constants are
+  `TURNSTILE_SITE_KEY` and `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `src/domain/publicConfig.ts`.
+- The Turnstile secret and GitHub token must never be committed or sent to the browser. The
+  reporting endpoint strips HTML from submitted text and excludes Turnstile tokens from GitHub issue
+  bodies.
+- Cloudflare Web Analytics is gated on an empty-by-default public token. When the token is empty,
+  no beacon script is rendered in the app shell or print page.
