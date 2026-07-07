@@ -114,6 +114,7 @@ const ENTITY_REFUSAL_MESSAGE =
   "Appeal Compass is designed only for individual residential homeowners appealing their own home; entity-owned, commercial, and association properties are not supported and generally require an attorney.";
 const CCAO_EXEMPTIONS_URL = "https://www.cookcountyassessoril.gov/exemptions";
 const COOK_PROPERTY_TAX_PORTAL_URL = "https://www.cookcountypropertyinfo.com/";
+let tooltipCounter = 0;
 
 function escapeHtml(value: unknown): string {
   return String(value ?? "")
@@ -125,6 +126,15 @@ function escapeHtml(value: unknown): string {
 
 function externalLink(url: string, label: string): string {
   return `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}<span class="sr-only"> (opens in new tab)</span></a>`;
+}
+
+function infoTooltip(label: string, text: string): string {
+  tooltipCounter += 1;
+  const id = `tooltip-${tooltipCounter}`;
+  return `<span class="tooltip">
+    <button class="tooltip-toggle" type="button" aria-label="${escapeHtml(label)}" aria-expanded="false" aria-describedby="${id}">?</button>
+    <span class="tooltip-bubble" id="${id}" role="tooltip" hidden>${escapeHtml(text)}</span>
+  </span>`;
 }
 
 function linkedText(value: unknown): string {
@@ -477,6 +487,14 @@ function renderDeadline(payload: CasePayload): string {
 
 function renderComparables(payload: CasePayload): string {
   const comps = payload.evidence.comparableAnalysis;
+  const profileTooltip = infoTooltip(
+    "What comparable profile means",
+    'A "profile" is the set of matching rules this tool uses to pick similar homes for the specific venue: size, age, neighborhood, and which assessment number is compared, because each venue weighs comparables differently.',
+  );
+  const comparableNote =
+    comps.status === "ok"
+      ? `<p>Comparable analysis completed with the ${escapeHtml(comps.profileLabel)} profile ${profileTooltip} using ${escapeHtml(comps.metricLabel)} per square foot.</p>`
+      : `<p>${escapeHtml(comps.note)}</p>`;
   const rows = comps.exhibit
     .map((exhibit) => {
       const metric =
@@ -503,18 +521,21 @@ function renderComparables(payload: CasePayload): string {
   return `<section class="panel" aria-labelledby="step-four">
     <div class="step-label">Step 4</div>
     <h2 id="step-four">Evidence summary</h2>
-    <p><strong>Tier:</strong> ${escapeHtml(payload.evidence.tier)}. ${escapeHtml(payload.evidence.tierMessage)}</p>
-    <p class="hint">The tier is a rough screen of how much public data supports spending time on an appeal.</p>
-    <p><strong>Comparable profile:</strong> ${escapeHtml(comps.profileLabel)} using ${escapeHtml(comps.metricLabel)}.</p>
-    <p class="hint">Comparable analysis matters because uniformity appeals compare your assessment to similar homes.</p>
-    <p>${escapeHtml(comps.note)}</p>
+    <p class="metric-line"><strong>Tier:</strong> ${escapeHtml(payload.evidence.tier)} ${infoTooltip(
+      "What tier means",
+      "The tier is a rough screen of how much public data supports spending time on an appeal.",
+    )}. ${escapeHtml(payload.evidence.tierMessage)}</p>
+    ${comparableNote}
     <p><strong>Pool:</strong> ${numberText(comps.poolSize)} similar homes, ${escapeHtml(
       comps.scope ?? "no scope",
     )}; subject ${escapeHtml(comps.metricLabel)}/sqft ${dollars(
       comps.subjectAvPerSqft,
     )}; median ${dollars(comps.medianAvPerSqft)}; gap ${numberText(comps.gapPct, 1)}%.</p>
     ${table}
-    <h3>Arguments</h3>
+    <h3 class="heading-with-tooltip">Arguments ${infoTooltip(
+      "What arguments mean",
+      "An argument is a distinct reason the assessment may be too high: uniformity, overvaluation, description error, or assessment shock. Strength labels are rough screens, not legal conclusions.",
+    )}</h3>
     ${
       payload.evidence.arguments.length
         ? `<ul>${payload.evidence.arguments
@@ -525,7 +546,10 @@ function renderComparables(payload: CasePayload): string {
             .join("")}</ul>`
         : "<p>No strong public-data argument was found. Add sale, appraisal, condition, or factual-error evidence if available.</p>"
     }
-    <h3>Rough savings estimate</h3>
+    <h3 class="heading-with-tooltip">Rough savings estimate ${infoTooltip(
+      "How rough savings are estimated",
+      "Estimated savings = ΔAV × E × r, where ΔAV is the assessed-value reduction, E is the state equalizer, and r is the assumed tax rate. The range is shown as ±20% and is not a promise.",
+    )}</h3>
     <p>${dollars(payload.evidence.savingsAssumptions.low)} to ${dollars(
       payload.evidence.savingsAssumptions.high,
     )}, with point estimate ${dollars(payload.evidence.savingsAssumptions.point)}.</p>
@@ -667,6 +691,34 @@ function clearEvidenceInputs(): void {
   }
 }
 
+function closeTooltips(except: HTMLButtonElement | null = null): void {
+  for (const button of Array.from(
+    document.querySelectorAll<HTMLButtonElement>(".tooltip-toggle"),
+  )) {
+    if (button === except) {
+      continue;
+    }
+    const bubbleId = button.getAttribute("aria-describedby");
+    const bubble = bubbleId ? document.getElementById(bubbleId) : null;
+    button.setAttribute("aria-expanded", "false");
+    if (bubble) {
+      bubble.hidden = true;
+    }
+  }
+}
+
+function toggleTooltip(button: HTMLButtonElement): void {
+  const bubbleId = button.getAttribute("aria-describedby");
+  const bubble = bubbleId ? document.getElementById(bubbleId) : null;
+  if (!bubble) {
+    return;
+  }
+  const willOpen = button.getAttribute("aria-expanded") !== "true";
+  closeTooltips(willOpen ? button : null);
+  button.setAttribute("aria-expanded", String(willOpen));
+  bubble.hidden = !willOpen;
+}
+
 shell();
 
 const form = document.querySelector<HTMLFormElement>("#case-form");
@@ -699,8 +751,22 @@ document.addEventListener("change", (event) => {
 
 document.addEventListener("click", (event) => {
   const target = event.target;
+  if (target instanceof HTMLElement) {
+    const tooltipButton = target.closest<HTMLButtonElement>(".tooltip-toggle");
+    if (tooltipButton) {
+      toggleTooltip(tooltipButton);
+      return;
+    }
+    closeTooltips();
+  }
   if (target instanceof HTMLElement && target.id === "clear-evidence") {
     clearEvidenceInputs();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeTooltips();
   }
 });
 

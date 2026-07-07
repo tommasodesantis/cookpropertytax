@@ -287,6 +287,59 @@ summary {
   line-height: 1.5;
 }
 
+.metric-line,
+.heading-with-tooltip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.45rem;
+  align-items: center;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.tooltip-toggle {
+  width: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border-color: #9eb2aa;
+  background: #fff;
+  color: var(--accent);
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.tooltip-toggle[aria-expanded="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+
+.tooltip-bubble {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  z-index: 20;
+  width: min(19rem, calc(100vw - 2rem));
+  transform: translateX(-50%);
+  border-radius: 14px;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.8rem 0.9rem;
+  box-shadow: 0 14px 35px rgb(23 33 43 / 0.25);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.tooltip-bubble[hidden] {
+  display: none;
+}
+
 .pin-help {
   margin: -0.35rem 0 0;
 }
@@ -417,6 +470,12 @@ th {
   .site-footer a {
     align-items: flex-start;
     width: 100%;
+  }
+
+  .tooltip-bubble {
+    right: 0;
+    left: auto;
+    transform: none;
   }
 }
 
