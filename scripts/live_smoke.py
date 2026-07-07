@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -53,6 +54,11 @@ class SmokeResult:
     routing_headline: str
     pdf_path: Path | None
     pdf_check: PdfCheck | None
+    comparable_status: str
+    comparable_profile: str
+    comparable_pool_size: int | None
+    comparable_scope: str | None
+    comparable_issues: tuple[str, ...]
     warnings: tuple[str, ...]
     stdout_tail: str
     stderr_tail: str
@@ -90,7 +96,8 @@ def _tail(text: str, max_chars: int = 500) -> str:
 def _query_one(session: requests.Session, spec: SampleSpec, timeout: int) -> SelectedParcel:
     dataset = DATASETS["parcel_universe"]
     url = f"{SOCRATA_DOMAIN}/{dataset}.json"
-    headers = {}
+    app_token = os.getenv("SOCRATA_APP_TOKEN")
+    headers = {"X-App-Token": app_token} if app_token else {}
     params = {
         "$limit": "1",
         "$select": "pin,class,township_name,year",
@@ -121,6 +128,70 @@ def _extract_json(stdout: str) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise RuntimeError("CLI JSON summary was not an object.")
     return payload
+
+
+def _positive_number(value: object) -> bool:
+    return isinstance(value, int | float) and value > 0
+
+
+def _validate_comparable_quality(
+    payload: dict[str, Any],
+) -> tuple[str, str, int | None, str | None, tuple[str, ...]]:
+    raw_analysis = payload.get("comparable_analysis")
+    if not isinstance(raw_analysis, dict):
+        return "unknown", "unknown", None, None, ("missing comparable_analysis JSON block",)
+    status = str(raw_analysis.get("status") or payload.get("comparable_status") or "unknown")
+    profile = str(raw_analysis.get("profile") or payload.get("comparable_profile") or "unknown")
+    pool_size = raw_analysis.get("pool_size")
+    pool_size_int = int(pool_size) if isinstance(pool_size, int | float) else None
+    scope = raw_analysis.get("scope")
+    scope_text = str(scope) if scope else None
+    if status != "ok":
+        note = str(payload.get("comparable_note") or "")
+        if not note:
+            return (
+                status,
+                profile,
+                pool_size_int,
+                scope_text,
+                (f"comparable status {status} did not include an explanatory note",),
+            )
+        return status, profile, pool_size_int, scope_text, ()
+
+    issues: list[str] = []
+    if pool_size_int is None or pool_size_int < 3:
+        issues.append(f"comparable pool size is not plausible: {pool_size}")
+    if scope_text not in {"neighborhood", "township"}:
+        issues.append(f"comparable scope is not user-facing: {scope_text}")
+    exhibits = raw_analysis.get("exhibits")
+    if not isinstance(exhibits, list) or not exhibits:
+        issues.append("ok comparable analysis did not include exhibits")
+        return status, profile, pool_size_int, scope_text, tuple(issues)
+    if pool_size_int is not None and len(exhibits) > pool_size_int:
+        issues.append("exhibit count exceeds reported pool size")
+    for index, exhibit in enumerate(exhibits, start=1):
+        if not isinstance(exhibit, dict):
+            issues.append(f"exhibit {index} is not an object")
+            continue
+        if not str(exhibit.get("address") or "").strip():
+            issues.append(f"exhibit {index} has blank address")
+        if not str(exhibit.get("neighborhood") or "").strip():
+            issues.append(f"exhibit {index} has blank neighborhood")
+        lat = exhibit.get("lat")
+        lon = exhibit.get("lon")
+        if not isinstance(lat, int | float) or not isinstance(lon, int | float):
+            issues.append(f"exhibit {index} missing coordinates")
+        elif not (41.0 <= lat <= 43.0 and -89.0 <= lon <= -87.0):
+            issues.append(f"exhibit {index} coordinates are outside Cook County bounds")
+        if not _positive_number(exhibit.get("building_sqft")):
+            issues.append(f"exhibit {index} missing positive building sqft")
+        metric_value = exhibit.get("metric_value")
+        metric_psf = exhibit.get("metric_per_sqft")
+        if not _positive_number(metric_value):
+            issues.append(f"exhibit {index} missing positive assessment metric")
+        if not _positive_number(metric_psf) or not 1 <= float(metric_psf) <= 1000:
+            issues.append(f"exhibit {index} has implausible assessment metric per sqft")
+    return status, profile, pool_size_int, scope_text, tuple(issues)
 
 
 def _bbox_area(bbox: tuple[float, float, float, float]) -> float:
@@ -235,16 +306,18 @@ def _make_contact_sheet(images: list[Path], output_path: Path) -> Path | None:
 
 def _write_report(
     path: Path,
+    run_date: str,
     today: str,
     results: list[SmokeResult],
     contact_sheet: Path | None,
     selection_errors: list[str],
+    artifacts_kept: bool,
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
         "# Live Smoke Test - 10 Cook County Properties",
         "",
-        f"- Run date: {date.today().isoformat()}",
+        f"- Run date: {run_date}",
         f"- CLI routing date: {today}",
         f"- Configured assessment year: {ASSESSMENT_YEAR}",
         "- Data source: Cook County Socrata parcel universe plus live CLI data loads",
@@ -253,8 +326,8 @@ def _write_report(
         "",
         "## Result Summary",
         "",
-        "| # | Sample | Township | Class | PIN | CLI | Venue | Tier | PDF | Notes |",
-        "|---|---|---|---|---|---|---|---|---|---|",
+        "| # | Sample | Township | Class | PIN | CLI | Venue | Tier | Comps | PDF | Notes |",
+        "|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     for index, result in enumerate(results, start=1):
         pdf_state = "n/a"
@@ -265,15 +338,22 @@ def _write_report(
             notes.append(f"{len(result.warnings)} warning(s)")
         if result.pdf_check and result.pdf_check.issues:
             notes.extend(result.pdf_check.issues)
+        if result.comparable_issues:
+            notes.extend(result.comparable_issues)
         if result.returncode != 0:
             notes.append(_tail(result.stdout_tail or result.stderr_tail, 120).replace("|", "/"))
         note_text = "; ".join(notes) if notes else "no issues detected"
         spec = result.selected.spec
+        pool = "n/a" if result.comparable_pool_size is None else str(result.comparable_pool_size)
+        comp_state = (
+            f"{result.comparable_status}/{result.comparable_profile}/"
+            f"{result.comparable_scope or 'n/a'}/{pool}"
+        )
         lines.append(
             "| "
             f"{index} | {spec.label} | {spec.township} | {spec.property_class} | "
             f"{result.selected.pin} | {result.returncode} | {result.venue} | "
-            f"{result.evidence_tier} | {pdf_state} | {note_text} |"
+            f"{result.evidence_tier} | {comp_state} | {pdf_state} | {note_text} |"
         )
 
     lines.extend(["", "## Routing Headlines", ""])
@@ -294,10 +374,16 @@ def _write_report(
             "- First pages rendered to PNG for manual review.",
             "- No text block was allowed outside the page bounds.",
             "- Coarse overlap detection flagged any materially overlapping text blocks.",
+            "- Comparable quality checks require non-empty address/neighborhood, valid Cook "
+            "County coordinates, positive building sqft, positive assessment metric, plausible "
+            "metric per sqft, and pool size/scope consistency for every generated exhibit.",
         ]
     )
     if contact_sheet:
-        lines.append(f"- Manual first-page contact sheet: `{contact_sheet}`")
+        if artifacts_kept:
+            lines.append(f"- Manual first-page contact sheet: `{contact_sheet}`")
+        else:
+            lines.append("- Temporary rendered pages and contact sheet were removed after checks.")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -328,6 +414,11 @@ def run(args: argparse.Namespace) -> int:
         pdf_path: Path | None = None
         warnings: tuple[str, ...] = ()
         pdf_check: PdfCheck | None = None
+        comparable_status = "unknown"
+        comparable_profile = "unknown"
+        comparable_pool_size: int | None = None
+        comparable_scope: str | None = None
+        comparable_issues: tuple[str, ...] = ()
         if completed.returncode == 0:
             try:
                 payload = _extract_json(completed.stdout)
@@ -335,6 +426,13 @@ def run(args: argparse.Namespace) -> int:
                 tier = str(payload.get("evidence_tier") or "unknown")
                 headline = str(payload.get("routing_headline") or "")
                 warnings = tuple(str(item) for item in payload.get("warnings", []))
+                (
+                    comparable_status,
+                    comparable_profile,
+                    comparable_pool_size,
+                    comparable_scope,
+                    comparable_issues,
+                ) = _validate_comparable_quality(payload)
                 raw_pdf_path = payload.get("pdf_path")
                 if raw_pdf_path:
                     pdf_path = Path(str(raw_pdf_path))
@@ -353,6 +451,11 @@ def run(args: argparse.Namespace) -> int:
                 routing_headline=headline,
                 pdf_path=pdf_path,
                 pdf_check=pdf_check,
+                comparable_status=comparable_status,
+                comparable_profile=comparable_profile,
+                comparable_pool_size=comparable_pool_size,
+                comparable_scope=comparable_scope,
+                comparable_issues=comparable_issues,
                 warnings=warnings,
                 stdout_tail=_tail(completed.stdout),
                 stderr_tail=_tail(completed.stderr),
@@ -360,12 +463,23 @@ def run(args: argparse.Namespace) -> int:
         )
 
     contact_sheet = _make_contact_sheet(rendered_pages, output_dir / "pdf_contact_sheet.png")
-    _write_report(Path(args.report), args.today, results, contact_sheet, selection_errors)
+    _write_report(
+        Path(args.report),
+        args.run_date,
+        args.today,
+        results,
+        contact_sheet,
+        selection_errors,
+        bool(args.keep_artifacts),
+    )
 
     failures = [
         result
         for result in results
-        if result.returncode != 0 or result.pdf_check is None or not result.pdf_check.ok
+        if result.returncode != 0
+        or result.pdf_check is None
+        or not result.pdf_check.ok
+        or result.comparable_issues
     ]
     if selection_errors or len(results) != len(SAMPLE_SPECS) or failures:
         return 1
@@ -374,6 +488,7 @@ def run(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run 10-property live CLI/PDF smoke validation.")
+    parser.add_argument("--run-date", default=date.today().isoformat())
     parser.add_argument("--today", default=date.today().isoformat())
     parser.add_argument("--output-dir", default="tmp/live_smoke")
     parser.add_argument("--report", default="reports/live_smoke_2026-07-06.md")

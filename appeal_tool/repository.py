@@ -531,6 +531,7 @@ class SocrataRepository:
         av_rows_by_pin = _group_by_pin(avs)
         universe_by_pin = _group_by_pin(universe_rows)
         comps = []
+        missing_addresses = 0
         for row in chars:
             raw_pin = row.get("pin")
             if not raw_pin:
@@ -540,11 +541,15 @@ class SocrataRepository:
                 av_rows_by_pin.get(comp_pin, [])
             )
             universe = _latest_row(universe_by_pin[comp_pin]) if comp_pin in universe_by_pin else {}
+            address = str(_pick(universe, "prop_address_full", "property_address") or "")
+            if not address:
+                missing_addresses += 1
+                address = "Address not available from public data"
             comps.append(
                 Comparable(
                     pin=comp_pin,
                     pin_formatted=format_pin(comp_pin),
-                    address=str(_pick(universe, "prop_address_full", "property_address") or ""),
+                    address=address,
                     building_sqft=_float(_pick(row, "char_bldg_sf", "bldg_sf")),
                     year_built=_int(_pick(row, "char_yrblt", "yrblt")),
                     av=total_av,
@@ -565,6 +570,11 @@ class SocrataRepository:
         if not comps:
             warnings.append(
                 "No comparable characteristic rows were returned for the subject township/class."
+            )
+        if missing_addresses:
+            warnings.append(
+                "Comparable parcel-universe rows did not include property address fields; "
+                "comparable exhibits label those addresses as unavailable from public data."
             )
         return comps, tuple(warnings)
 

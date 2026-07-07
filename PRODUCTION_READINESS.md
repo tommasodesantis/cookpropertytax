@@ -31,7 +31,7 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - [x] Missing subject sqft/AV cases accept documented user-supplied overrides, clearly labeled as
       user-supplied in console and PDF, with actionable re-run guidance when data is missing and
       no override was given.
-- [ ] Live comparables are enriched with parcel-universe fields; the live test validates
+- [x] Live comparables are enriched with parcel-universe fields; the live test validates
       user-facing evidence quality across at least 10 diverse properties and fails on quality
       regressions; superseded live-test logic is removed.
 - [x] Local-snapshot feasibility report exists only if token-backed concurrency proves poor
@@ -151,3 +151,13 @@ Created from the mission exit criteria. Check a box only when the criterion is v
   BOR/PTAB-style profiles name `--actual-improvement-av`.
 - Added console/PDF/JSON labeling for user-supplied values and tests for completed analysis,
   actionable guidance, and non-masquerading official data.
+
+### Phase 2 Iteration 7
+
+- Expanded CLI JSON summaries with comparable profile, pool, scope, and exhibit details.
+- Replaced the old non-crash-only live smoke behavior with comparable quality checks for
+  nonblank user-facing address labels, neighborhoods, coordinates, metric values, metric/sqft,
+  pool size, and scope.
+- Reran the token-backed 10-property live smoke on 2026-07-06; the report passed and is saved at
+  `reports/live_smoke_2026-07-06.md`.
+- Documented the parcel-universe address-field blocker and fallback label in `BLOCKERS.md`.

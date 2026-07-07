@@ -37,6 +37,14 @@ def _subject_improvement_av(case: CaseFile) -> str | None:
     return None
 
 
+def _comparable_metric_value(
+    profile_key: str, comp_av: float | None, improvement_av: float | None
+) -> float | None:
+    if profile_key in {"bor", "ptab"}:
+        return improvement_av
+    return comp_av
+
+
 def console_report(
     case: CaseFile, evidence: EvidenceSummary, route: RouteResult, pdf_path: Path | None
 ) -> str:
@@ -122,6 +130,7 @@ def console_report(
 def json_summary(
     case: CaseFile, evidence: EvidenceSummary, route: RouteResult, pdf_path: Path | None
 ) -> str:
+    comps = evidence.comparable_analysis
     payload = {
         "pin": case.parcel.pin_formatted,
         "venue": route.venue,
@@ -129,11 +138,39 @@ def json_summary(
         "deadline": route.deadline.isoformat() if route.deadline else None,
         "days_remaining": route.days_remaining,
         "evidence_tier": evidence.tier,
-        "comparable_profile": evidence.comparable_analysis.profile_key,
-        "comparable_status": evidence.comparable_analysis.status,
-        "comparable_note": evidence.comparable_analysis.note,
-        "comparable_missing_data_rate": evidence.comparable_analysis.missing_data_rate,
-        "comparable_warnings": list(evidence.comparable_analysis.warnings),
+        "comparable_profile": comps.profile_key,
+        "comparable_status": comps.status,
+        "comparable_note": comps.note,
+        "comparable_missing_data_rate": comps.missing_data_rate,
+        "comparable_warnings": list(comps.warnings),
+        "comparable_analysis": {
+            "profile": comps.profile_key,
+            "profile_label": comps.profile_label,
+            "metric_label": comps.metric_label,
+            "status": comps.status,
+            "scope": comps.scope,
+            "pool_size": comps.pool_size,
+            "subject_metric_per_sqft": comps.subject_av_per_sqft,
+            "median_metric_per_sqft": comps.median_av_per_sqft,
+            "exhibits": [
+                {
+                    "pin": exhibit.comparable.pin_formatted,
+                    "address": exhibit.comparable.address,
+                    "neighborhood": exhibit.comparable.neighborhood,
+                    "lat": exhibit.comparable.lat,
+                    "lon": exhibit.comparable.lon,
+                    "building_sqft": exhibit.comparable.building_sqft,
+                    "metric_value": _comparable_metric_value(
+                        comps.profile_key,
+                        exhibit.comparable.av,
+                        exhibit.comparable.improvement_av,
+                    ),
+                    "metric_per_sqft": exhibit.av_per_sqft,
+                    "distance_km": exhibit.distance_km,
+                }
+                for exhibit in comps.exhibit
+            ],
+        },
         "estimated_savings_point": evidence.savings_assumptions.point,
         "warnings": (
             list(route.warnings)

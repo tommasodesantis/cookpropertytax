@@ -68,3 +68,19 @@
 - Runtime status: the missing-data gate is now implemented in `appeal_tool.analysis`; the public
   data blocker still applies whenever a specific condo candidate pool measures above the 50%
   missing-data threshold.
+
+## 2026-07-06 - Comparable street addresses unavailable in parcel-universe rows
+
+- Attempted source/path: Workstream 5 live smoke rerun on 2026-07-06 using
+  `SocrataRepository._load_comparables` joined to Cook County Socrata `parcel_universe`,
+  `res_characteristics`, and `assessed_values`.
+- Measured evidence: direct Socrata schema probe for `parcel_universe` rejected
+  `prop_address_full`, `property_address`, and `address` as missing columns; bulk
+  `parcel_universe` rows expose PIN, class, township, neighborhood, lat/lon, zip, and geography
+  fields, but not street addresses.
+- Why this blocks fuller user-facing comparable exhibits: the public data can enrich comparable
+  neighborhood and coordinates, but it cannot populate actual street addresses from the current
+  parcel-universe source.
+- Fallback strategy: generated comparable rows now use the explicit label
+  `Address not available from public data` instead of a blank address, and the case warnings state
+  that comparable parcel-universe rows did not include property address fields.
