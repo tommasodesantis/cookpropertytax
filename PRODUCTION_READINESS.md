@@ -24,7 +24,7 @@ Created from the mission exit criteria. Check a box only when the criterion is v
       corrected where needed, and encoded as documented per-venue comparable profiles.
 - [x] A comparable-evidence feasibility report exists with measured field availability, pool
       survival, runtime, and per-venue verdicts across at least 15 diverse real properties.
-- [ ] Venue-aware comparable selection/exhibits are implemented for every venue judged feasible;
+- [x] Venue-aware comparable selection/exhibits are implemented for every venue judged feasible;
       unavailable PTAB grid fields are explicitly marked as user-supply items, never fabricated.
 - [x] Condo comparable analysis is gated by measured missing-data rates with the <30%, 30-50%,
       and >50% behavior bands, each covered by tests; the blanket condo skip is gone.
@@ -161,3 +161,11 @@ Created from the mission exit criteria. Check a box only when the criterion is v
 - Reran the token-backed 10-property live smoke on 2026-07-06; the report passed and is saved at
   `reports/live_smoke_2026-07-06.md`.
 - Documented the parcel-universe address-field blocker and fallback label in `BLOCKERS.md`.
+
+### Phase 2 Iteration 8
+
+- Added a PTAB packet section that explicitly lists public-data limits for PTAB comparable grid
+  fields.
+- Marked unavailable PTAB property record-card/listing-sheet fields as
+  `Not available from public data - supply from your property record card`.
+- Added PDF regression coverage so the PTAB user-supply language remains in generated packets.

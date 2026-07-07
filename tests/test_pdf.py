@@ -92,3 +92,20 @@ def test_packet_labels_user_supplied_subject_values(
     text = _text(path)
     assert "user-supplied; document required" in text
     assert "Building / improvement assessed value" in text
+
+
+def test_ptab_packet_marks_unavailable_grid_fields_as_user_supply(
+    fixture_repo: FixtureRepository, tmp_path: object
+) -> None:
+    case = fixture_repo.load_case_by_pin("03-00-000-000-0001")
+    route = route_case(
+        case.parcel.township_name,
+        date(2026, 6, 1),
+        "ptab",
+        date(2026, 5, 20),
+    )
+    evidence = build_evidence_summary(case, 0.10, venue=route.venue)
+    path = write_packet(case, evidence, route, tmp_path)  # type: ignore[arg-type]
+    text = _text(path)
+    assert "PTAB Comparable Grid Public-Data Limits" in text
+    assert "Not available from public data - supply from your property record card" in text

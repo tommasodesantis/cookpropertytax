@@ -35,4 +35,19 @@ class PtabAdapter(VenueAdapter):
                 ),
             ),
             PacketSection("PTAB Checklist", self.checklist(case)),
+            PacketSection(
+                "PTAB Comparable Grid Public-Data Limits",
+                (
+                    "Public data may populate PIN, class, building sqft, year built, "
+                    "neighborhood, coordinates, land sqft, style, and assessment metrics when "
+                    "those fields are available.",
+                    "Not available from public data - supply from your property record card: "
+                    "property record cards or listing sheets for the subject and comparables.",
+                    "Not available from public data - supply from your property record card: "
+                    "verified condition, room-by-room details, photos, and any PTAB grid field "
+                    "not shown in this packet.",
+                    "Do not file the PTAB grid as complete unless you have supplied and checked "
+                    "the missing property-record-card fields yourself.",
+                ),
+            ),
         )
