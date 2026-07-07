@@ -2,6 +2,7 @@ import { NotFoundError, UserInputError } from "../domain/errors";
 import { CloudflareCacheStore, sharedMemoryCache } from "./cache";
 import { buildCasePayload } from "./casePayload";
 import { FixtureRepository, demoCases } from "./fixtureRepository";
+import { buildPrintReport } from "./printReport";
 import { SocrataRepository } from "./repository";
 import { SocrataClient, friendlyDataError } from "./socrataClient";
 
@@ -72,6 +73,21 @@ export default {
         }
         const { repo, demo } = repositoryFor(url, env);
         return json(await buildCasePayload(repo, url.searchParams, demo));
+      } catch (error) {
+        return errorResponse(error);
+      }
+    }
+
+    if (url.pathname === "/print") {
+      try {
+        if (!url.searchParams.get("pin")) {
+          throw new UserInputError("Enter a Cook County PIN.");
+        }
+        const { repo, demo } = repositoryFor(url, env);
+        const payload = await buildCasePayload(repo, url.searchParams, demo);
+        return new Response(buildPrintReport(payload), {
+          headers: { "content-type": "text/html;charset=utf-8" },
+        });
       } catch (error) {
         return errorResponse(error);
       }

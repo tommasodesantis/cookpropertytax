@@ -290,3 +290,67 @@ th {
     width: 100%;
   }
 }
+
+.print-body {
+  background: #fff;
+}
+
+.packet {
+  max-width: 58rem;
+}
+
+.packet .no-print {
+  margin-bottom: 1rem;
+}
+
+.packet-section {
+  break-inside: avoid;
+  margin: 1rem 0 1.25rem;
+}
+
+.packet-dl {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media print {
+  :root {
+    background: #fff;
+    color: #000;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  main,
+  .packet {
+    max-width: none;
+    padding: 0;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  .panel,
+  .notice,
+  .warnings,
+  .packet-section {
+    border: 0;
+    padding: 0;
+    margin: 0 0 0.6rem;
+  }
+
+  a {
+    color: #000;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}
