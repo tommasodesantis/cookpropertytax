@@ -25,6 +25,8 @@ test("print route renders required Assessor packet sections", async () => {
   expect(html).toContain("Subject Property");
   expect(html).toContain("Evidence Tier");
   expect(html).toContain("Comparable Assessments");
+  expect(html).toContain("Built Year");
+  expect(html).toContain("Assessment Year");
   expect(html).toContain("Assessor Filing Instructions");
   expect(html).toContain("Assessor Checklist");
   expect(html).toContain("Exemptions and Certificate of Error Screen");

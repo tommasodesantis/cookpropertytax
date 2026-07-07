@@ -78,6 +78,7 @@ export function comparableFromJson(raw: JsonRecord): Comparable {
     address: stringValue(raw.address),
     buildingSqft: numberValue(raw.building_sqft),
     yearBuilt: intValue(raw.year_built),
+    assessmentYear: intValue(raw.assessment_year),
     av: numberValue(raw.av),
     improvementAv: numberValue(raw.improvement_av),
     landSqft: numberValue(raw.land_sqft),

@@ -133,3 +133,6 @@ code, tests, and user-facing copy.
 - Implementation note: stale sales may be shown as informational context, but must not create an
   overvaluation argument or estimated savings. PTAB deadlines remain unrelated and are computed
   only from a user-supplied BOR decision date.
+- Phase 6 implementation: `buildEvidenceSummary` filters recorded sales and user-reported
+  purchases through this rule before assigning an overvaluation target or estimated savings.
+  Appraisals remain labeled by date; no deterministic official appraisal-age window was identified.

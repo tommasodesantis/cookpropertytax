@@ -47,6 +47,7 @@
       "building_sqft": 1750,
       "year_built": 1922,
       "av": 40000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9902,
       "lon": -87.6972
@@ -57,6 +58,7 @@
       "building_sqft": 1850,
       "year_built": 1920,
       "av": 45000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9903,
       "lon": -87.6973
@@ -67,6 +69,7 @@
       "building_sqft": 1780,
       "year_built": 1927,
       "av": 48000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9904,
       "lon": -87.6974
@@ -77,6 +80,7 @@
       "building_sqft": 1810,
       "year_built": 1926,
       "av": 50000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9905,
       "lon": -87.6975
@@ -87,6 +91,7 @@
       "building_sqft": 1700,
       "year_built": 1925,
       "av": 52000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9906,
       "lon": -87.6976
@@ -97,6 +102,7 @@
       "building_sqft": 1900,
       "year_built": 1928,
       "av": 56000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9907,
       "lon": -87.6977
@@ -107,6 +113,7 @@
       "building_sqft": 1825,
       "year_built": 1924,
       "av": 59000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9908,
       "lon": -87.6978
@@ -117,6 +124,7 @@
       "building_sqft": 1790,
       "year_built": 1923,
       "av": 61000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9909,
       "lon": -87.6979
@@ -127,6 +135,7 @@
       "building_sqft": 1600,
       "year_built": 1921,
       "av": 70000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.991,
       "lon": -87.698
@@ -137,6 +146,7 @@
       "building_sqft": 2000,
       "year_built": 1929,
       "av": 57000,
+      "assessment_year": 2025,
       "neighborhood": "0101",
       "lat": 41.9911,
       "lon": -87.6981

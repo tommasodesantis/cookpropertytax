@@ -155,7 +155,7 @@ function comparablesTable(payload: CasePayload): string {
     return `<p>${escapeHtml(comps.note)}</p>`;
   }
   return `<table>
-    <thead><tr><th>PIN</th><th>Sqft</th><th>Year</th><th>Metric</th><th>Metric/sqft</th><th>Distance</th></tr></thead>
+    <thead><tr><th>PIN</th><th>Sqft</th><th>Built Year</th><th>Assessment Year</th><th>Metric</th><th>Metric/sqft</th><th>Distance</th></tr></thead>
     <tbody>
       ${comps.exhibit
         .map(
@@ -163,6 +163,7 @@ function comparablesTable(payload: CasePayload): string {
             <td>${escapeHtml(item.comparable.pinFormatted)}</td>
             <td>${numberText(item.comparable.buildingSqft)}</td>
             <td>${escapeHtml(item.comparable.yearBuilt ?? "Not available")}</td>
+            <td>${escapeHtml(item.comparable.assessmentYear ?? "Not available")}</td>
             <td>${dollars(comparableMetric(payload, item.comparable))}</td>
             <td>${dollars(item.avPerSqft)}</td>
             <td>${item.distanceKm === null ? "Not available" : `${numberText(item.distanceKm, 2)} km`}</td>

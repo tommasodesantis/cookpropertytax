@@ -1,7 +1,14 @@
 import type { ComparableProfile } from "./comparableProfiles";
 import { ASSESSOR_PROFILE, profileForVenue } from "./comparableProfiles";
-import { ASSESSMENT_LEVEL, NOT_LEGAL_ADVICE, STATE_EQUALIZER } from "./config";
-import { estimatedSavingsRange, gapPct, medianValue, percentileRank, safeDiv } from "./math";
+import { ASSESSMENT_LEVEL, ASSESSMENT_YEAR, NOT_LEGAL_ADVICE, STATE_EQUALIZER } from "./config";
+import {
+  estimatedSavingsRange,
+  gapPct,
+  isWithinYearsOf,
+  medianValue,
+  percentileRank,
+  safeDiv,
+} from "./math";
 import type {
   ArgumentStrength,
   CaseFile,
@@ -36,6 +43,16 @@ function distanceKm(
 
 function positive(value: number | null): number | null {
   return value !== null && value > 0 ? value : null;
+}
+
+const SALE_EVIDENCE_YEARS = 3;
+const LIEN_DATE = `${ASSESSMENT_YEAR}-01-01`;
+
+function isRecentSaleEvidence(saleDate: string | null): boolean {
+  if (!saleDate) {
+    return false;
+  }
+  return saleDate <= LIEN_DATE && isWithinYearsOf(saleDate, LIEN_DATE, SALE_EVIDENCE_YEARS);
 }
 
 function similarity(subject: CaseFile, comp: Comparable): number {
@@ -452,16 +469,26 @@ export function buildEvidenceSummary(
 
   let evidenceValue: number | null = null;
   let evidenceSource: string | null = null;
-  if (caseFile.subjectSales.length > 0) {
-    const latest = [...caseFile.subjectSales].sort((a, b) =>
-      b.saleDate.localeCompare(a.saleDate),
-    )[0];
+  /*
+   * Sale-value evidence is gated to the same conservative window documented in docs/LEARNINGS.md:
+   * Cook County BOR Rule 18 treats purchases within three years of the January 1 lien date as sale
+   * evidence; CCAO and PTAB guidance also emphasize recent arm's-length sales. Older sales are too
+   * stale to drive overvaluation arguments or estimated savings.
+   */
+  const recentRecordedSales = caseFile.subjectSales.filter((sale) =>
+    isRecentSaleEvidence(sale.saleDate),
+  );
+  if (recentRecordedSales.length > 0) {
+    const latest = [...recentRecordedSales].sort((a, b) => b.saleDate.localeCompare(a.saleDate))[0];
     if (latest) {
       evidenceValue = latest.salePrice;
       evidenceSource = `recorded sale on ${latest.saleDate}`;
     }
   }
-  if (caseFile.userEvidence.purchasePrice) {
+  if (
+    caseFile.userEvidence.purchasePrice &&
+    isRecentSaleEvidence(caseFile.userEvidence.purchaseDate)
+  ) {
     evidenceValue = caseFile.userEvidence.purchasePrice;
     const when = caseFile.userEvidence.purchaseDate ?? "date n/a";
     evidenceSource = `reported purchase on ${when}`;

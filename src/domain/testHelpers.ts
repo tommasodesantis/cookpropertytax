@@ -24,6 +24,7 @@ export function makeComparable(overrides: Partial<Comparable>): Comparable {
     address: "TEST ST",
     buildingSqft: 1800,
     yearBuilt: 1924,
+    assessmentYear: null,
     av: 40000,
     improvementAv: null,
     landSqft: null,

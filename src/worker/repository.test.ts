@@ -180,6 +180,7 @@ test("SocrataRepository enriches live comparables without address placeholders",
   expect(comp?.neighborhood).toBe("0101");
   expect(comp?.lat).toBe(41.9902);
   expect(comp?.lon).toBe(-87.6972);
+  expect(comp?.assessmentYear).toBe(2025);
   expect(comp?.improvementAv).toBe(32000);
   expect(comp?.landSqft).toBe(3700);
   expect(comp?.style).toBe("1 Story|Frame|Average");

@@ -365,6 +365,18 @@ test("recorded sale drives overvaluation when no user value evidence is supplied
   expect(evidence.arguments.some((argument) => argument.text.includes("recorded sale"))).toBe(true);
 });
 
+test("stale recorded sale is excluded from overvaluation and savings", () => {
+  const caseFile = {
+    ...loadFixtureCase("03000000000030"),
+    subjectSales: [{ saleDate: "2021-03-07", salePrice: 400000, source: "recorded sale" }],
+  };
+  const evidence = buildEvidenceSummary(caseFile, 0.1);
+  expect(evidence.arguments.some((argument) => argument.argumentType === "overvaluation")).toBe(
+    false,
+  );
+  expect(evidence.savingsAssumptions.point).toBe(0);
+});
+
 test("user purchase supersedes recorded sale as value evidence", () => {
   const caseFile = {
     ...withUserEvidence(
@@ -380,6 +392,21 @@ test("user purchase supersedes recorded sale as value evidence", () => {
   expect(evidence.arguments.some((argument) => argument.text.includes("recorded sale"))).toBe(
     false,
   );
+});
+
+test("stale user purchase is excluded from overvaluation and savings", () => {
+  const caseFile = {
+    ...withUserEvidence(
+      loadFixtureCase("03000000000030"),
+      defaultUserEvidence({ purchasePrice: 400000, purchaseDate: "2021-03-07" }),
+    ),
+    subjectSales: [],
+  };
+  const evidence = buildEvidenceSummary(caseFile, 0.1);
+  expect(evidence.arguments.some((argument) => argument.argumentType === "overvaluation")).toBe(
+    false,
+  );
+  expect(evidence.savingsAssumptions.point).toBe(0);
 });
 
 test("limited evidence path has no forced recommendation", () => {

@@ -81,6 +81,7 @@ interface CasePayload {
           pinFormatted: string;
           buildingSqft: number | null;
           yearBuilt: number | null;
+          assessmentYear: number | null;
           av: number | null;
           improvementAv: number | null;
         };
@@ -486,6 +487,7 @@ function renderComparables(payload: CasePayload): string {
         <td>${escapeHtml(exhibit.comparable.pinFormatted)}</td>
         <td>${numberText(exhibit.comparable.buildingSqft)}</td>
         <td>${escapeHtml(exhibit.comparable.yearBuilt ?? "Not available")}</td>
+        <td>${escapeHtml(exhibit.comparable.assessmentYear ?? "Not available")}</td>
         <td>${dollars(metric)}</td>
         <td>${dollars(exhibit.avPerSqft)}</td>
       </tr>`;
@@ -495,7 +497,7 @@ function renderComparables(payload: CasePayload): string {
     rows.length === 0
       ? "<p>No lower-assessed comparable exhibit is available from the current public data.</p>"
       : `<div class="table-wrap"><table>
-          <thead><tr><th>PIN</th><th>Sqft</th><th>Year</th><th>Metric</th><th>Metric/sqft</th></tr></thead>
+          <thead><tr><th>PIN</th><th>Sqft</th><th>Built Year</th><th>Assessment Year</th><th>Metric</th><th>Metric/sqft</th></tr></thead>
           <tbody>${rows}</tbody>
         </table></div>`;
   return `<section class="panel" aria-labelledby="step-four">

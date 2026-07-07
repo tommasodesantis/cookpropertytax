@@ -36,6 +36,7 @@ export interface Comparable {
   address: string;
   buildingSqft: number | null;
   yearBuilt: number | null;
+  assessmentYear: number | null;
   av: number | null;
   improvementAv: number | null;
   landSqft: number | null;

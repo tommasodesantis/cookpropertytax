@@ -510,7 +510,9 @@ export class SocrataRepository implements CaseRepository {
         continue;
       }
       const compPin = normalizePin(String(row.pin));
-      const [totalAv, improvementAv] = latestAssessmentValues(avRowsByPin.get(compPin) ?? []);
+      const [totalAv, improvementAv, assessmentYear] = latestAssessmentValues(
+        avRowsByPin.get(compPin) ?? [],
+      );
       const universe = universeByPin.has(compPin)
         ? latestRow(universeByPin.get(compPin) ?? [])
         : {};
@@ -520,6 +522,7 @@ export class SocrataRepository implements CaseRepository {
         address: "",
         buildingSqft: numberValue(pick(row, "char_bldg_sf", "bldg_sf")),
         yearBuilt: intValue(pick(row, "char_yrblt", "yrblt")),
+        assessmentYear,
         av: totalAv,
         improvementAv,
         landSqft: numberValue(pick(row, "char_land_sf", "land_sf")),
