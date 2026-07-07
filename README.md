@@ -1,7 +1,7 @@
 # Appeal Compass
 
-Appeal Compass is a minimalist webapp for screening Cook County, Illinois residential parcels for
-property-tax appeal evidence.
+Appeal Compass is a webapp for screening Cook County residential parcels for property-tax appeal
+evidence.
 
 It loads public county data server-side, routes a homeowner through the Assessor -> Board of Review
 -> PTAB appeal ladder, and generates a print-optimized evidence packet that can be saved as PDF from
@@ -9,7 +9,7 @@ the browser.
 
 ## What It Does
 
-- Looks up a residential parcel by PIN, with fixture-backed demo mode for samples.
+- Looks up a residential parcel by PIN.
 - Screens public data for uniformity, sale/appraisal, factual-error, condition, and assessment-shock
   evidence.
 - Routes the case to the Cook County Assessor, Cook County Board of Review, Illinois PTAB, or a
@@ -69,9 +69,8 @@ Then open `http://127.0.0.1:8787`.
 Useful endpoints:
 
 - `GET /api/health`
-- `GET /api/demo`
-- `GET /api/case?pin=03-00-000-000-0001&demo=1`
-- `GET /print?pin=03-00-000-000-0001&demo=1`
+- `GET /api/case?pin=03-00-000-000-0001&ownershipType=individual&assessorAppealFiled=no&borAppealFiled=no`
+- `GET /print?pin=03-00-000-000-0001&ownershipType=individual&assessorAppealFiled=no&borAppealFiled=no`
 
 ## Testing
 

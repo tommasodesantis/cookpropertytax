@@ -15,15 +15,6 @@ const FIXTURES: Record<string, unknown> = {
   "03000000000040": fixture0040,
 };
 
-export interface DemoCase {
-  pin: string;
-  pinFormatted: string;
-  address: string;
-  townshipName: string;
-  propertyClass: string;
-  label: string;
-}
-
 export class FixtureRepository implements CaseRepository {
   async loadCaseByPin(pin: string): Promise<CaseFile> {
     const normalized = normalizePin(pin);
@@ -33,24 +24,4 @@ export class FixtureRepository implements CaseRepository {
     }
     return caseFileFromJson(fixture);
   }
-}
-
-export function demoCases(): DemoCase[] {
-  return Object.values(FIXTURES).map((fixture) => {
-    const caseFile = caseFileFromJson(fixture);
-    const condo = caseFile.parcel.propertyClass === "299";
-    const missingData = caseFile.parcel.buildingSqft === null;
-    return {
-      pin: caseFile.parcel.pin,
-      pinFormatted: caseFile.parcel.pinFormatted,
-      address: caseFile.parcel.address,
-      townshipName: caseFile.parcel.townshipName,
-      propertyClass: caseFile.parcel.propertyClass,
-      label: condo
-        ? "Condo missing-data sample"
-        : missingData
-          ? "Missing sqft sample"
-          : "Sample property",
-    };
-  });
 }

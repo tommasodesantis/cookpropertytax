@@ -158,7 +158,7 @@ class ClosedSessionAdapter implements VenueAdapter {
     return [
       "Verify whether any Assessor or BOR window has reopened or been corrected.",
       "Prepare comparable, sale, appraisal, condition, and factual-error evidence.",
-      "If you recently received a BOR decision, rerun with --bor-decision-date.",
+      "If you already received a BOR decision, answer the Step 1 BOR-decision question and enter the decision date so Appeal Compass can compute the PTAB deadline.",
       "For prior-year factual errors or missed exemptions, ask about Certificate of Error.",
       "Check exemptions now; exemptions may be worth more than an assessment appeal.",
     ];

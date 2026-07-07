@@ -148,6 +148,11 @@ h3 {
   background: var(--error);
 }
 
+.inline-error {
+  margin: 0;
+  box-shadow: none;
+}
+
 .progress {
   border-color: #87a9a4;
   color: var(--accent);
@@ -157,6 +162,51 @@ h3 {
 .stack {
   display: grid;
   gap: 1rem;
+}
+
+fieldset {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin: 0;
+  padding: 1rem;
+}
+
+legend {
+  padding: 0 0.25rem;
+  color: #704611;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.question-group p {
+  margin-bottom: 0.65rem;
+}
+
+.choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.choice-row label {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.55rem 0.8rem;
+  background: #fff;
+}
+
+.choice-row input {
+  width: auto;
+}
+
+.conditional {
+  margin-top: 0.9rem;
 }
 
 .lookup-grid,
@@ -358,7 +408,8 @@ th {
 
   .actions,
   button,
-  .button-link {
+  .button-link,
+  .choice-row label {
     width: 100%;
   }
 

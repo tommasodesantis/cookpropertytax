@@ -1,7 +1,7 @@
 import { NotFoundError, UserInputError } from "../domain/errors";
 import { CloudflareCacheStore, sharedMemoryCache } from "./cache";
 import { buildCasePayload } from "./casePayload";
-import { FixtureRepository, demoCases } from "./fixtureRepository";
+import { FixtureRepository } from "./fixtureRepository";
 import { buildPrintReport } from "./printReport";
 import { SocrataRepository } from "./repository";
 import { SocrataClient, friendlyDataError } from "./socrataClient";
@@ -62,10 +62,6 @@ export default {
       });
     }
 
-    if (url.pathname === "/api/demo") {
-      return json({ ok: true, cases: demoCases() });
-    }
-
     if (url.pathname === "/api/case") {
       try {
         if (!url.searchParams.get("pin")) {
@@ -91,6 +87,13 @@ export default {
       } catch (error) {
         return errorResponse(error);
       }
+    }
+
+    if (url.pathname.startsWith("/api/")) {
+      return json(
+        { ok: false, error: { kind: "not_found", message: "API endpoint not found." } },
+        404,
+      );
     }
 
     if (env.ASSETS) {

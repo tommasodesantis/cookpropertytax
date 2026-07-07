@@ -6,15 +6,6 @@ interface ApiError {
   };
 }
 
-interface DemoCase {
-  pin: string;
-  pinFormatted: string;
-  address: string;
-  townshipName: string;
-  propertyClass: string;
-  label: string;
-}
-
 interface CasePayload {
   ok: true;
   demo: boolean;
@@ -118,6 +109,9 @@ const money = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
+const ENTITY_REFUSAL_MESSAGE =
+  "Appeal Compass is designed only for individual residential homeowners appealing their own home; entity-owned, commercial, and association properties are not supported and generally require an attorney.";
+
 function escapeHtml(value: unknown): string {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -153,7 +147,13 @@ function formValue(form: HTMLFormElement, name: string): string {
 
 function addOptionalParams(params: URLSearchParams, form: HTMLFormElement): void {
   const names = [
+    "jurisdiction",
     "venue",
+    "ownershipType",
+    "assessorAppealFiled",
+    "assessorDecisionReceived",
+    "borAppealFiled",
+    "borDecisionReceived",
     "borDecisionDate",
     "purchasePrice",
     "purchaseDate",
@@ -162,7 +162,6 @@ function addOptionalParams(params: URLSearchParams, form: HTMLFormElement): void
     "actualSqft",
     "actualAv",
     "actualImprovementAv",
-    "ownershipType",
   ];
   for (const name of names) {
     const value = formValue(form, name);
@@ -178,7 +177,6 @@ function addOptionalParams(params: URLSearchParams, form: HTMLFormElement): void
     "personDisabled",
     "vacancyClaim",
     "demolitionClaim",
-    "assessorAppealFiled",
   ]) {
     if ((form.elements.namedItem(flag) as HTMLInputElement | null)?.checked) {
       params.set(flag, "1");
@@ -245,13 +243,73 @@ function shell(): void {
       <div class="step-label">Step 1</div>
       <h2 id="step-one">Find the property</h2>
       <form id="case-form" class="stack">
+        <div id="form-error" aria-live="polite"></div>
+        <label>
+          <span>Jurisdiction</span>
+          <select name="jurisdiction" required>
+            <option value="cook_county_il" selected>Cook County, Illinois</option>
+          </select>
+        </label>
+        <p class="hint">More jurisdictions may be added - this is an open-source project.</p>
         <div class="lookup-grid">
           <label>
             <span>PIN</span>
-            <input name="pin" autocomplete="off" inputmode="numeric" placeholder="03-00-000-000-0001">
+            <input name="pin" autocomplete="off" inputmode="numeric" placeholder="03-00-000-000-0001" required>
           </label>
         </div>
         <p class="hint pin-help">Don't know your PIN? You can recover it from the <a href="https://www.cookcountypropertyinfo.com/" target="_blank" rel="noreferrer">Cook County Property Tax Portal<span class="sr-only"> (opens in new tab)</span></a>.</p>
+
+        <fieldset class="question-group">
+          <legend>Ownership type</legend>
+          <label>
+            <span>Who owns the property?</span>
+            <select name="ownershipType" required>
+              <option value="">Choose ownership type</option>
+              <option value="individual">Individual</option>
+              <option value="llc">LLC</option>
+              <option value="corporation">Corporation</option>
+              <option value="other">Other entity</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>Assessor appeal status</legend>
+          <p>Have you already filed an Assessor appeal for this year?</p>
+          <div class="choice-row">
+            <label><input type="radio" name="assessorAppealFiled" value="yes" required><span>Yes</span></label>
+            <label><input type="radio" name="assessorAppealFiled" value="no" required><span>No</span></label>
+          </div>
+          <div class="conditional" data-conditional="assessorDecision" hidden>
+            <p>Have you already received the Assessor decision?</p>
+            <div class="choice-row">
+              <label><input type="radio" name="assessorDecisionReceived" value="yes"><span>Yes</span></label>
+              <label><input type="radio" name="assessorDecisionReceived" value="no"><span>No</span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="question-group">
+          <legend>Board of Review appeal status</legend>
+          <p>Have you already filed a Board of Review appeal for this year?</p>
+          <div class="choice-row">
+            <label><input type="radio" name="borAppealFiled" value="yes" required><span>Yes</span></label>
+            <label><input type="radio" name="borAppealFiled" value="no" required><span>No</span></label>
+          </div>
+          <div class="conditional" data-conditional="borDecision" hidden>
+            <p>Have you already received the BOR decision?</p>
+            <div class="choice-row">
+              <label><input type="radio" name="borDecisionReceived" value="yes"><span>Yes</span></label>
+              <label><input type="radio" name="borDecisionReceived" value="no"><span>No</span></label>
+            </div>
+          </div>
+          <div class="conditional" data-conditional="borDecisionDate" hidden>
+            <label>
+              <span>BOR decision date</span>
+              <input name="borDecisionDate" type="date">
+            </label>
+          </div>
+        </fieldset>
 
         <details class="evidence">
           <summary>Add your own evidence</summary>
@@ -264,10 +322,6 @@ function shell(): void {
                 <option value="bor">Board of Review</option>
                 <option value="ptab">PTAB</option>
               </select>
-            </label>
-            <label>
-              <span>BOR decision date for PTAB</span>
-              <input name="borDecisionDate" type="date">
             </label>
             <label>
               <span>Purchase price</span>
@@ -297,15 +351,6 @@ function shell(): void {
               <span>Actual improvement AV</span>
               <input name="actualImprovementAv" inputmode="decimal">
             </label>
-            <label>
-              <span>Ownership</span>
-              <select name="ownershipType">
-                <option value="individual">Individual</option>
-                <option value="llc">LLC</option>
-                <option value="corporation">Corporation</option>
-                <option value="other">Other entity</option>
-              </select>
-            </label>
           </div>
           <p id="actual-help" class="hint">User-supplied values are labeled documentation-required and are used only when official public data is missing.</p>
           <label>
@@ -321,7 +366,6 @@ function shell(): void {
               ["personDisabled", "Person with disability"],
               ["vacancyClaim", "Vacancy claim"],
               ["demolitionClaim", "Demolition claim"],
-              ["assessorAppealFiled", "Already filed Assessor appeal"],
             ]
               .map(
                 ([name, label]) =>
@@ -333,16 +377,80 @@ function shell(): void {
 
         <div class="actions">
           <button type="submit">Review my case</button>
-          <button type="button" id="demo-button" class="secondary">Try a sample property</button>
         </div>
       </form>
-      <div id="demo-list" class="demo-list" aria-live="polite"></div>
     </section>
 
     <div id="progress"></div>
     <div id="results"></div>
     ${siteFooter()}
   `;
+}
+
+function setFormError(message: string): void {
+  const target = document.querySelector<HTMLElement>("#form-error");
+  if (!target) {
+    return;
+  }
+  target.innerHTML = message
+    ? `<section class="error inline-error" role="alert">${escapeHtml(message)}</section>`
+    : "";
+}
+
+function checkedValue(form: HTMLFormElement, name: string): string {
+  const value = new FormData(form).get(name);
+  return typeof value === "string" ? value : "";
+}
+
+function setConditional(form: HTMLFormElement, name: string, show: boolean): void {
+  const section = form.querySelector<HTMLElement>(`[data-conditional="${name}"]`);
+  if (!section) {
+    return;
+  }
+  section.hidden = !show;
+  for (const element of Array.from(section.querySelectorAll("input, select, textarea"))) {
+    if (
+      !(
+        element instanceof HTMLInputElement ||
+        element instanceof HTMLSelectElement ||
+        element instanceof HTMLTextAreaElement
+      )
+    ) {
+      continue;
+    }
+    const input = element;
+    input.disabled = !show;
+    input.required = show;
+    if (!show) {
+      if (input instanceof HTMLInputElement && input.type === "radio") {
+        input.checked = false;
+      } else {
+        input.value = "";
+      }
+    }
+  }
+}
+
+function updateConditionalFields(form: HTMLFormElement): void {
+  const assessorFiled = checkedValue(form, "assessorAppealFiled") === "yes";
+  const borFiled = checkedValue(form, "borAppealFiled") === "yes";
+  const borDecisionReceived = checkedValue(form, "borDecisionReceived") === "yes";
+  setConditional(form, "assessorDecision", assessorFiled);
+  setConditional(form, "borDecision", borFiled);
+  setConditional(form, "borDecisionDate", borFiled && borDecisionReceived);
+}
+
+function validateStepOne(form: HTMLFormElement): boolean {
+  setFormError("");
+  updateConditionalFields(form);
+  if (!form.reportValidity()) {
+    return false;
+  }
+  if (formValue(form, "ownershipType") !== "individual") {
+    setFormError(ENTITY_REFUSAL_MESSAGE);
+    return false;
+  }
+  return true;
 }
 
 function warningList(warnings: string[]): string {
@@ -521,6 +629,9 @@ async function loadCase(params: URLSearchParams): Promise<void> {
 }
 
 async function submitCase(form: HTMLFormElement): Promise<void> {
+  if (!validateStepOne(form)) {
+    return;
+  }
   const params = new URLSearchParams();
   const pin = formValue(form, "pin");
   addOptionalParams(params, form);
@@ -535,30 +646,12 @@ async function submitCase(form: HTMLFormElement): Promise<void> {
   }
 }
 
-async function showDemoCases(): Promise<void> {
-  const target = document.querySelector<HTMLElement>("#demo-list");
-  if (!target) {
-    return;
-  }
-  target.innerHTML = progressHtml("Loading sample properties...");
-  try {
-    const payload = await fetchJson<{ ok: true; cases: DemoCase[] }>("/api/demo");
-    target.innerHTML = `<h3>Sample properties</h3>${payload.cases
-      .map(
-        (item) =>
-          `<button class="candidate" type="button" data-demo-pin="${escapeHtml(item.pin)}">${escapeHtml(
-            item.label,
-          )}: ${escapeHtml(item.pinFormatted)} ${escapeHtml(item.address)}</button>`,
-      )
-      .join("")}`;
-  } catch (error) {
-    target.innerHTML = `<section class="error" role="alert">${escapeHtml(
-      error instanceof Error ? error.message : "Sample properties could not be loaded.",
-    )}</section>`;
-  }
-}
-
 shell();
+
+const form = document.querySelector<HTMLFormElement>("#case-form");
+if (form) {
+  updateConditionalFields(form);
+}
 
 document.addEventListener("submit", (event) => {
   const form = event.target;
@@ -568,22 +661,18 @@ document.addEventListener("submit", (event) => {
   }
 });
 
-document.addEventListener("click", (event) => {
+document.addEventListener("change", (event) => {
   const target = event.target;
-  if (!(target instanceof HTMLElement)) {
-    return;
-  }
-  if (target.id === "demo-button") {
-    void showDemoCases();
-  }
-  const demoPin = target.getAttribute("data-demo-pin");
-  if (demoPin) {
-    const params = new URLSearchParams({ demo: "1", pin: demoPin });
-    const form = document.querySelector<HTMLFormElement>("#case-form");
-    if (form) {
-      addOptionalParams(params, form);
+  if (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLSelectElement ||
+    target instanceof HTMLTextAreaElement
+  ) {
+    const activeForm = target.form;
+    if (activeForm?.id === "case-form") {
+      setFormError("");
+      updateConditionalFields(activeForm);
     }
-    void loadCase(params);
   }
 });
 

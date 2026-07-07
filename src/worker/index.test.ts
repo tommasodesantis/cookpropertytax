@@ -1,5 +1,7 @@
 import worker from "./index";
 
+const REQUIRED_STEP_ONE = "ownershipType=individual&assessorAppealFiled=no&borAppealFiled=no";
+
 test("health endpoint returns a JSON status", async () => {
   const response = await worker.fetch(new Request("http://example.test/api/health"), {});
   expect(response.status).toBe(200);
@@ -11,7 +13,9 @@ test("health endpoint returns a JSON status", async () => {
 
 test("fixture-mode case endpoint returns a computed case payload", async () => {
   const response = await worker.fetch(
-    new Request("http://example.test/api/case?demo=1&pin=03-00-000-000-0001&today=2025-07-10"),
+    new Request(
+      `http://example.test/api/case?demo=1&pin=03-00-000-000-0001&today=2025-07-10&${REQUIRED_STEP_ONE}`,
+    ),
     {},
   );
   expect(response.status).toBe(200);
@@ -39,7 +43,9 @@ test.each([
   "fixture endpoint handles %s at %s without crashing",
   async (pin, venue, today, expectedVenue, expectedStatus) => {
     const response = await worker.fetch(
-      new Request(`http://example.test/api/case?demo=1&pin=${pin}&venue=${venue}&today=${today}`),
+      new Request(
+        `http://example.test/api/case?demo=1&pin=${pin}&venue=${venue}&today=${today}&${REQUIRED_STEP_ONE}`,
+      ),
       {},
     );
     expect(response.status).toBe(200);
@@ -53,7 +59,7 @@ test.each([
 test("fixture endpoint surfaces PTAB needs-input and expired states", async () => {
   const needsInput = await worker.fetch(
     new Request(
-      "http://example.test/api/case?demo=1&pin=03-00-000-000-0001&venue=ptab&today=2026-06-01",
+      "http://example.test/api/case?demo=1&pin=03-00-000-000-0001&venue=ptab&today=2026-06-01&ownershipType=individual&assessorAppealFiled=yes&assessorDecisionReceived=yes&borAppealFiled=yes&borDecisionReceived=yes",
     ),
     {},
   );
@@ -64,7 +70,7 @@ test("fixture endpoint surfaces PTAB needs-input and expired states", async () =
 
   const expired = await worker.fetch(
     new Request(
-      "http://example.test/api/case?demo=1&pin=03-00-000-000-0001&venue=ptab&today=2026-07-06&borDecisionDate=2026-05-20",
+      "http://example.test/api/case?demo=1&pin=03-00-000-000-0001&venue=ptab&today=2026-07-06&ownershipType=individual&assessorAppealFiled=yes&assessorDecisionReceived=yes&borAppealFiled=yes&borDecisionReceived=yes&borDecisionDate=2026-05-20",
     ),
     {},
   );
@@ -86,6 +92,43 @@ test("case endpoint returns user-facing errors", async () => {
       kind: "input",
     },
   });
+});
+
+test("case endpoint refuses entity-owned properties before assessment", async () => {
+  const response = await worker.fetch(
+    new Request(
+      "http://example.test/api/case?demo=1&pin=03-00-000-000-0001&ownershipType=llc&assessorAppealFiled=no&borAppealFiled=no",
+    ),
+    {},
+  );
+  expect(response.status).toBe(400);
+  await expect(response.json()).resolves.toMatchObject({
+    ok: false,
+    error: {
+      kind: "input",
+      message:
+        "Appeal Compass is designed only for individual residential homeowners appealing their own home; entity-owned, commercial, and association properties are not supported and generally require an attorney.",
+    },
+  });
+});
+
+test("case endpoint rejects unsupported jurisdictions", async () => {
+  const response = await worker.fetch(
+    new Request(
+      `http://example.test/api/case?demo=1&pin=03-00-000-000-0001&jurisdiction=other&${REQUIRED_STEP_ONE}`,
+    ),
+    {},
+  );
+  expect(response.status).toBe(400);
+  await expect(response.json()).resolves.toMatchObject({
+    ok: false,
+    error: { kind: "input" },
+  });
+});
+
+test("public demo endpoint is removed", async () => {
+  const response = await worker.fetch(new Request("http://example.test/api/demo"), {});
+  expect(response.status).toBe(404);
 });
 
 interface CasePayloadLike {

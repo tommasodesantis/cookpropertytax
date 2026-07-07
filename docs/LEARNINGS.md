@@ -101,9 +101,9 @@ code, tests, and user-facing copy.
 
 ## Product Honesty Requirements
 
-- Show `NOT LEGAL ADVICE. This tool is for pro se individual residential filers. Entities such as
-  LLCs, corporations, and condo associations generally require an attorney.` in every results view
-  and printable packet.
+- Show `NOT LEGAL ADVICE. Appeal Compass supports only individual residential homeowners appealing
+  their own home. Entity-owned properties, commercial properties, and association properties are
+  not supported and generally require an attorney.` in every results view and printable packet.
 - Every deadline must carry a link to the official venue source and the instruction to verify at
   the official source before filing.
 - PTAB deadlines are computed only from a user-entered BOR decision date. If no date is provided,

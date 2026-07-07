@@ -1,4 +1,5 @@
 export type Venue = "auto" | "assessor" | "bor" | "ptab";
+export type Jurisdiction = "cook_county_il";
 export type ResolvedVenue = "assessor" | "bor" | "ptab" | "closed";
 export type EvidenceTier = "STRONG" | "MODERATE" | "LIMITED";
 export type ActionStatus = "open" | "upcoming" | "closed" | "urgent" | "expired" | "needs_input";
@@ -73,7 +74,11 @@ export interface UserEvidence {
   personDisabled: boolean | null;
   vacancyClaim: boolean;
   demolitionClaim: boolean;
-  assessorAppealFiled: boolean;
+  assessorAppealFiled: boolean | null;
+  assessorDecisionReceived: boolean | null;
+  borAppealFiled: boolean | null;
+  borDecisionReceived: boolean | null;
+  borDecisionDate: string | null;
   actualSqft: number | null;
   actualAv: number | null;
   actualImprovementAv: number | null;
@@ -169,7 +174,11 @@ export function defaultUserEvidence(overrides: Partial<UserEvidence> = {}): User
     personDisabled: null,
     vacancyClaim: false,
     demolitionClaim: false,
-    assessorAppealFiled: false,
+    assessorAppealFiled: null,
+    assessorDecisionReceived: null,
+    borAppealFiled: null,
+    borDecisionReceived: null,
+    borDecisionDate: null,
     actualSqft: null,
     actualAv: null,
     actualImprovementAv: null,

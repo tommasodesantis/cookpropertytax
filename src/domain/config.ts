@@ -1,4 +1,5 @@
 import { parseMdyDate } from "./dateUtils";
+import type { Jurisdiction } from "./models";
 
 export const ASSESSMENT_YEAR = 2026;
 export const STATE_EQUALIZER = 3.0163;
@@ -13,9 +14,12 @@ export const BOR_DATES_PDF_URL =
   "https://www.cookcountyboardofreview.com/sites/g/files/ywwepo261/files/document/file/2025-07/2025TOWNSHIPOPEN-CLOSE.pdf";
 export const PTAB_OFFICIAL_URL = "https://ptab.illinois.gov/";
 export const PTAB_EFILE_URL = "https://ptab.illinois.gov/";
+export const SUPPORTED_JURISDICTIONS: Record<Jurisdiction, string> = {
+  cook_county_il: "Cook County, Illinois",
+};
 
 export const NOT_LEGAL_ADVICE =
-  "NOT LEGAL ADVICE. This tool is for pro se individual residential filers. Entities such as LLCs, corporations, and condo associations generally require an attorney.";
+  "NOT LEGAL ADVICE. Appeal Compass supports only individual residential homeowners appealing their own home. Entity-owned properties, commercial properties, and association properties are not supported and generally require an attorney.";
 
 export type WindowStatus = "upcoming" | "open" | "closed";
 
