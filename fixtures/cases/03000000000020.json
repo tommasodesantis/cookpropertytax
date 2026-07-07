@@ -1,0 +1,35 @@
+{
+  "parcel": {
+    "pin": "03000000000020",
+    "property_class": "299",
+    "township_name": "Rogers Park",
+    "township_code": "01",
+    "neighborhood": "0199",
+    "address": "1002 N MOZART ST UNIT 2",
+    "city": "CHICAGO",
+    "zip_code": "60645",
+    "building_sqft": null,
+    "land_sqft": null,
+    "year_built": 1978,
+    "beds": null,
+    "full_baths": null,
+    "lat": 41.99015,
+    "lon": -87.69715,
+    "current_av": 30000,
+    "prior_final_av": 29000
+  },
+  "assessment_history": [
+    {
+      "year": 2025,
+      "mailed_av": 30000,
+      "certified_av": null,
+      "board_av": null,
+      "final_av": 30000
+    }
+  ],
+  "subject_sales": [],
+  "comparables": [],
+  "data_warnings": [
+    "Condo unit square footage missing from public fixture; sqft uniformity should degrade gracefully."
+  ]
+}

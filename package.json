@@ -7,7 +7,7 @@
     "build": "npm run build:web",
     "build:web": "esbuild src/web/app.ts --bundle --format=esm --target=es2022 --minify --outfile=public/app.js",
     "dev": "wrangler dev",
-    "format": "biome format --write src public docs package.json tsconfig.json vitest.config.ts wrangler.jsonc biome.json",
+    "format": "biome check --write src public docs package.json tsconfig.json vitest.config.ts wrangler.jsonc biome.json",
     "lint": "biome check src public docs package.json tsconfig.json vitest.config.ts wrangler.jsonc biome.json",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",

@@ -1,0 +1,145 @@
+{
+  "parcel": {
+    "pin": "03000000000001",
+    "property_class": "203",
+    "township_name": "Rogers Park",
+    "township_code": "01",
+    "neighborhood": "0101",
+    "address": "1000 N MOZART ST",
+    "city": "CHICAGO",
+    "zip_code": "60645",
+    "building_sqft": 1800,
+    "land_sqft": 3750,
+    "year_built": 1924,
+    "beds": 3,
+    "full_baths": 2,
+    "lat": 41.9901,
+    "lon": -87.6971,
+    "current_av": 60000,
+    "prior_final_av": 48000
+  },
+  "assessment_history": [
+    {
+      "year": 2024,
+      "mailed_av": 47000,
+      "certified_av": 48000,
+      "board_av": 48000,
+      "final_av": 48000
+    },
+    {
+      "year": 2025,
+      "mailed_av": 60000,
+      "certified_av": null,
+      "board_av": null,
+      "final_av": 60000
+    }
+  ],
+  "subject_sales": [
+    {
+      "sale_date": "2024-06-15",
+      "sale_price": 470000
+    }
+  ],
+  "comparables": [
+    {
+      "pin": "03000000000002",
+      "address": "1004 N MOZART ST",
+      "building_sqft": 1750,
+      "year_built": 1922,
+      "av": 40000,
+      "neighborhood": "0101",
+      "lat": 41.9902,
+      "lon": -87.6972
+    },
+    {
+      "pin": "03000000000003",
+      "address": "1008 N MOZART ST",
+      "building_sqft": 1850,
+      "year_built": 1920,
+      "av": 45000,
+      "neighborhood": "0101",
+      "lat": 41.9903,
+      "lon": -87.6973
+    },
+    {
+      "pin": "03000000000004",
+      "address": "1012 N MOZART ST",
+      "building_sqft": 1780,
+      "year_built": 1927,
+      "av": 48000,
+      "neighborhood": "0101",
+      "lat": 41.9904,
+      "lon": -87.6974
+    },
+    {
+      "pin": "03000000000005",
+      "address": "1016 N MOZART ST",
+      "building_sqft": 1810,
+      "year_built": 1926,
+      "av": 50000,
+      "neighborhood": "0101",
+      "lat": 41.9905,
+      "lon": -87.6975
+    },
+    {
+      "pin": "03000000000006",
+      "address": "1020 N MOZART ST",
+      "building_sqft": 1700,
+      "year_built": 1925,
+      "av": 52000,
+      "neighborhood": "0101",
+      "lat": 41.9906,
+      "lon": -87.6976
+    },
+    {
+      "pin": "03000000000007",
+      "address": "1024 N MOZART ST",
+      "building_sqft": 1900,
+      "year_built": 1928,
+      "av": 56000,
+      "neighborhood": "0101",
+      "lat": 41.9907,
+      "lon": -87.6977
+    },
+    {
+      "pin": "03000000000008",
+      "address": "1028 N MOZART ST",
+      "building_sqft": 1825,
+      "year_built": 1924,
+      "av": 59000,
+      "neighborhood": "0101",
+      "lat": 41.9908,
+      "lon": -87.6978
+    },
+    {
+      "pin": "03000000000009",
+      "address": "1032 N MOZART ST",
+      "building_sqft": 1790,
+      "year_built": 1923,
+      "av": 61000,
+      "neighborhood": "0101",
+      "lat": 41.9909,
+      "lon": -87.6979
+    },
+    {
+      "pin": "03000000000010",
+      "address": "1036 N MOZART ST",
+      "building_sqft": 1600,
+      "year_built": 1921,
+      "av": 70000,
+      "neighborhood": "0101",
+      "lat": 41.991,
+      "lon": -87.698
+    },
+    {
+      "pin": "03000000000011",
+      "address": "1040 N MOZART ST",
+      "building_sqft": 2000,
+      "year_built": 1929,
+      "av": 57000,
+      "neighborhood": "0101",
+      "lat": 41.9911,
+      "lon": -87.6981
+    }
+  ]
+}

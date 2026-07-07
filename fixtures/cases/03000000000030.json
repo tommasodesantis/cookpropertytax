@@ -1,0 +1,35 @@
+{
+  "parcel": {
+    "pin": "03000000000030",
+    "property_class": "203",
+    "township_name": "Rogers Park",
+    "township_code": "01",
+    "neighborhood": "0102",
+    "address": "2000 W SAMPLE AVE",
+    "city": "CHICAGO",
+    "zip_code": "60645",
+    "building_sqft": null,
+    "land_sqft": 3100,
+    "year_built": 1915,
+    "beds": 2,
+    "full_baths": 1,
+    "lat": null,
+    "lon": null,
+    "current_av": 45000,
+    "prior_final_av": 43000
+  },
+  "assessment_history": [
+    {
+      "year": 2025,
+      "mailed_av": 45000,
+      "certified_av": null,
+      "board_av": null,
+      "final_av": 45000
+    }
+  ],
+  "subject_sales": [],
+  "comparables": [],
+  "data_warnings": [
+    "Missing residential building square footage in public fixture."
+  ]
+}
