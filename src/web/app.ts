@@ -88,7 +88,6 @@ interface CasePayload {
         distanceKm: number | null;
         comparable: {
           pinFormatted: string;
-          address: string;
           buildingSqft: number | null;
           yearBuilt: number | null;
           av: number | null;
@@ -226,7 +225,7 @@ function shell(): void {
     <header class="topline">
       <p class="eyebrow">Cook County residential appeals</p>
       <h1>Check whether your property-tax assessment is worth appealing.</h1>
-      <p class="lede">Enter a PIN or search an address. A PIN is the 14-digit parcel number on your assessment notice, tax bill, or property record card.</p>
+      <p class="lede">Enter a PIN. A PIN is the 14-digit parcel number on your assessment notice, tax bill, or property record card.</p>
     </header>
 
     <section class="panel" aria-labelledby="step-one">
@@ -238,11 +237,8 @@ function shell(): void {
             <span>PIN</span>
             <input name="pin" autocomplete="off" inputmode="numeric" placeholder="03-00-000-000-0001">
           </label>
-          <label>
-            <span>Address search</span>
-            <input name="address" autocomplete="street-address" placeholder="1000 N Mozart">
-          </label>
         </div>
+        <p class="hint pin-help">Don't know your PIN? You can recover it from the <a href="https://www.cookcountypropertyinfo.com/" target="_blank" rel="noreferrer">Cook County Property Tax Portal<span class="sr-only"> (opens in new tab)</span></a>.</p>
 
         <details class="evidence">
           <summary>Add your own evidence</summary>
@@ -328,7 +324,6 @@ function shell(): void {
         </div>
       </form>
       <div id="demo-list" class="demo-list" aria-live="polite"></div>
-      <div id="address-results" class="address-results" aria-live="polite"></div>
     </section>
 
     <div id="progress"></div>
@@ -374,7 +369,6 @@ function renderComparables(payload: CasePayload): string {
           : exhibit.comparable.improvementAv;
       return `<tr>
         <td>${escapeHtml(exhibit.comparable.pinFormatted)}</td>
-        <td>${escapeHtml(exhibit.comparable.address)}</td>
         <td>${numberText(exhibit.comparable.buildingSqft)}</td>
         <td>${escapeHtml(exhibit.comparable.yearBuilt ?? "Not available")}</td>
         <td>${dollars(metric)}</td>
@@ -386,7 +380,7 @@ function renderComparables(payload: CasePayload): string {
     rows.length === 0
       ? "<p>No lower-assessed comparable exhibit is available from the current public data.</p>"
       : `<div class="table-wrap"><table>
-          <thead><tr><th>PIN</th><th>Address</th><th>Sqft</th><th>Year</th><th>Metric</th><th>Metric/sqft</th></tr></thead>
+          <thead><tr><th>PIN</th><th>Sqft</th><th>Year</th><th>Metric</th><th>Metric/sqft</th></tr></thead>
           <tbody>${rows}</tbody>
         </table></div>`;
   return `<section class="panel" aria-labelledby="step-four">
@@ -426,6 +420,9 @@ function renderComparables(payload: CasePayload): string {
 
 function renderResults(payload: CasePayload, query: URLSearchParams): void {
   const subject = payload.case.parcel;
+  const subjectAddress = [subject.address, subject.city, subject.zipCode]
+    .filter(Boolean)
+    .join(", ");
   const userValues = [
     payload.case.userEvidence.actualSqft
       ? `Actual sqft ${numberText(payload.case.userEvidence.actualSqft)}`
@@ -461,7 +458,7 @@ function renderResults(payload: CasePayload, query: URLSearchParams): void {
       <h2>Subject property</h2>
       <dl>
         <div><dt>PIN</dt><dd>${escapeHtml(subject.pinFormatted)}</dd></div>
-        <div><dt>Address</dt><dd>${escapeHtml([subject.address, subject.city, subject.zipCode].filter(Boolean).join(", ") || "Not available from public data")}</dd></div>
+        ${subjectAddress ? `<div><dt>Address</dt><dd>${escapeHtml(subjectAddress)}</dd></div>` : ""}
         <div><dt>Class / township</dt><dd>${escapeHtml(subject.propertyClass)} / ${escapeHtml(subject.townshipName)}</dd></div>
         <div><dt>Building sqft</dt><dd>${numberText(subject.buildingSqft)}</dd></div>
         <div><dt>Total AV</dt><dd>${dollars(subject.currentAv)}</dd></div>
@@ -512,52 +509,15 @@ async function loadCase(params: URLSearchParams): Promise<void> {
 async function submitCase(form: HTMLFormElement): Promise<void> {
   const params = new URLSearchParams();
   const pin = formValue(form, "pin");
-  const address = formValue(form, "address");
   addOptionalParams(params, form);
   if (pin) {
     params.set("pin", pin);
     await loadCase(params);
     return;
   }
-  if (address) {
-    const addressResults = document.querySelector<HTMLElement>("#address-results");
-    if (addressResults) {
-      addressResults.innerHTML = progressHtml("Searching addresses...");
-    }
-    try {
-      const result = await fetchJson<{
-        ok: true;
-        candidates: Array<{
-          pin: string;
-          pinFormatted: string;
-          address: string;
-          townshipName: string;
-        }>;
-      }>(`/api/address?q=${encodeURIComponent(address)}`);
-      if (addressResults) {
-        addressResults.innerHTML = result.candidates.length
-          ? `<h3>Choose a property</h3>${result.candidates
-              .map(
-                (candidate) =>
-                  `<button class="candidate" type="button" data-pin="${escapeHtml(candidate.pin)}">${escapeHtml(
-                    candidate.pinFormatted,
-                  )} ${escapeHtml(candidate.address)} ${escapeHtml(candidate.townshipName)}</button>`,
-              )
-              .join("")}`
-          : "<p>No address matches found. Try the PIN if you have it.</p>";
-      }
-    } catch (error) {
-      if (addressResults) {
-        addressResults.innerHTML = `<section class="error" role="alert">${escapeHtml(
-          error instanceof Error ? error.message : "Address search failed.",
-        )}</section>`;
-      }
-    }
-    return;
-  }
   const target = document.querySelector<HTMLElement>("#results");
   if (target) {
-    target.innerHTML = `<section class="error" role="alert">Enter a PIN or address.</section>`;
+    target.innerHTML = `<section class="error" role="alert">Enter a PIN.</section>`;
   }
 }
 
@@ -605,15 +565,6 @@ document.addEventListener("click", (event) => {
   const demoPin = target.getAttribute("data-demo-pin");
   if (demoPin) {
     const params = new URLSearchParams({ demo: "1", pin: demoPin });
-    const form = document.querySelector<HTMLFormElement>("#case-form");
-    if (form) {
-      addOptionalParams(params, form);
-    }
-    void loadCase(params);
-  }
-  const pin = target.getAttribute("data-pin");
-  if (pin) {
-    const params = new URLSearchParams({ pin });
     const form = document.querySelector<HTMLFormElement>("#case-form");
     if (form) {
       addOptionalParams(params, form);

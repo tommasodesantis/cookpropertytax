@@ -93,19 +93,6 @@ export default {
       }
     }
 
-    if (url.pathname === "/api/address") {
-      try {
-        const query = url.searchParams.get("q") ?? "";
-        if (query.trim().length < 3) {
-          throw new UserInputError("Enter at least three address characters.");
-        }
-        const { repo, demo } = repositoryFor(url, env);
-        return json({ ok: true, demo, candidates: await repo.lookupAddress(query) });
-      } catch (error) {
-        return errorResponse(error);
-      }
-    }
-
     if (env.ASSETS) {
       return env.ASSETS.fetch(request);
     }

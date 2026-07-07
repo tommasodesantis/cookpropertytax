@@ -1,21 +1,13 @@
 import { numberValue } from "../domain/caseSerde";
 import { ASSESSMENT_YEAR } from "../domain/config";
 import { NotFoundError } from "../domain/errors";
-import type {
-  AddressCandidate,
-  AssessmentHistoryRow,
-  CaseFile,
-  Comparable,
-  Parcel,
-  Sale,
-} from "../domain/models";
+import type { AssessmentHistoryRow, CaseFile, Comparable, Parcel, Sale } from "../domain/models";
 import { defaultUserEvidence } from "../domain/models";
 import { formatPin, normalizePin } from "../domain/pin";
 import type { JsonRecord, SocrataClient, SocrataResponse } from "./socrataClient";
 
 export interface CaseRepository {
   loadCaseByPin(pin: string): Promise<CaseFile>;
-  lookupAddress(query: string): Promise<AddressCandidate[]>;
 }
 
 const SUBJECT_MAX_ROWS = 100;
@@ -335,11 +327,6 @@ export class SocrataRepository implements CaseRepository {
       currentImprovementAv: currentImprovement,
       priorFinalAv: null,
     };
-    if (!parcel.address) {
-      warnings.push(
-        "The live parcel universe response did not include a property address; the packet identifies the subject by PIN, township, and class.",
-      );
-    }
     if (current === null) {
       warnings.push(
         "Current assessed value was unavailable; savings and market-value estimates are limited.",
@@ -359,40 +346,6 @@ export class SocrataRepository implements CaseRepository {
       userEvidence: defaultUserEvidence(),
       dataWarnings: unique(warnings),
     };
-  }
-
-  async lookupAddress(query: string): Promise<AddressCandidate[]> {
-    const escaped = query.toUpperCase().trim().replace(/\s+/g, " ").replace(/'/g, "''");
-    const rows = (
-      await this.client.fetchAll(
-        "parcel_universe",
-        {
-          $select: PARCEL_SELECT,
-          $where: `upper(prop_address_full) like '%${escaped}%'`,
-        },
-        { maxRows: 20 },
-      )
-    ).rows;
-    const seen = new Set<string>();
-    const candidates: AddressCandidate[] = [];
-    for (const row of rows) {
-      if (!row.pin) {
-        continue;
-      }
-      const pin = normalizePin(String(row.pin));
-      if (seen.has(pin)) {
-        continue;
-      }
-      seen.add(pin);
-      candidates.push({
-        pin,
-        pinFormatted: formatPin(pin),
-        address: stringValue(pick(row, "prop_address_full")),
-        townshipName: stringValue(pick(row, "township_name")),
-        propertyClass: stringValue(pick(row, "class")),
-      });
-    }
-    return candidates;
   }
 
   private async loadSales(pin: string): Promise<[Sale[], string[]]> {
@@ -516,7 +469,6 @@ export class SocrataRepository implements CaseRepository {
     const avRowsByPin = groupByPin(avs);
     const universeByPin = groupByPin(universeRows);
     const comps: Comparable[] = [];
-    let missingAddresses = 0;
     for (const row of chars) {
       if (!row.pin) {
         continue;
@@ -526,15 +478,10 @@ export class SocrataRepository implements CaseRepository {
       const universe = universeByPin.has(compPin)
         ? latestRow(universeByPin.get(compPin) ?? [])
         : {};
-      let address = "";
-      if (!address) {
-        missingAddresses += 1;
-        address = "Address not available from public data";
-      }
       comps.push({
         pin: compPin,
         pinFormatted: formatPin(compPin),
-        address,
+        address: "",
         buildingSqft: numberValue(pick(row, "char_bldg_sf", "bldg_sf")),
         yearBuilt: intValue(pick(row, "char_yrblt", "yrblt")),
         av: totalAv,
@@ -552,11 +499,6 @@ export class SocrataRepository implements CaseRepository {
     if (comps.length === 0) {
       warnings.push(
         "No comparable characteristic rows were returned for the subject township/class.",
-      );
-    }
-    if (missingAddresses > 0) {
-      warnings.push(
-        "Comparable parcel-universe rows did not include property address fields; comparable exhibits label those addresses as unavailable from public data.",
       );
     }
     return [comps, warnings];

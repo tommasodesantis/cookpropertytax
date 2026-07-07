@@ -4,7 +4,7 @@ import fixture0030 from "../../fixtures/cases/03000000000030.json";
 import fixture0040 from "../../fixtures/cases/03000000000040.json";
 import { caseFileFromJson } from "../domain/caseSerde";
 import { NotFoundError } from "../domain/errors";
-import type { AddressCandidate, CaseFile } from "../domain/models";
+import type { CaseFile } from "../domain/models";
 import { formatPin, normalizePin } from "../domain/pin";
 import type { CaseRepository } from "./repository";
 
@@ -32,25 +32,6 @@ export class FixtureRepository implements CaseRepository {
       throw new NotFoundError(`PIN ${formatPin(normalized)} was not found in offline fixtures.`);
     }
     return caseFileFromJson(fixture);
-  }
-
-  async lookupAddress(query: string): Promise<AddressCandidate[]> {
-    const normalizedQuery = query.toUpperCase().trim().replace(/\s+/g, " ");
-    const matches: AddressCandidate[] = [];
-    for (const fixture of Object.values(FIXTURES)) {
-      const caseFile = caseFileFromJson(fixture);
-      if (!caseFile.parcel.address.toUpperCase().includes(normalizedQuery)) {
-        continue;
-      }
-      matches.push({
-        pin: caseFile.parcel.pin,
-        pinFormatted: caseFile.parcel.pinFormatted,
-        address: caseFile.parcel.address,
-        townshipName: caseFile.parcel.townshipName,
-        propertyClass: caseFile.parcel.propertyClass,
-      });
-    }
-    return matches;
   }
 }
 

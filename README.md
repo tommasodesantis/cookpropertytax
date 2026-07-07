@@ -71,7 +71,6 @@ Useful endpoints:
 - `GET /api/health`
 - `GET /api/demo`
 - `GET /api/case?pin=03-00-000-000-0001&demo=1`
-- `GET /api/address?q=MOZART&demo=1`
 - `GET /print?pin=03-00-000-000-0001&demo=1`
 
 ## Testing

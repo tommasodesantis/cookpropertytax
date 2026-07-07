@@ -149,14 +149,6 @@ export interface RouteResult {
   officialUrl: string | null;
 }
 
-export interface AddressCandidate {
-  pin: string;
-  pinFormatted: string;
-  address: string;
-  townshipName: string;
-  propertyClass: string;
-}
-
 export interface PacketSection {
   title: string;
   lines: string[];

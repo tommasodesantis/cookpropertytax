@@ -1,5 +1,5 @@
 import { ASSESSMENT_LEVEL, NOT_LEGAL_ADVICE } from "../domain/config";
-import { parcelAddress } from "../domain/formatting";
+import type { Parcel } from "../domain/models";
 import type { CasePayload } from "./casePayload";
 
 const money = new Intl.NumberFormat("en-US", {
@@ -34,6 +34,12 @@ function list(items: string[]): string {
   return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 }
 
+function knownParcelAddress(parcel: Parcel): string | null {
+  const cityZip = [parcel.city.trim(), parcel.zipCode.trim()].filter(Boolean).join(" ");
+  const pieces = [parcel.address.trim(), cityZip].filter(Boolean);
+  return pieces.length > 0 ? pieces.join(", ") : null;
+}
+
 function deadline(payload: CasePayload): string {
   const route = payload.routing;
   const official = route.officialUrl
@@ -57,7 +63,6 @@ function subjectValues(payload: CasePayload): string {
   const effectiveAv = parcel.currentAv ?? caseFile.userEvidence.actualAv;
   const rows = [
     ["PIN", parcel.pinFormatted],
-    ["Address", parcelAddress(parcel)],
     ["Class / Township", `${parcel.propertyClass} / ${parcel.townshipName}`],
     [
       "Building sqft",
@@ -76,6 +81,10 @@ function subjectValues(payload: CasePayload): string {
           : "Not available",
     ],
   ];
+  const address = knownParcelAddress(parcel);
+  if (address) {
+    rows.splice(1, 0, ["Address", address]);
+  }
   if (parcel.currentImprovementAv || caseFile.userEvidence.actualImprovementAv) {
     rows.push([
       "Building / improvement assessed value",
@@ -106,13 +115,12 @@ function comparablesTable(payload: CasePayload): string {
     return `<p>${escapeHtml(comps.note)}</p>`;
   }
   return `<table>
-    <thead><tr><th>PIN</th><th>Address</th><th>Sqft</th><th>Year</th><th>Metric</th><th>Metric/sqft</th><th>Distance</th></tr></thead>
+    <thead><tr><th>PIN</th><th>Sqft</th><th>Year</th><th>Metric</th><th>Metric/sqft</th><th>Distance</th></tr></thead>
     <tbody>
       ${comps.exhibit
         .map(
           (item) => `<tr>
             <td>${escapeHtml(item.comparable.pinFormatted)}</td>
-            <td>${escapeHtml(item.comparable.address)}</td>
             <td>${numberText(item.comparable.buildingSqft)}</td>
             <td>${escapeHtml(item.comparable.yearBuilt ?? "Not available")}</td>
             <td>${dollars(comparableMetric(payload, item.comparable))}</td>

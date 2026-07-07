@@ -48,9 +48,18 @@ code, tests, and user-facing copy.
 
 ## Socrata Data Quirks
 
-- The Cook County parcel-universe rows used for comparable pools do not expose street address
-  fields. Comparable rows with missing addresses must use the explicit label
-  `Address not available from public data`, and the case warnings must explain the source limit.
+- The Cook County parcel-universe rows used for subject and comparable pools do not expose street
+  address fields. Comparable exhibits identify properties by formatted PIN, not by an unavailable
+  address placeholder.
+- Live address search was removed on 2026-07-07 after a temporary probe against live Socrata
+  metadata and query endpoints. The probe checked `nj4t-kc8j`, `uzyt-m557`, `x54s-btds`, and
+  `wvhk-k5uv` metadata via `/api/views/{id}`, tried `prop_address_full`, `property_address`, and
+  `address` with raw and normalized searches for `1906 W Huron St, Chicago, IL 60622, United
+  States`, and confirmed that `nj4t-kc8j` has no address-like fields and returns Socrata
+  `query.soql.no-such-column` for those fields. Two address-bearing candidates,
+  `5pge-nu6u` and `bcnq-qi2z`, found `1906 W HURON ST`, but both are archived 2022 Assessor
+  datasets, so they are not reliable enough for current address search or current comparable
+  addresses.
 - Configured-year assessed-value rows often exist without value fields. The data layer must select
   the latest value-bearing row and warn when it falls back from the configured assessment year.
 - Residential characteristics can be missing for a subject parcel. The app must degrade without a
@@ -103,3 +112,21 @@ code, tests, and user-facing copy.
   the range.
 - User-supplied values must be labeled as user-supplied and documentation-required, never as
   official county data.
+
+## Sale Recency Rule
+
+- Recorded sales and user-reported purchases may drive an overvaluation argument only when the
+  sale date is within three years before the January 1 lien date for `ASSESSMENT_YEAR`.
+- This matches Cook County Board of Review Rule 18, which requires disclosure and sale documents
+  when a purchase took place within three years of the lien date:
+  https://www.cookcountyboardofreview.com/board-review-official-rules
+- It is also consistent with the Cook County Assessor's public valuation explanation that
+  residential assessments are as of January 1 and use three to five years of prior sales to
+  stabilize market-value estimates:
+  https://www.cookcountyassessoril.gov/how-properties-are-valued
+- PTAB filing instructions recognize Recent Sale, Comparable Sales, and Recent Appraisal as
+  evidence categories and require closing documents for a Recent Sale:
+  https://ptab.illinois.gov/filing.html
+- Implementation note: stale sales may be shown as informational context, but must not create an
+  overvaluation argument or estimated savings. PTAB deadlines remain unrelated and are computed
+  only from a user-supplied BOR decision date.

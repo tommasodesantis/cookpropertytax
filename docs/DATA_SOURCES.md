@@ -12,10 +12,11 @@ Socrata app token.
 
 ## Known Limits
 
-- Parcel-universe rows used by the current public dataset do not include street-address fields, so
-  live comparable rows use `Address not available from public data`.
-- Address search is reliable in demo mode. Live address search depends on public address fields
-  being available; when those fields are absent, users should search by PIN.
+- Parcel-universe rows used by the current public dataset do not include street-address fields.
+  Comparable exhibits identify properties by formatted PIN.
+- Live address search is disabled because the current public parcel-universe dataset does not
+  expose a reliable address field. Users should recover their PIN from the official Cook County
+  Property Tax Portal.
 - Configured-year assessed-value rows can exist without AV fields. The app falls back to the latest
   value-bearing row and warns the user.
 - Condo pools can be sparse. The app uses the measured missing-data bands described in

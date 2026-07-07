@@ -43,7 +43,6 @@ test("SocrataRepository surfaces missing live fields", async () => {
   const caseFile = await repo.loadCaseByPin("03-00-000-000-0001");
   const warnings = caseFile.dataWarnings.join("\n");
   expect(warnings).toContain("parcel pagination warning");
-  expect(warnings).toContain("did not include a property address");
   expect(warnings).toContain("Residential characteristics were unavailable");
   expect(warnings).toContain("Current assessed value was unavailable");
 });
@@ -154,13 +153,14 @@ class EnrichedComparableClient {
   }
 }
 
-test("SocrataRepository enriches live comparables and labels missing addresses", async () => {
+test("SocrataRepository enriches live comparables without address placeholders", async () => {
   const repo = new SocrataRepository(new EnrichedComparableClient() as never);
   const caseFile = await repo.loadCaseByPin("03-00-000-000-0001");
   expect(caseFile.parcel.currentImprovementAv).toBe(50000);
   expect(caseFile.comparables).not.toHaveLength(0);
   const comp = caseFile.comparables[0];
-  expect(comp?.address).toBe("Address not available from public data");
+  expect(comp?.address).toBe("");
+  expect(caseFile.dataWarnings.join("\n")).not.toContain("address");
   expect(comp?.neighborhood).toBe("0101");
   expect(comp?.lat).toBe(41.9902);
   expect(comp?.lon).toBe(-87.6972);
