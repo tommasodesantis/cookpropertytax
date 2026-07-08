@@ -101,6 +101,10 @@ tests, and user-facing copy.
   `DEFAULT_TAX_RATE` and must label the fallback as a county default assumption.
 - The UI, print packet, and workbook must show the equalizer and the tax-rate source next to the
   estimated savings range.
+- The print packet is intentionally narrow: tool name, disclaimer, produced date, subject
+  specifications, selected venue, comparable method, comparable table, and analysis/savings
+  results. Filing checklists, deadline reasoning, warnings, and exemption guidance stay out of the
+  packet.
 
 ## Constants To Refresh Annually
 

@@ -33,8 +33,9 @@ Tax Rate Report extract.
   falls back to the default 10% county assumption and labels that assumption.
 - Condo pools can be sparse. The app uses the measured missing-data bands described in
   [LEARNINGS.md](LEARNINGS.md).
-- PTAB full-grid evidence is not feasible from public data alone. The packet includes
-  property-record-card user-supply language.
+- PTAB full-grid evidence is not feasible from public data alone. The results view includes
+  property-record-card user-supply language; the print packet is limited to subject specifications,
+  comparable method, comparable rows, and analysis results.
 
 ## Operational Guardrails
 
