@@ -1,21 +1,4 @@
-import { CLOUDFLARE_WEB_ANALYTICS_TOKEN, TURNSTILE_SITE_KEY } from "../domain/publicConfig";
-
-function escapeHtml(value: unknown): string {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-export function analyticsScript(): string {
-  if (!CLOUDFLARE_WEB_ANALYTICS_TOKEN) {
-    return "";
-  }
-  return `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${escapeHtml(
-    CLOUDFLARE_WEB_ANALYTICS_TOKEN,
-  )}"}'></script>`;
-}
+import { TURNSTILE_SITE_KEY } from "../domain/publicConfig";
 
 function turnstileScript(): string {
   if (!TURNSTILE_SITE_KEY) {
@@ -37,7 +20,6 @@ export function appShell(): string {
     <link rel="stylesheet" href="/styles.css">
     <script type="module" src="/app.js"></script>
     ${turnstileScript()}
-    ${analyticsScript()}
   </head>
   <body>
     <main id="app"></main>

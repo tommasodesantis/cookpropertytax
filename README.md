@@ -67,8 +67,6 @@ committed files, browser code, logs, or reports.
 Public deployment constants live in `src/domain/publicConfig.ts`:
 
 - `TURNSTILE_SITE_KEY`: public Turnstile site key. When empty, the report form is disabled.
-- `CLOUDFLARE_WEB_ANALYTICS_TOKEN`: public Web Analytics token. When empty, no analytics beacon is
-  rendered.
 
 Run locally:
 
@@ -131,8 +129,8 @@ This repository is deploy-ready but this project does not deploy automatically.
    npx wrangler secret put GITHUB_ISSUES_TOKEN
    ```
 
-3. Set the public Turnstile and Web Analytics constants in `src/domain/publicConfig.ts` if those
-   features should be enabled.
+3. Set the public Turnstile constant in `src/domain/publicConfig.ts` if the report form should be
+   enabled.
 4. Review `wrangler.jsonc`.
 5. Deploy intentionally:
 

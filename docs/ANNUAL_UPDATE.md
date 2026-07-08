@@ -56,10 +56,10 @@ Refresh these constants before each assessment session and before presenting the
   token-backed ceiling supports a change.
 - Confirm `/api/queue` and the queue-timeout 503 path still pass tests.
 
-## 6. Verify Reporting, Analytics, And Exports
+## 6. Verify Reporting And Exports
 
-- Confirm `TURNSTILE_SITE_KEY` and `CLOUDFLARE_WEB_ANALYTICS_TOKEN` remain empty in the public repo
-  unless intentionally enabling those features for deployment.
+- Confirm `TURNSTILE_SITE_KEY` remains empty in the public repo unless intentionally enabling
+  Turnstile for deployment.
 - Confirm `TURNSTILE_SECRET_KEY` and `GITHUB_ISSUES_TOKEN` are configured only as secrets.
 - Re-run report endpoint tests for Turnstile pass/fail and GitHub success/failure.
 - Open the generated `.xlsx` comparable export in Excel or LibreOffice after workbook schema

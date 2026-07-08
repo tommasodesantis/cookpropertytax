@@ -149,13 +149,11 @@ tests, and user-facing copy.
 - `/api/queue` reports active and queued counts so the browser can tell a user when Appeal Compass
   is busy and the assessment is in line.
 
-## Reporting And Analytics
+## Reporting
 
 - Problem reporting is wired but disabled until deployment secrets and public keys are configured.
   Server-side secrets are `TURNSTILE_SECRET_KEY` and `GITHUB_ISSUES_TOKEN`; public constants are
-  `TURNSTILE_SITE_KEY` and `CLOUDFLARE_WEB_ANALYTICS_TOKEN` in `src/domain/publicConfig.ts`.
+  `TURNSTILE_SITE_KEY` in `src/domain/publicConfig.ts`.
 - The Turnstile secret and GitHub token must never be committed or sent to the browser. The
   reporting endpoint strips HTML from submitted text and excludes Turnstile tokens from GitHub issue
   bodies.
-- Cloudflare Web Analytics is gated on an empty-by-default public token. When the token is empty,
-  no beacon script is rendered in the app shell or print page.

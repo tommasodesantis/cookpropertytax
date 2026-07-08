@@ -5,7 +5,6 @@ import {
   NOT_LEGAL_ADVICE,
 } from "../domain/config";
 import type { Parcel } from "../domain/models";
-import { analyticsScript } from "./appShell";
 import type { CasePayload } from "./casePayload";
 
 const money = new Intl.NumberFormat("en-US", {
@@ -227,7 +226,6 @@ export function buildPrintReport(payload: CasePayload): string {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,650;12..96,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
-    ${analyticsScript()}
   </head>
   <body class="print-body">
     <main class="packet">

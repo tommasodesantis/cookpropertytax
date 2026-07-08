@@ -14,7 +14,7 @@ test("health endpoint returns a JSON status", async () => {
   });
 });
 
-test("app shell omits analytics and Turnstile scripts while public tokens are empty", async () => {
+test("app shell never renders analytics and omits Turnstile while public token is empty", async () => {
   const response = await worker.fetch(new Request("http://example.test/"), {});
   expect(response.status).toBe(200);
   const html = await response.text();
