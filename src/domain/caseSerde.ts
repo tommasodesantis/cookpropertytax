@@ -55,6 +55,7 @@ export function parcelFromJson(raw: JsonRecord): Parcel {
     zipCode: stringValue(raw.zip_code ?? raw.prop_address_zipcode_1),
     neighborhood: nullableString(raw.neighborhood),
     townshipCode: nullableString(raw.township_code),
+    taxCode: nullableString(raw.tax_code),
     buildingSqft: numberValue(raw.building_sqft),
     landSqft: numberValue(raw.land_sqft),
     yearBuilt: intValue(raw.year_built),

@@ -11,6 +11,7 @@ import {
 import type { Venue } from "../domain/models";
 import type { AppealStatusInput } from "../domain/routing";
 import { routeCase } from "../domain/routing";
+import { clerkTaxRateForCode } from "../domain/taxRates";
 import { adapterForVenue } from "../domain/venues";
 import type { CaseRepository } from "./repository";
 
@@ -140,6 +141,31 @@ function appealStatusFromEvidence(userEvidence: UserEvidence): AppealStatusInput
   };
 }
 
+function taxRateSelection(
+  caseFile: CaseFile,
+  overrideRate: number | null,
+): { taxRate: number; source: string } {
+  if (overrideRate !== null) {
+    return {
+      taxRate: overrideRate,
+      source: `user-supplied tax-rate override ${(overrideRate * 100).toFixed(2)}%; documentation required`,
+    };
+  }
+  const clerkRate = clerkTaxRateForCode(caseFile.parcel.taxCode);
+  if (clerkRate) {
+    return {
+      taxRate: clerkRate.taxRate,
+      source: clerkRate.source,
+    };
+  }
+  return {
+    taxRate: DEFAULT_TAX_RATE,
+    source: `county default assumption ${(DEFAULT_TAX_RATE * 100).toFixed(
+      2,
+    )}% because no parcel-specific Clerk tax-code rate was available`,
+  };
+}
+
 export async function buildCasePayload(
   repo: CaseRepository,
   params: URLSearchParams,
@@ -154,9 +180,10 @@ export async function buildCasePayload(
     ["assessor", "bor", "ptab"] as const,
     "where you want to appeal",
   );
-  const taxRate = positiveNumber(params, "taxRate") ?? DEFAULT_TAX_RATE;
+  const taxRateOverride = positiveNumber(params, "taxRate");
   const userEvidence = userEvidenceFromParams(params);
   const caseFile = withUserEvidence(await repo.loadCaseByPin(pin), userEvidence);
+  const savingsTaxRate = taxRateSelection(caseFile, taxRateOverride);
   const routing = routeCase(
     caseFile.parcel.townshipName,
     today,
@@ -164,7 +191,12 @@ export async function buildCasePayload(
     userEvidence.borDecisionDate,
     appealStatusFromEvidence(userEvidence),
   );
-  const evidence = buildEvidenceSummary(caseFile, taxRate, routing.venue);
+  const evidence = buildEvidenceSummary(
+    caseFile,
+    savingsTaxRate.taxRate,
+    routing.venue,
+    savingsTaxRate.source,
+  );
   const adapter = adapterForVenue(routing.venue);
   const sections = adapter.sections(caseFile, evidence, routing);
   return {

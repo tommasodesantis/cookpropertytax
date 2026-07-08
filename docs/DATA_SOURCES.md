@@ -4,10 +4,17 @@ All live county data is fetched server-side. The browser never receives the Socr
 
 | Source | Dataset ID | Fields used |
 | --- | --- | --- |
-| Parcel universe | `nj4t-kc8j` | `pin`, `class`, `township_name`, `township_code`, `nbhd_code`, `lat`, `lon`, `year`, `zip_code` |
+| Parcel universe | `nj4t-kc8j` | `pin`, `class`, `township_name`, `township_code`, `nbhd_code`, `tax_code`, `lat`, `lon`, `year`, `zip_code` |
 | Assessed values | `uzyt-m557` | `pin`, `year`, `mailed_tot`, `certified_tot`, `board_tot`, `mailed_bldg`, `certified_bldg`, `board_bldg` |
 | Residential characteristics | `x54s-btds` | `pin`, `class`, `township_code`, `year`, building/land sqft, year built, construction/style inputs, beds, baths, amenities |
 | Parcel sales | `wvhk-k5uv` | `pin`, `sale_date`, `sale_price` |
+| Clerk tax-code rates | manual Clerk XLSX | Tax code and composite `CodeRate24` from the Cook County Clerk 2024 Tax Code Agency Rate file, retrieved 2026-07-08 from `https://www.cookcountyclerkil.gov/sites/default/files/2026-04/2024-tax-code-agency-rate-file.xlsx` |
+
+The parcel universe exposes `tax_code`, so the app can map a parcel to the committed Clerk
+composite-rate lookup when that code is available. Cook County Clerk tax-rate reports are published
+as annual files rather than a currently verified Socrata API, so `src/domain/taxRates.ts` must be
+refreshed manually each year from the latest official Clerk Tax Code Agency Rate file or equivalent
+Tax Rate Report extract.
 
 ## Known Limits
 
@@ -18,6 +25,9 @@ All live county data is fetched server-side. The browser never receives the Socr
   Property Tax Portal.
 - Configured-year assessed-value rows can exist without AV fields. The app falls back to the latest
   value-bearing row and warns the user.
+- Parcel-specific estimated savings use the Clerk tax-code rate when the parcel tax code is present
+  and found in the committed lookup. The committed lookup is labeled approximate. Otherwise the app
+  falls back to the default 10% county assumption and labels that assumption.
 - Condo pools can be sparse. The app uses the measured missing-data bands described in
   [LEARNINGS.md](LEARNINGS.md).
 - PTAB full-grid evidence is not feasible from public data alone. The packet includes

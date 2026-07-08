@@ -31,6 +31,8 @@ test("print route renders required Assessor packet sections", async () => {
   expect(html).toContain("Comparable Assessments");
   expect(html).toContain("Built Year");
   expect(html).toContain("Assessment Year");
+  expect(html).toContain("approximate parcel-specific rate 7.7774%");
+  expect(html).toContain("Cook County Clerk 2024 Tax Code Agency Rate file");
   expect(html).toContain("Assessor Filing Instructions");
   expect(html).toContain("Assessor Checklist");
   expect(html).toContain("Exemptions and Certificate of Error Screen");

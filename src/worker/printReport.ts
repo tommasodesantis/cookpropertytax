@@ -282,7 +282,7 @@ export function buildPrintReport(payload: CasePayload): string {
         )} (point estimate ${dollars(evidence.savingsAssumptions.point)}).</p>
         <p>Assumptions: equalizer ${escapeHtml(
           evidence.savingsAssumptions.stateEqualizer,
-        )}, tax rate ${(evidence.savingsAssumptions.taxRate * 100).toFixed(2)}%.</p>
+        )}, ${escapeHtml(evidence.savingsAssumptions.taxRateSource)}.</p>
         ${
           evidence.arguments.length
             ? list(

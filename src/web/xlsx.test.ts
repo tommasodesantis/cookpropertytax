@@ -59,5 +59,7 @@ test("buildComparableWorkbook creates a real XLSX with expected exhibit sections
   expect(sheet).toContain("Analysis Stats");
   expect(sheet).toContain("Savings Calculation");
   expect(sheet).toContain("State equalizer");
+  expect(sheet).toContain("Tax rate source");
+  expect(sheet).toContain("approximate parcel-specific rate 7.7774%");
   expect(sheet).toContain("03-00-000-000-0002");
 });

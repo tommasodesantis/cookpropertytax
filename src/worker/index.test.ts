@@ -32,7 +32,7 @@ test("fixture-mode case endpoint returns a computed case payload", async () => {
     {},
   );
   expect(response.status).toBe(200);
-  const payload = await response.json();
+  const payload = (await response.json()) as CasePayloadWithSavings;
   expect(payload).toMatchObject({
     ok: true,
     demo: true,
@@ -43,7 +43,27 @@ test("fixture-mode case endpoint returns a computed case payload", async () => {
       tier: "STRONG",
     },
   });
+  expect(payload.evidence.savingsAssumptions.taxRate).toBe(0.077774);
+  expect(payload.evidence.savingsAssumptions.taxRateSource).toContain(
+    "approximate parcel-specific rate 7.7774%",
+  );
+  expect(payload.evidence.savingsAssumptions.taxRateSource).toContain("tax code 10001");
   expect(JSON.stringify(payload)).toContain("NOT LEGAL ADVICE");
+});
+
+test("fixture-mode case endpoint labels the default tax-rate fallback", async () => {
+  const response = await worker.fetch(
+    new Request(
+      `http://example.test/api/case?demo=1&pin=03-00-000-000-0040&venue=bor&today=2025-07-10&${REQUIRED_STEP_ONE}`,
+    ),
+    {},
+  );
+  expect(response.status).toBe(200);
+  const payload = (await response.json()) as CasePayloadWithSavings;
+  expect(payload.evidence.savingsAssumptions.taxRate).toBe(0.1);
+  expect(payload.evidence.savingsAssumptions.taxRateSource).toContain(
+    "county default assumption 10.00%",
+  );
 });
 
 test.each([
@@ -338,5 +358,14 @@ interface CasePayloadLike {
   routing: {
     venue: string;
     actionStatus: string;
+  };
+}
+
+interface CasePayloadWithSavings {
+  evidence: {
+    savingsAssumptions: {
+      taxRate: number;
+      taxRateSource: string;
+    };
   };
 }

@@ -426,6 +426,7 @@ export function buildEvidenceSummary(
   caseFile: CaseFile,
   taxRate: number,
   venue: ResolvedVenue | null = null,
+  taxRateSource = `county default assumption ${(taxRate * 100).toFixed(2)}%`,
 ): EvidenceSummary {
   const parcel = caseFile.parcel;
   const profile = profileForVenue(venue);
@@ -574,6 +575,7 @@ export function buildEvidenceSummary(
     impliedMarketValue: impliedMarket,
     savingsAssumptions: {
       taxRate,
+      taxRateSource,
       stateEqualizer: STATE_EQUALIZER,
       low: pointSavings * 0.8,
       point: pointSavings,

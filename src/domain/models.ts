@@ -16,6 +16,7 @@ export interface Parcel {
   zipCode: string;
   neighborhood: string | null;
   townshipCode: string | null;
+  taxCode: string | null;
   buildingSqft: number | null;
   landSqft: number | null;
   yearBuilt: number | null;
@@ -120,6 +121,7 @@ export interface EvidenceArgument {
 
 export interface SavingsAssumption {
   taxRate: number;
+  taxRateSource: string;
   stateEqualizer: number;
   low: number;
   point: number;

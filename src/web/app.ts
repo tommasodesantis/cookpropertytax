@@ -65,6 +65,7 @@ interface CasePayload {
     impliedMarketValue: number | null;
     savingsAssumptions: {
       taxRate: number;
+      taxRateSource: string;
       stateEqualizer: number;
       low: number;
       point: number;
@@ -821,9 +822,9 @@ function renderComparables(payload: CasePayload): string {
     <p>${dollars(payload.evidence.savingsAssumptions.low)} to ${dollars(
       payload.evidence.savingsAssumptions.high,
     )}, with point estimate ${dollars(payload.evidence.savingsAssumptions.point)}.</p>
-    <p class="hint">Assumes equalizer ${payload.evidence.savingsAssumptions.stateEqualizer} and tax rate ${(
-      payload.evidence.savingsAssumptions.taxRate * 100
-    ).toFixed(2)}%; this is a rough range, not a promise.</p>
+    <p class="hint">Assumes equalizer ${payload.evidence.savingsAssumptions.stateEqualizer} and ${escapeHtml(
+      payload.evidence.savingsAssumptions.taxRateSource,
+    )}; this is a rough range, not a promise.</p>
   </section>`;
 }
 

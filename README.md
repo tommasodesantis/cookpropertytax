@@ -24,6 +24,8 @@ open-source DIY property-tax-appeal tool built to help individual homeowners scr
   Illinois PTAB and reports the selected venue's current window status.
 - Shows deadlines, days remaining, official-source links, warning messages, comparable evidence,
   estimated savings assumptions, and a venue-specific checklist.
+- Uses an approximate parcel-specific Cook County Clerk tax-code rate when available, otherwise
+  labels the 10% county default assumption used for rough savings estimates.
 - Produces a printable evidence packet at `/print`.
 - Downloads the comparable exhibit and savings assumptions as a `.xlsx` workbook.
 - Provides a Turnstile-protected problem-reporting form when deployment secrets are configured.
@@ -37,7 +39,7 @@ open-source DIY property-tax-appeal tool built to help individual homeowners scr
 - It does not guess missing deadlines or facts. PTAB deadlines require a user-supplied BOR decision
   date.
 - It does not promise savings. Estimated savings are rough ranges using the configured equalizer and
-  tax-rate assumptions.
+  tax-rate assumptions, including the shown Clerk tax-code rate or fallback default.
 
 ## Appeal Ladder
 
@@ -118,6 +120,9 @@ The Worker reads Cook County Socrata datasets server-side:
 - Assessed values: `uzyt-m557`
 - Residential characteristics: `x54s-btds`
 - Parcel sales: `wvhk-k5uv`
+
+The app also includes a committed Cook County Clerk tax-code-rate lookup generated from the latest
+verified Clerk Tax Code Agency Rate file and refreshed through the annual update procedure.
 
 See [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) and [docs/LEARNINGS.md](docs/LEARNINGS.md) for
 dataset quirks, public-data limits, comparable feasibility findings, concurrency limits, and annual

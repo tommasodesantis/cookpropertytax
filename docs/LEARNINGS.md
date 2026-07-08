@@ -84,16 +84,30 @@ tests, and user-facing copy.
 
 | Logical source | Dataset ID | Important fields and quirks |
 | --- | --- | --- |
-| Parcel universe | `nj4t-kc8j` | PIN, class, township, township code, neighborhood, coordinates, ZIP, geography. Comparable pool rows may not include street addresses. |
+| Parcel universe | `nj4t-kc8j` | PIN, class, township, township code, neighborhood, tax code, coordinates, ZIP, geography. Comparable pool rows may not include street addresses. |
 | Assessed values | `uzyt-m557` | `mailed_tot`, `certified_tot`, `board_tot`, `mailed_bldg`, `certified_bldg`, `board_bldg`, `year` or `tax_year`. Configured-year rows may lack value fields. |
 | Residential characteristics | `x54s-btds` | Building square footage, land square footage, year built, residential type, exterior wall, construction quality, beds, baths, amenities. Condo unit data can be sparse. |
 | Parcel sales | `wvhk-k5uv` | Sale date and sale price. Ignore unusable or nominal prices. |
+| Clerk tax-code rates | manual Clerk XLSX | `Code24` and composite `CodeRate24` from the Cook County Clerk 2024 Tax Code Agency Rate file, retrieved 2026-07-08 from `https://www.cookcountyclerkil.gov/sites/default/files/2026-04/2024-tax-code-agency-rate-file.xlsx`. A current Socrata tax-rate mapping API was not verified during the Step 6 research pass. |
+
+## Tax Rate Assumptions
+
+- The parcel universe exposes `tax_code`, which allows a parcel to be mapped to a committed Clerk
+  tax-code rate lookup when the code is present.
+- The Clerk tax-code rate lookup is sourced from the Cook County Clerk 2024 Tax Code Agency Rate
+  file and uses the composite `CodeRate24` value converted to a decimal tax rate. It is labeled
+  approximate wherever it appears.
+- If the parcel tax code is missing or absent from the lookup, estimated savings fall back to
+  `DEFAULT_TAX_RATE` and must label the fallback as a county default assumption.
+- The UI, print packet, and workbook must show the equalizer and the tax-rate source next to the
+  estimated savings range.
 
 ## Constants To Refresh Annually
 
 - `ASSESSMENT_YEAR`
 - `STATE_EQUALIZER`
 - `DEFAULT_TAX_RATE`
+- Clerk tax-code composite-rate lookup in `src/domain/taxRates.ts`
 - Assessor township windows and Assessor `session_end`
 - BOR township windows, evidence deadlines, and BOR `session_end`
 - Official source URLs and source notes

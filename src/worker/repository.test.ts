@@ -75,6 +75,7 @@ class EnrichedComparableClient {
             township_name: "Rogers Park",
             township_code: "01",
             nbhd_code: "0101",
+            tax_code: "10001",
             lat: "41.9901",
             lon: "-87.6971",
             year: "2026",
@@ -173,6 +174,7 @@ test("SocrataRepository enriches live comparables without address placeholders",
   const repo = new SocrataRepository(new EnrichedComparableClient() as never);
   const caseFile = await repo.loadCaseByPin("03-00-000-000-0001");
   expect(caseFile.parcel.currentImprovementAv).toBe(50000);
+  expect(caseFile.parcel.taxCode).toBe("10001");
   expect(caseFile.comparables).not.toHaveLength(0);
   const comp = caseFile.comparables[0];
   expect(comp?.address).toBe("");

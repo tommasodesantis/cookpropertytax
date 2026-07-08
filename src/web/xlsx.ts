@@ -24,6 +24,7 @@ interface WorkbookPayload {
     impliedMarketValue: number | null;
     savingsAssumptions: {
       taxRate: number;
+      taxRateSource: string;
       stateEqualizer: number;
       low: number;
       point: number;
@@ -210,6 +211,7 @@ function rowsForPayload(payload: WorkbookPayload): RowInput[] {
     [{ value: "Savings Calculation", style: 1 }],
     ["State equalizer", savings.stateEqualizer],
     ["Assumed tax rate", savings.taxRate],
+    ["Tax rate source", savings.taxRateSource],
     ["Low estimate", savings.low],
     ["Point estimate", savings.point],
     ["High estimate", savings.high],

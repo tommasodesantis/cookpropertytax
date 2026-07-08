@@ -2,7 +2,7 @@ import { parseMdyDate } from "./dateUtils";
 import type { Jurisdiction } from "./models";
 
 export const ASSESSMENT_YEAR = 2026;
-export const STATE_EQUALIZER = 3.0163;
+export const STATE_EQUALIZER = Number("3.0300");
 export const DEFAULT_TAX_RATE = 0.1;
 export const ASSESSMENT_LEVEL = 0.1;
 

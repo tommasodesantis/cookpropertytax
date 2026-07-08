@@ -26,8 +26,14 @@ Refresh these constants before each assessment session and before presenting the
 
 ## 3. Update Financial Assumptions
 
-- Update `STATE_EQUALIZER`.
-- Update `DEFAULT_TAX_RATE`.
+- Update `STATE_EQUALIZER` from the Illinois Department of Revenue's final Cook County multiplier
+  announcement. For tax year 2025, IDOR announced a final Cook County equalizer of `3.0300` on
+  2026-06-18.
+- Update `DEFAULT_TAX_RATE` only if the fallback countywide assumption changes.
+- Refresh the Clerk tax-code lookup in `src/domain/taxRates.ts` from the most recent Cook County
+  Clerk Tax Code Agency Rate file or equivalent Tax Rate Report extract. Confirm that
+  `nj4t-kc8j.tax_code` still maps parcel rows to Clerk tax codes before relying on
+  parcel-specific rates.
 - Confirm the residential `ASSESSMENT_LEVEL` remains correct before changing it.
 - Re-run known-answer tests for estimated savings:
   `delta AV * equalizer * tax rate`, with a plus/minus 20% range.
