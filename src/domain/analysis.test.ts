@@ -1,7 +1,100 @@
 import { analyzeComparables, buildEvidenceSummary } from "./analysis";
-import { BOR_PROFILE, PTAB_PROFILE } from "./comparableProfiles";
-import { type CaseFile, type Comparable, defaultUserEvidence, withUserEvidence } from "./models";
+import { ASSESSOR_PROFILE, BOR_PROFILE, PTAB_PROFILE } from "./comparableProfiles";
+import type { ComparableProfile } from "./comparableProfiles";
+import { gapPct, medianValue, percentileRank } from "./math";
+import {
+  type CaseFile,
+  type Comparable,
+  type ComparableAnalysis,
+  defaultUserEvidence,
+  withUserEvidence,
+} from "./models";
 import { loadFixtureCase, makeComparable } from "./testHelpers";
+
+function positive(value: number | null): number | null {
+  return value !== null && value > 0 ? value : null;
+}
+
+function expectNullableClose(actual: number | null, expected: number | null): void {
+  if (expected === null) {
+    expect(actual).toBeNull();
+    return;
+  }
+  expect(actual).not.toBeNull();
+  expect(actual ?? 0).toBeCloseTo(expected, 8);
+}
+
+function activeProfileStep(
+  caseFile: CaseFile,
+  analysis: ComparableAnalysis,
+  profile: ComparableProfile,
+) {
+  const subjectSqft =
+    positive(caseFile.parcel.buildingSqft) ?? positive(caseFile.userEvidence.actualSqft);
+  return profile.similaritySteps.find((step) =>
+    analysis.pool.every((item) => {
+      const compSqft = item.comparable.buildingSqft;
+      if (subjectSqft === null || compSqft === null) {
+        return false;
+      }
+      const sqftMatches =
+        subjectSqft * (1 - step.sqftTolerance) <= compSqft &&
+        compSqft <= subjectSqft * (1 + step.sqftTolerance);
+      const yearMatches =
+        caseFile.parcel.yearBuilt === null ||
+        item.comparable.yearBuilt === null ||
+        Math.abs(item.comparable.yearBuilt - caseFile.parcel.yearBuilt) <= step.yearTolerance;
+      return sqftMatches && yearMatches;
+    }),
+  );
+}
+
+function expectSortedBySimilarity(rows: ComparableAnalysis["pool"]): void {
+  for (let index = 1; index < rows.length; index += 1) {
+    const previous = rows[index - 1];
+    const current = rows[index];
+    expect(previous).toBeDefined();
+    expect(current).toBeDefined();
+    expect(previous?.similarity ?? 0).toBeLessThanOrEqual(current?.similarity ?? 0);
+  }
+}
+
+function expectComparableRealism(
+  caseFile: CaseFile,
+  analysis: ComparableAnalysis,
+  profile: ComparableProfile,
+): void {
+  expect(analysis.status).toBe("ok");
+  expect(analysis.poolSize).toBe(analysis.pool.length);
+  expect(analysis.subjectAvPerSqft).not.toBeNull();
+  expect(analysis.subjectAvPerSqft ?? 0).toBeGreaterThan(0);
+  expect(analysis.subjectAvPerSqft ?? 0).toBeLessThan(500);
+  expect(activeProfileStep(caseFile, analysis, profile)).toBeDefined();
+  expectSortedBySimilarity(analysis.pool);
+  expectSortedBySimilarity(analysis.exhibit);
+  for (const item of analysis.pool) {
+    expect(item.comparable.propertyClass).toBe(caseFile.parcel.propertyClass);
+    expect(item.avPerSqft).toBeGreaterThan(0);
+    expect(item.avPerSqft).toBeLessThan(500);
+    if (analysis.scope === "neighborhood") {
+      expect(item.comparable.neighborhood).toBe(caseFile.parcel.neighborhood);
+    }
+    if (item.distanceKm !== null) {
+      expect(item.distanceKm).toBeGreaterThanOrEqual(0);
+      expect(item.distanceKm).toBeLessThan(100);
+    }
+  }
+  for (const item of analysis.exhibit) {
+    expect(item.avPerSqft).toBeLessThan(analysis.subjectAvPerSqft ?? 0);
+  }
+  const avPerSqftValues = analysis.pool.map((item) => item.avPerSqft);
+  expectNullableClose(analysis.medianAvPerSqft, medianValue(avPerSqftValues));
+  expectNullableClose(
+    analysis.percentile,
+    percentileRank(analysis.subjectAvPerSqft ?? 0, avPerSqftValues),
+  );
+  expectNullableClose(analysis.gapPct, gapPct(analysis.subjectAvPerSqft, avPerSqftValues));
+}
 
 function condoCaseWithMissingRate(missingCount: number, totalCount: number): CaseFile {
   const caseFile = loadFixtureCase("03000000000001");
@@ -13,6 +106,7 @@ function condoCaseWithMissingRate(missingCount: number, totalCount: number): Cas
         pin: `0300000099${index.toString().padStart(4, "0")}`,
         pinFormatted: `03-00-000-099-${index.toString().padStart(4, "0")}`,
         address: `${index} CONDO ST`,
+        propertyClass: "299",
         buildingSqft: missing ? null : 980 + index,
         yearBuilt: 1980,
         av: missing ? null : 35000 + index * 1000,
@@ -48,6 +142,7 @@ test("comparable analysis known fixture is strong", () => {
   expect(comps.percentile ?? 0).toBeGreaterThanOrEqual(75);
   expect(comps.gapPct).not.toBeNull();
   expect(comps.gapPct ?? 0).toBeGreaterThan(10);
+  expectComparableRealism(caseFile, comps, ASSESSOR_PROFILE);
   expect(comps.pool.some((item) => item.comparable.pinFormatted === "03-00-000-000-0010")).toBe(
     true,
   );
@@ -60,6 +155,45 @@ test("comparable analysis known fixture is strong", () => {
   expect(compWithSale?.comparable.propertyClass).toBe("203");
   expect(compWithSale?.comparable.saleDate).toBe("2024-08-10");
   expect(compWithSale?.comparable.salePrice).toBe(430000);
+});
+
+test("comparable analysis excludes candidates outside the subject property class", () => {
+  const caseFile = loadFixtureCase("03000000000001");
+  const sameClass = Array.from({ length: 3 }, (_, index) =>
+    makeComparable({
+      pin: `0300000005${index.toString().padStart(4, "0")}`,
+      pinFormatted: `03-00-000-005-${index.toString().padStart(4, "0")}`,
+      address: `${index} SAME CLASS ST`,
+      buildingSqft: 1780 + index * 10,
+      yearBuilt: 1924,
+      av: 42000 + index * 1000,
+      propertyClass: "203",
+      neighborhood: "0101",
+    }),
+  );
+  const mismatchedClass = makeComparable({
+    pin: "03000000059999",
+    pinFormatted: "03-00-000-005-9999",
+    address: "MISMATCHED CLASS ST",
+    buildingSqft: 1800,
+    yearBuilt: 1924,
+    av: 1000,
+    propertyClass: "299",
+    neighborhood: "0101",
+  });
+  const analysis = analyzeComparables({
+    ...caseFile,
+    comparables: [mismatchedClass, ...sameClass],
+  });
+  expect(analysis.status).toBe("ok");
+  expect(analysis.pool.map((item) => item.comparable.pinFormatted)).not.toContain(
+    mismatchedClass.pinFormatted,
+  );
+  expectComparableRealism(
+    { ...caseFile, comparables: [mismatchedClass, ...sameClass] },
+    analysis,
+    ASSESSOR_PROFILE,
+  );
 });
 
 test("condo degrades after measuring empty pool", () => {
@@ -281,6 +415,11 @@ test("BOR profile uses improvement assessment metric", () => {
   expect(analysis.subjectAvPerSqft).toBe(50);
   expect(analysis.medianAvPerSqft).not.toBeNull();
   expect(analysis.medianAvPerSqft ?? 0).toBeLessThan(analysis.subjectAvPerSqft ?? 0);
+  expectComparableRealism(
+    { ...caseFile, parcel, comparables: comps, subjectSales: [] },
+    analysis,
+    BOR_PROFILE,
+  );
 });
 
 test("PTAB profile can run when strict grid fields exist", () => {
@@ -319,6 +458,11 @@ test("PTAB profile can run when strict grid fields exist", () => {
   expect(analysis.profileKey).toBe("ptab");
   expect(analysis.poolSize).toBe(4);
   expect(analysis.exhibit).toHaveLength(4);
+  expectComparableRealism(
+    { ...caseFile, parcel, comparables: comps, subjectSales: [] },
+    analysis,
+    PTAB_PROFILE,
+  );
 });
 
 test("evidence summary supporting uniformity is moderate", () => {

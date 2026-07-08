@@ -150,6 +150,10 @@ function comparableMetricValue(comp: Comparable, profile: ComparableProfile): nu
   return comp.av;
 }
 
+function samePropertyClass(parcel: Parcel, comp: Comparable): boolean {
+  return comp.propertyClass !== null && comp.propertyClass.trim() === parcel.propertyClass.trim();
+}
+
 function profiledAnalysis(input: {
   status: ComparableAnalysis["status"];
   note: string;
@@ -349,6 +353,7 @@ export function analyzeComparables(
     const metricValue = comparableMetricValue(comp, profile);
     return (
       comp.pin !== parcel.pin &&
+      samePropertyClass(parcel, comp) &&
       metricValue !== null &&
       metricValue > 0 &&
       comp.buildingSqft !== null &&

@@ -34,6 +34,14 @@ tests, and user-facing copy.
 - PTAB output must therefore expose public-data limits and require the homeowner to supply
   property record cards, listing sheets, condition details, photos, and any missing grid fields.
   It must not present a generated PTAB grid as complete from public data.
+- Step 12 comparable-realism audit checked fixture cases and live Socrata PIN `07203040190000`
+  through the local Worker. Passing invariants covered subject/comparable class matching, configured
+  building-size/year tolerances, neighborhood scope when selected, lower-assessed exhibit rows,
+  sane distances, independently recomputed median/percentile/gap values, plausible residential
+  assessed dollars per square foot, and monotonic similarity ordering.
+- The audit did not find fixture or live-payload realism failures. It did identify that the pure
+  domain analysis should enforce same-class filtering itself rather than relying only on the
+  repository query, so mismatched-class candidates are now excluded before similarity selection.
 
 ## Condo And Missing Data Gates
 
