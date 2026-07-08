@@ -418,5 +418,6 @@ test("limited evidence path has no forced recommendation", () => {
   };
   const evidence = buildEvidenceSummary(limitedCase, 0.1);
   expect(evidence.tier).toBe("LIMITED");
+  expect(evidence.tierMessage).toContain("No public-data appeal evidence was found");
   expect(evidence.arguments).toEqual([]);
 });

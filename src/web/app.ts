@@ -195,6 +195,19 @@ function numberText(value: number | null, digits = 0): string {
     : value.toLocaleString("en-US", { maximumFractionDigits: digits });
 }
 
+function evidenceLevelLabel(level: string): string {
+  if (level === "LIMITED") {
+    return "No evidence found";
+  }
+  if (level === "STRONG") {
+    return "Strong";
+  }
+  if (level === "MODERATE") {
+    return "Moderate";
+  }
+  return level;
+}
+
 function clientTodayIso(): string {
   const today = new Date();
   const year = today.getFullYear();
@@ -774,11 +787,11 @@ function renderComparables(payload: CasePayload): string {
   return `<section class="panel" aria-labelledby="step-four">
     <div class="step-label">Step 4</div>
     <h2 id="step-four">Evidence summary</h2>
-    <p class="metric-line"><strong>Tier:</strong> ${escapeHtml(payload.evidence.tier)}. ${escapeHtml(
-      payload.evidence.tierMessage,
-    )} ${infoTooltip(
-      "What tier means",
-      "The tier is a rough screen of how much public data supports spending time on an appeal.",
+    <p class="metric-line"><strong>Evidence level:</strong> ${escapeHtml(
+      evidenceLevelLabel(payload.evidence.tier),
+    )}. ${escapeHtml(payload.evidence.tierMessage)} ${infoTooltip(
+      "What evidence level means",
+      "The evidence level is a rough screen of how much public data supports spending time on an appeal.",
     )}</p>
     ${comparableNote}
     <p><strong>Pool:</strong> ${numberText(comps.poolSize)} similar homes, ${escapeHtml(

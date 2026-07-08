@@ -562,7 +562,7 @@ export function buildEvidenceSummary(
   } else {
     tier = "LIMITED";
     tierMessage =
-      "Public data alone is limited. Appealing is free, but add sale, appraisal, condition, or factual-error evidence before investing significant time.";
+      "No public-data appeal evidence was found. Appealing may still be free, but add sale, appraisal, condition, or factual-error evidence before investing significant time.";
   }
 
   const pointSavings = Math.max(0, ...args.map((argument) => argument.estimatedSavings ?? 0));

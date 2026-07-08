@@ -53,6 +53,19 @@ function numberText(value: number | null, digits = 0): string {
   return value.toLocaleString("en-US", { maximumFractionDigits: digits });
 }
 
+function evidenceLevelLabel(level: string): string {
+  if (level === "LIMITED") {
+    return "No evidence found";
+  }
+  if (level === "STRONG") {
+    return "Strong";
+  }
+  if (level === "MODERATE") {
+    return "Moderate";
+  }
+  return level;
+}
+
 function list(items: string[]): string {
   if (items.length === 0) {
     return "<p>None.</p>";
@@ -262,8 +275,8 @@ export function buildPrintReport(payload: CasePayload): string {
       </section>
 
       <section class="packet-section">
-        <h2>Evidence Tier</h2>
-        <p><strong>${escapeHtml(evidence.tier)}:</strong> ${escapeHtml(evidence.tierMessage)}</p>
+        <h2>Evidence level</h2>
+        <p><strong>${escapeHtml(evidenceLevelLabel(evidence.tier))}:</strong> ${escapeHtml(evidence.tierMessage)}</p>
         <p><strong>Estimated savings range:</strong> ${dollars(evidence.savingsAssumptions.low)} to ${dollars(
           evidence.savingsAssumptions.high,
         )} (point estimate ${dollars(evidence.savingsAssumptions.point)}).</p>
